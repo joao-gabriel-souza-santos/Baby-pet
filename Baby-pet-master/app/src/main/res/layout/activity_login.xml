@@ -17,15 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
- <!--   <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="30"
-        android:layout_height="31"
-        android:layout_marginTop="104dp"
-        android:src="@drawable/imagem_mini_pote"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
+
 
     <EditText
         android:id="@+id/email"
