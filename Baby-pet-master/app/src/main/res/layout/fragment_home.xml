@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".fragments.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+
+    <ProgressBar
+        android:id="@+id/barre_progresso_racao"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:indeterminateOnly="false"
+        android:progress="20"
+        android:progressDrawable="@drawable/barra_de_progresso" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_horizontal"
+        android:src="@drawable/tigela_de_cachorro_2"
+
+        />
+
+
+    <!--    <ImageView-->
+<!--        android:id="@+id/imageView3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_constraintBottom_toBottomOf="@+id/barre_progresso_racao"-->
+<!--        android:layout_constraintEnd_toEndOf="@+id/barre_progresso_racao"-->
+<!--        android:layout_constraintStart_toStartOf="@+id/barre_progresso_racao"-->
+<!--        android:layout_constraintTop_toTopOf="@+id/barre_progresso_racao"-->
+<!--        android:srcCompat="@drawable/tigela_de_cachorro_2" />-->
+
+
 
 </FrameLayout>

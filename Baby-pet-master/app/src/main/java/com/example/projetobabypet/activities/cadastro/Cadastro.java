@@ -1,16 +1,13 @@
-package com.example.projetobabypet;
+package com.example.projetobabypet.activities.cadastro;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
 
+import com.example.projetobabypet.activities.cadastro.CadastrarPetActivity;
 import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.databinding.ActivityCadastroBinding;
 import com.example.projetobabypet.model.Usuario;
-
-import java.util.List;
 
 public class Cadastro extends AppCompatActivity {
 
@@ -24,7 +21,7 @@ public class Cadastro extends AppCompatActivity {
         binding = ActivityCadastroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.btnCadastrarPet.setOnClickListener(view -> {
+        binding.buttonEsqueciEmail.setOnClickListener(view -> {
             usuario = cadastrarUsuario();
             Intent it = new Intent(this, CadastrarPetActivity.class);
             it.putExtra("idUsuario", usuario.getId());

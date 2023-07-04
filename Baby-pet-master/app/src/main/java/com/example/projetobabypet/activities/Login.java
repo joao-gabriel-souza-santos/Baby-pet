@@ -1,11 +1,12 @@
-package com.example.projetobabypet;
+package com.example.projetobabypet.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
+import com.example.projetobabypet.activities.cadastro.Cadastro;
+import com.example.projetobabypet.EsqueciLogin;
 import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.databinding.ActivityLoginBinding;
 
@@ -20,10 +21,19 @@ public class Login extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        binding.buttonEsqueci.setOnClickListener(view -> {
+            startActivity(new Intent(this, EsqueciLogin.class));
+        });
+
         binding.btnCadastrar.setOnClickListener(view -> {
             startActivity(new Intent(this, Cadastro.class));
         });
 
+        validarLogin();
+    }
+
+    private void validarLogin() {
         binding.btnLogin.setOnClickListener(view -> {
             String usuarioEmail = binding.email.getText().toString();
             String senhaUsuario = binding.senha.getText().toString();

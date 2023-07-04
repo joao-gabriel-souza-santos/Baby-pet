@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/yellow"
-    tools:context=".Login">
+    tools:context=".activities.Login">
 
     <ImageView
         android:id="@+id/imageView"
@@ -18,16 +18,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <EditText
         android:id="@+id/email"
-        android:layout_width="224dp"
-        android:layout_height="36dp"
+        android:layout_width="228dp"
+        android:layout_height="42dp"
         android:layout_marginTop="44dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="Email"
         android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         android:paddingStart="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -36,8 +35,8 @@
 
     <EditText
         android:id="@+id/senha"
-        android:layout_width="224dp"
-        android:layout_height="36dp"
+        android:layout_width="226dp"
+        android:layout_height="45dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
@@ -77,8 +76,8 @@
 
     <Button
         android:id="@+id/btnCadastrar"
-        android:layout_width="135dp"
-        android:layout_height="36dp"
+        android:layout_width="141dp"
+        android:layout_height="46dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/style_btn_login_cadastro"
         android:text="Cadastrar"
@@ -87,5 +86,18 @@
         app:layout_constraintHorizontal_bias="0.819"
         app:layout_constraintStart_toStartOf="@+id/senha"
         app:layout_constraintTop_toBottomOf="@+id/senha" />
+
+    <Button
+        android:id="@+id/button_esqueci"
+        android:layout_width="144dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/style_btn_login_cadastro"
+        android:text="Esqueci meu login"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/senha"
+        app:layout_constraintVertical_bias="0.066" />
 
 </android.support.constraint.ConstraintLayout>

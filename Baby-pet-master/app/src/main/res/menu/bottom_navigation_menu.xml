@@ -9,10 +9,15 @@
         />
     <item
         android:id="@+id/artigo"
-        android:title="@string/menu_artigo"
+        android:title="Artigo"
         android:icon="@drawable/ic_artigo"/>
     <item
         android:id="@+id/agenda"
         android:title="@string/menu_agenda"
         android:icon="@drawable/ic_calendario"/>
+    <item
+        android:id="@+id/saude"
+        android:title="Saude"
+        android:icon="@drawable/ic_baseline_monitor_heart_24"
+        />
 </menu>

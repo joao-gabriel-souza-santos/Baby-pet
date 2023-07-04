@@ -30,6 +30,18 @@ public class ControllerUsuario {
         return new ArrayList<>(usuarios);
     }
 
+
+    public boolean alterarSenha(Usuario usuario,String senha){
+        for (int i = 0; i< usuarios.size(); ++i){
+            if(usuario.getId()==usuarios.get(i).getId()){
+                usuario.setSenha(senha);
+                usuarios.set(i, usuario);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void cadastrar(Usuario usuario){
         usuario.setId(proxId);
         boolean resultado = usuarios.add(usuario);
@@ -47,9 +59,27 @@ public class ControllerUsuario {
         return false;
     }
 
+
     public Usuario buscarporId(int id){
         for(Usuario usuario: usuarios){
             if(usuario.getId()==id){
+                return usuario;
+            }
+        }
+        return null;
+    }
+
+    public Usuario buscarPorCpf(String cpf){
+        for(Usuario usuario:usuarios){
+            if(usuario.getCpf().toString().equals(cpf)){
+                return usuario;
+            }
+        }
+        return null;
+    }
+    public Usuario buscarPorEmail(String email){
+        for(Usuario usuario:usuarios){
+            if(usuario.getEmail().toString().equals(email)){
                 return usuario;
             }
         }

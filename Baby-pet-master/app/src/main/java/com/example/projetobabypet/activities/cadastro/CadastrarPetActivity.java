@@ -1,14 +1,13 @@
-package com.example.projetobabypet;
+package com.example.projetobabypet.activities.cadastro;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Toast;
 
+import com.example.projetobabypet.activities.Login;
 import com.example.projetobabypet.controller.ControllerPet;
-import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.databinding.ActivityCadastrarPetBinding;
-import com.example.projetobabypet.databinding.ActivityCadastroBinding;
 import com.example.projetobabypet.model.Pet;
 
 public class CadastrarPetActivity extends AppCompatActivity {
@@ -28,7 +27,7 @@ public class CadastrarPetActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         binding.btnFinalizarCadastro.setOnClickListener(view -> {
             pet = cadastrarPet();
-
+            Toast.makeText(CadastrarPetActivity.this, "Cadastro efetuado com sucesso", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, Login.class));
         });
     }
@@ -43,5 +42,7 @@ public class CadastrarPetActivity extends AppCompatActivity {
         pet = new Pet(nome, sexo, raca, id, idUsuario, idade);
         controllerPet.cadastrar(pet);
         return pet;
+
+
     }
 }

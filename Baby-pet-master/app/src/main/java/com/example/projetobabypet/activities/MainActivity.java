@@ -1,8 +1,9 @@
-package com.example.projetobabypet;
+package com.example.projetobabypet.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.projetobabypet.R;
 import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.model.Usuario;
 

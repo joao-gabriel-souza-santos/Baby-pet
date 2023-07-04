@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetInicio"
+    android:layout_width="match_parent"
+    android:background="@drawable/bottom_sheet_inicio"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button_salvar_racao"
+        android:layout_width="156dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/style_btn_login_cadastro"
+        android:textColor="@color/white"
+        android:text="Salvar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_qtde_max" />
+
+    <EditText
+        android:id="@+id/editText_qtde_racao"
+        android:layout_width="250dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:hint="  Quantidade a ser dada"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_qtde_max"
+        android:layout_width="250dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:hint="  Quantida max no dia"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_qtde_racao" />
+
+
+</android.support.constraint.ConstraintLayout>
