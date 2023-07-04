@@ -13,20 +13,6 @@
         android:theme="@style/Theme.ProjetoBabyPet"
         tools:targetApi="31">
         <activity
-            android:name=".Saude"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Artigo"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".AlterarSenha"
             android:exported="false">
             <meta-data
@@ -49,13 +35,6 @@
         </activity>
         <activity
             android:name=".EsqueciLogin"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Agenda"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -11,102 +11,15 @@
         android:id="@+id/button_voltar"
         android:layout_width="74dp"
         android:layout_height="54dp"
+        android:layout_marginBottom="617dp"
         android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.023"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
-    <ProgressBar
-        android:id="@+id/barre_progresso_racao"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:indeterminateOnly="false"
-        android:progress="20"
-        android:progressDrawable="@drawable/barra_de_progresso"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.077" />
-
-    <Button
-        android:id="@+id/button_adicionarRacao"
-        android:layout_width="138dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/style_btn_login_cadastro"
-        android:onClick="adicionarRacao"
-        android:text="Dar ração"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barre_progresso_racao" />
-
-    <TextView
-        android:id="@+id/qtde_racao"
-        android:layout_width="53dp"
-        android:layout_height="15dp"
-        android:text="00/00"
-        app:layout_constraintBottom_toBottomOf="@+id/barre_progresso_racao"
-        app:layout_constraintEnd_toEndOf="@+id/barre_progresso_racao"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="@+id/barre_progresso_racao"
-        app:layout_constraintTop_toTopOf="@+id/barre_progresso_racao"
-        app:layout_constraintVertical_bias="0.729" />
-
-    <ProgressBar
-        android:id="@+id/progressBar_Agua"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="24dp"
-        android:indeterminateOnly="false"
-        android:progress="20"
-        android:progressDrawable="@drawable/barra_de_progresso"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_adicionarRacao" />
-
-    <Button
-        android:id="@+id/button_adicionar_agua"
-        android:layout_width="138dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/style_btn_login_cadastro"
-        android:onClick="adicionarAgua"
-        android:text="Dar água"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar_Agua" />
-
-    <TextView
-        android:id="@+id/txt_qtde_agua"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="00/00"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar_Agua"
-        app:layout_constraintEnd_toEndOf="@+id/progressBar_Agua"
-        app:layout_constraintStart_toStartOf="@+id/progressBar_Agua"
-        app:layout_constraintTop_toTopOf="@+id/progressBar_Agua"
-        app:layout_constraintVertical_bias="0.679" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/barre_progresso_racao"
-        app:layout_constraintEnd_toEndOf="@+id/barre_progresso_racao"
-        app:layout_constraintStart_toStartOf="@+id/barre_progresso_racao"
-        app:layout_constraintTop_toTopOf="@+id/barre_progresso_racao"
-        app:srcCompat="@drawable/tigela_de_cachorro_2" />
 
     <FrameLayout
         android:id="@+id/frame_layout"
@@ -124,45 +37,48 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu"/>
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar_Agua"
-        app:layout_constraintEnd_toEndOf="@+id/progressBar_Agua"
-        app:layout_constraintStart_toStartOf="@+id/progressBar_Agua"
-        app:layout_constraintTop_toTopOf="@+id/progressBar_Agua"
-        app:srcCompat="@drawable/copo_de_agua_4" />
-
-    <ImageButton
-        android:id="@+id/imageButton_modificar_racao"
-        android:layout_width="74dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="40dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/barre_progresso_racao"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/imagem_mini_pote" />
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/bottom_navigation_menu" />
 
-    <ImageButton
-        android:id="@+id/imageButton_modificar_agua"
-        android:layout_width="74dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="228dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/progressBar_Agua"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton_modificar_racao"
-        app:srcCompat="@drawable/imagem_mini_copo" />
+    <!--    <ImageView-->
+<!--        android:id="@+id/imageView4"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/progressBar_Agua"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/progressBar_Agua"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/progressBar_Agua"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/progressBar_Agua"-->
+<!--        app:srcCompat="@drawable/copo_de_agua_4" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/imageButton_modificar_racao"-->
+<!--        android:layout_width="74dp"-->
+<!--        android:layout_height="63dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:background="@color/white"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/barre_progresso_racao"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/imagem_mini_pote" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/imageButton_modificar_agua"-->
+<!--        android:layout_width="74dp"-->
+<!--        android:layout_height="63dp"-->
+<!--        android:layout_marginStart="17dp"-->
+<!--        android:layout_marginTop="228dp"-->
+<!--        android:background="@color/white"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/progressBar_Agua"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageButton_modificar_racao"-->
+<!--        app:srcCompat="@drawable/imagem_mini_copo" />-->
 
 </android.support.constraint.ConstraintLayout>

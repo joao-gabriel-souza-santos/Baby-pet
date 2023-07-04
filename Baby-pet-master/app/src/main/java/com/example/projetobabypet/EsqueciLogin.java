@@ -18,15 +18,15 @@ public class EsqueciLogin extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.buttonEsqueciEmail.setOnClickListener(view->{
-            startActivity(new Intent(this, RecuperaEmail.class));
+            startActivity(new Intent(this, RecuperaEmail.class)); //leva o usuario pra tela de esqueci email quando clicar no botão
         });
 
         binding.buttonEsqueciSenha.setOnClickListener(view -> {
-            startActivity(new Intent(this, RecuperaSenha.class));
+            startActivity(new Intent(this, RecuperaSenha.class)); //leva o usuario pra tela de esqueci a senha quando o usuario apertar o botão
         });
 
         binding.buttonVoltar.setOnClickListener(view -> {
-            startActivity(new Intent(this, Login.class));
+            startActivity(new Intent(this, Login.class));// leva pra tela de login quando o usuario apertar no botão de voltar
         });
     }
 }

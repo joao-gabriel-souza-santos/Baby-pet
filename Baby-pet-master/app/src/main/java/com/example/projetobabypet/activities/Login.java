@@ -12,38 +12,40 @@ import com.example.projetobabypet.databinding.ActivityLoginBinding;
 
 public class Login extends AppCompatActivity {
 
-    ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia();
-    private ActivityLoginBinding binding;
+    ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(); //instancia do controller de usuario
+    private ActivityLoginBinding binding; //binding serve pra acessar as views que estão no xml (botão, texto, editText)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        binding = ActivityLoginBinding.inflate(getLayoutInflater()); //infla o layout da classe
+        setContentView(binding.getRoot()); //setta o layout na view
 
 
         binding.buttonEsqueci.setOnClickListener(view -> {
-            startActivity(new Intent(this, EsqueciLogin.class));
+            startActivity(new Intent(this, EsqueciLogin.class)); //chamar a classe esqueci login quando clicar no botao esqueci login
         });
 
         binding.btnCadastrar.setOnClickListener(view -> {
-            startActivity(new Intent(this, Cadastro.class));
+            startActivity(new Intent(this, Cadastro.class)); //chama a classe cadastrar quando clicar no botao cadastrar
         });
 
-        validarLogin();
+        validarLogin(); //chama o metodo validar login
     }
 
     private void validarLogin() {
         binding.btnLogin.setOnClickListener(view -> {
-            String usuarioEmail = binding.email.getText().toString();
-            String senhaUsuario = binding.senha.getText().toString();
-            if(controllerUsuario.login(usuarioEmail, senhaUsuario)) {
-                startActivity(new Intent(this, HomeActivity.class));
-            } else {
-                AlertDialog.Builder caixademsg = new AlertDialog.Builder(this);
-                caixademsg.setTitle("Erro");
-                caixademsg.setMessage("Email ou senha incorretos, tente novamente");
-                caixademsg.show();
+            String usuarioEmail = binding.email.getText().toString(); //recebe o texto que ta no edit text de email
+            String senhaUsuario = binding.senha.getText().toString(); //receb o texto que ta no edit text de senha
+            if(controllerUsuario.login(usuarioEmail, senhaUsuario)) { //manda pro controler verificar o login,
+
+                startActivity(new Intent(this, HomeActivity.class)); //se o controller retornaar positivo então
+                                                                                 // o login é efetuado com sucesso e leva pra tela inicial
+            } else {// se o login estiver incorreto
+                AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
+                caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+                caixademsg.setMessage("Email ou senha incorretos, tente novamente"); //coloca a mensagem da caixa
+                caixademsg.show(); //exibe a caixa pro usuario
             }
         });
     }

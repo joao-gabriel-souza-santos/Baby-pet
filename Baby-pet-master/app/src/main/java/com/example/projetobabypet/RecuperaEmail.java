@@ -13,7 +13,7 @@ import com.example.projetobabypet.model.Usuario;
 
 public class RecuperaEmail extends AppCompatActivity {
 
-    ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia();
+    ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(); //instancia o controler de usuario
     ActivityRecuperaEmailBinding binding;
 
     @Override
@@ -36,14 +36,14 @@ public class RecuperaEmail extends AppCompatActivity {
     private void pesquisarEmail() {
         binding.buttonPesquisar.setOnClickListener(view -> {
              try {
-                 String cpf = binding.editTextCpf.getText().toString();
-                Usuario usuario = controllerUsuario.buscarPorCpf(cpf);
-                 binding.editTextEmail.setText(usuario.getEmail());
-             } catch (Exception e){
-                 AlertDialog.Builder caixademsg = new AlertDialog.Builder(this);
-                 caixademsg.setTitle("Erro");
-                 caixademsg.setMessage("Usuario invalido");
-                 caixademsg.show();
+                 String cpf = binding.editTextCpf.getText().toString(); //pega o texto que tá no edit text de cpf
+                Usuario usuario = controllerUsuario.buscarPorCpf(cpf); //joga pro controller e o controller vai retornar um usuario
+                 binding.editTextEmail.setText(usuario.getEmail()); //setta o edit text de email com o email do usuario retornado pelo controller
+             } catch (Exception e){ //se der erro de NullPointerException quer dizer que não tem nenhum usuario, fiquei com preguiça de usar if ent coloquei o try e catch dessa vez
+                 AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria a caixa de alerta
+                 caixademsg.setTitle("Erro"); //coloca o titulo da caixa de alerta
+                 caixademsg.setMessage("Usuario invalido"); //setta a menssagem da caixa de alerta
+                 caixademsg.show(); //exibe a caixa
              }
         });
     }
