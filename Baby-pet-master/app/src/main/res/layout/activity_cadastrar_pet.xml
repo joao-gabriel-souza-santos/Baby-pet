@@ -101,7 +101,7 @@
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
         android:hint="  Idade"
-        android:inputType="text"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
