@@ -35,9 +35,9 @@ public class Cadastro extends AppCompatActivity {
         String cpf = binding.txtCpf.getText().toString();
         String senha = binding.txtSenha.getText().toString();
         ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia();
-        int id = controllerUsuario.getProxId();
-        usuario = new Usuario(nome, cpf, email, senha, id );
-        controllerUsuario.cadastrar(usuario);
+
+        usuario = new Usuario(nome, cpf, email, senha);
+        controllerUsuario.cadastrar(usuario, this);
         return usuario;
     }
 }

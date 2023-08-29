@@ -37,7 +37,7 @@ public class Login extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(view -> {
             String usuarioEmail = binding.email.getText().toString(); //recebe o texto que ta no edit text de email
             String senhaUsuario = binding.senha.getText().toString(); //receb o texto que ta no edit text de senha
-            if(controllerUsuario.login(usuarioEmail, senhaUsuario)) { //manda pro controler verificar o login,
+            if(controllerUsuario.login(usuarioEmail, senhaUsuario, this)) { //manda pro controler verificar o login,
 
                 startActivity(new Intent(this, HomeActivity.class)); //se o controller retornaar positivo então
                                                                                  // o login é efetuado com sucesso e leva pra tela inicial

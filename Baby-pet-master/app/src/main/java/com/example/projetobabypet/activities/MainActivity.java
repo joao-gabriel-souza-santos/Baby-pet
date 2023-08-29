@@ -12,7 +12,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia();
-    public List<Usuario> usuarios = controllerUsuario.buscarTodos();
+    public List<Usuario> usuarios = controllerUsuario.buscarTodos(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

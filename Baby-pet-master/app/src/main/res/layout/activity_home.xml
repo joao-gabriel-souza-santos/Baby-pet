@@ -47,38 +47,6 @@
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_navigation_menu" />
 
-    <!--    <ImageView-->
-<!--        android:id="@+id/imageView4"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/progressBar_Agua"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/progressBar_Agua"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/progressBar_Agua"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/progressBar_Agua"-->
-<!--        app:srcCompat="@drawable/copo_de_agua_4" />-->
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/imageButton_modificar_racao"-->
-<!--        android:layout_width="74dp"-->
-<!--        android:layout_height="63dp"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        android:background="@color/white"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/barre_progresso_racao"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:srcCompat="@drawable/imagem_mini_pote" />-->
-
-<!--    <ImageButton-->
-<!--        android:id="@+id/imageButton_modificar_agua"-->
-<!--        android:layout_width="74dp"-->
-<!--        android:layout_height="63dp"-->
-<!--        android:layout_marginStart="17dp"-->
-<!--        android:layout_marginTop="228dp"-->
-<!--        android:background="@color/white"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/progressBar_Agua"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/imageButton_modificar_racao"-->
-<!--        app:srcCompat="@drawable/imagem_mini_copo" />-->
 
 </android.support.constraint.ConstraintLayout>

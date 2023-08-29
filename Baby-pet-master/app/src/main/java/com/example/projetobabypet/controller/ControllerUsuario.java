@@ -1,5 +1,9 @@
 package com.example.projetobabypet.controller;
 
+import android.content.Context;
+import android.widget.Toast;
+
+import com.example.projetobabypet.dao.UsuarioDAO;
 import com.example.projetobabypet.model.Usuario;
 
 import java.util.ArrayList;
@@ -7,18 +11,16 @@ import java.util.List;
 
 public class ControllerUsuario {
 
-    private int proxId;
-    private final List<Usuario> usuarios; //crio uma lista final pra ser imutavel
+
+    private List<Usuario> usuarios; //crio uma lista final pra ser imutavel
     private static  ControllerUsuario instancia = null; //crio um atributo que vai instanciar meu controler
 
     private ControllerUsuario(){ //quando ele criar um controller ele vai criar uma lista e um id pro usuario
         usuarios = new ArrayList<>();
-        proxId = 1;
+
     }
 
-    public int getProxId(){
-        return proxId;
-    }
+
 
     public static ControllerUsuario getInstancia(){
         if(instancia == null) //verifica se o controller já foi instanciado
@@ -26,7 +28,9 @@ public class ControllerUsuario {
         return instancia;
     }
 
-    public List<Usuario> buscarTodos(){
+    public List<Usuario> buscarTodos(Context context){
+        UsuarioDAO usuarioDAO = new UsuarioDAO(context);
+        usuarios = usuarioDAO.listar();
         return new ArrayList<>(usuarios);
     } //retorna todos os usuarios da lista
 
@@ -43,15 +47,15 @@ public class ControllerUsuario {
         return false; //retorna que a operação falhou
     }
 
-    public void cadastrar(Usuario usuario){ //recebo o usuario a ser cadastrado
-        usuario.setId(proxId); //setto o id do usuario
-        boolean resultado = usuarios.add(usuario); //realizo o cadastro e verifico se teve algum erro
-        if(resultado){ //se o resultado for um sucesso
-            proxId+=1; //ele cria o prox id
-        }
+    public void cadastrar(Usuario usuario, Context context){ //recebo o usuario a ser cadastrado
+        UsuarioDAO usuDAO = new UsuarioDAO(context);
+        long id = usuDAO.inserirUsuario(usuario);
+        Toast.makeText(context, "Pessoa cadastrada com sucesso", Toast.LENGTH_LONG).show();
     }
     
-    public boolean login(String email, String senha){ //recebe o email e a senha a ser verificado
+    public boolean login(String email, String senha, Context context){ //recebe o email e a senha a ser verificado
+
+        usuarios = buscarTodos(context);
         for (Usuario usuario: usuarios) { //pra cada usuario na lista
             if((usuario.getEmail().equals(email)) && (usuario.getSenha().equals(senha))) { // pra cada usuario da lista
                                                                                             //ele vai verificar qual usuario tem a senha igual a senha digitada

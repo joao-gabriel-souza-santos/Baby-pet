@@ -11,12 +11,20 @@ public class Usuario implements Serializable {
     public  Usuario(){
         //Construtor default
     }
-    public Usuario(String nome, String cpf, String email, String senha, int id) {
+    public Usuario( int id, String nome, String cpf, String email, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
         this.id = id;
+    }
+
+    public Usuario(String nome, String cpf, String email, String senha) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.senha = senha;
+
     }
 
     public String getNome() {
