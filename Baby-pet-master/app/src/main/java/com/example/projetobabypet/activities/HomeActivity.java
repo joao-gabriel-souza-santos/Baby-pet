@@ -17,9 +17,7 @@ import com.example.projetobabypet.fragments.HomeFragment;
 public class HomeActivity extends AppCompatActivity {
 
     ActivityHomeBinding binding;
-    int valorProgressoRacao = 0;
-    int valorProgressoAgua = 0;
-    int qtd_max=0;
+
 
 
     @Override

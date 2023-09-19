@@ -29,12 +29,12 @@ public class AdapterRecycleHome extends RecyclerView.Adapter<HolderRecycleHome> 
 
     @NonNull
     @Override
-    public HolderRecycleHome onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public HolderRecycleHome onCreateViewHolder( ViewGroup viewGroup, int i) {
         return new HolderRecycleHome(LayoutInflater.from(context).inflate(R.layout.item_layout_recycle_view_home, viewGroup, false)) ;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HolderRecycleHome holderRecycleHome, int i) {
+    public void onBindViewHolder(HolderRecycleHome holderRecycleHome, int i) {
         horas = controllerHora.buscarTodos();
         Horas hora = horas.get(i);
         holderRecycleHome.horario.setText(hora.getHoras());
