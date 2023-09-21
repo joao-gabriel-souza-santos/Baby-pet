@@ -1,68 +1,65 @@
 package com.example.projetobabypet.fragments;
 
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 
 import com.example.projetobabypet.R;
 import com.example.projetobabypet.activities.adapter.AdapterRecycleHome;
 
-import com.example.projetobabypet.controller.ControllerHora;
-
 
 import com.example.projetobabypet.databinding.FragmentHomeBinding;
-import com.example.projetobabypet.model.Horas;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
-
+import java.util.concurrent.TimeUnit;
 
 
 public class HomeFragment extends Fragment {
 
+    public static List<String> horas = new ArrayList<>();
     FragmentHomeBinding binding;
 
     public int valorProgressoRacao = 0;
     public int valorProgressoAgua = 0;
     public int qtd_max_racao = 0, qtd_max_agua = 0;
-    ControllerHora controllerHora = ControllerHora.getInstancia();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
         updateProgressoAgua();
         updateProgressoRacao();
+        binding.recycleViewHora.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recycleViewHora.setAdapter(new AdapterRecycleHome(getContext().getApplicationContext()));
 
         binding.buttonDarRacao.setOnClickListener(view1 -> {
             adicionarRacao();
             updateProgressoRacao();
 
-            Horas hora = new Horas();
-            controllerHora.cadastrar(hora);
-            binding.recycleViewHora.setLayoutManager(new LinearLayoutManager(getContext()));
-            binding.recycleViewHora.setAdapter(new AdapterRecycleHome(getContext().getApplicationContext(), controllerHora.buscarTodos(), 1));
-
+            horas.add(getHoras());
+            AdapterRecycleHome.atualizarLista(1);
+            binding.recycleViewHora.setAdapter(new AdapterRecycleHome(getContext().getApplicationContext()));
         });
 
         binding.buttonDarAgua.setOnClickListener(view1 -> {
             adicionarAgua();
             updateProgressoAgua();
 
-            Horas hora = new Horas();
-            controllerHora.cadastrar(hora);
-            binding.recycleViewHora.setLayoutManager(new LinearLayoutManager(getContext()));
-            binding.recycleViewHora.setAdapter(new AdapterRecycleHome(getContext().getApplicationContext(), controllerHora.buscarTodos(), 2));
+            horas.add(getHoras());
+            AdapterRecycleHome.atualizarLista(2);
+            binding.recycleViewHora.setAdapter(new AdapterRecycleHome(getContext().getApplicationContext()));
 
         });
 
@@ -149,11 +146,21 @@ public class HomeFragment extends Fragment {
 
                 valorProgressoRacao += 20;
                 updateProgressoRacao();
+                try {
+                    TimeUnit.SECONDS.sleep((long)0.5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         } else {
             if (valorProgressoRacao <= binding.progressBarRacao.getMax()) {
                 valorProgressoRacao += valorProgressoRacao;
                 updateProgressoRacao();
+                try {
+                    TimeUnit.SECONDS.sleep((long)0.5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
@@ -169,15 +176,36 @@ public class HomeFragment extends Fragment {
                         valorProgressoAgua += valorProgressoAgua;
 
                         updateProgressoAgua();
+                        try {
+                            TimeUnit.SECONDS.sleep((long)0.5);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 } else {
                     if (valorProgressoAgua <= qtd_max_agua) {
                         valorProgressoAgua += valorProgressoAgua;
                         updateProgressoAgua();
+                        try {
+                            TimeUnit.SECONDS.sleep((long)0.5);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
 
             }
+
+            public String getHoras(){
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+
+               String hora = String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE));
+
+                return hora;
+            }
+
 }
 
 

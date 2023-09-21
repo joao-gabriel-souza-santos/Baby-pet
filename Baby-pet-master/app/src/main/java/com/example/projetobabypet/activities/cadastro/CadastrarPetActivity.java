@@ -29,6 +29,7 @@ public class CadastrarPetActivity extends AppCompatActivity {
             pet = cadastrarPet();
             Toast.makeText(CadastrarPetActivity.this, "Cadastro efetuado com sucesso", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, Login.class));
+            this.finish();
         });
     }
 

@@ -11,7 +11,7 @@ import com.example.projetobabypet.databinding.ActivityRecuperaSenhaBinding;
 import com.example.projetobabypet.model.Usuario;
 
 public class RecuperaSenha extends AppCompatActivity {
-        ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(); //instancia o controller do usuario
+        ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(this); //instancia o controller do usuario
         ActivityRecuperaSenhaBinding binding;
 
     @Override
@@ -22,6 +22,7 @@ public class RecuperaSenha extends AppCompatActivity {
 
         binding.buttonVoltar.setOnClickListener(view -> {
             startActivity(new Intent(this, EsqueciLogin.class));
+            this.finish();
         });
         binding.buttonContinuar.setOnClickListener(view -> {
             verificaEmail();

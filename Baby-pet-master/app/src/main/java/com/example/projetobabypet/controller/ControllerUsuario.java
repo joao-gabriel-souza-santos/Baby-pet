@@ -3,7 +3,7 @@ package com.example.projetobabypet.controller;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.projetobabypet.dao.UsuarioDAO;
+import com.example.projetobabypet.dao.UsuarioRepositorio;
 import com.example.projetobabypet.model.Usuario;
 
 import java.util.ArrayList;
@@ -11,51 +11,70 @@ import java.util.List;
 
 public class ControllerUsuario {
 
-
-    private List<Usuario> usuarios; //crio uma lista final pra ser imutavel
+    private Context contexto;
+    public static List<Usuario> usuarios; //crio uma lista final pra ser imutavel
     private static  ControllerUsuario instancia = null; //crio um atributo que vai instanciar meu controler
+    public UsuarioRepositorio db;
 
-    private ControllerUsuario(){ //quando ele criar um controller ele vai criar uma lista e um id pro usuario
+    private ControllerUsuario(Context contexto){ //quando ele criar um controller ele vai criar uma lista e um id pro usuario
         usuarios = new ArrayList<>();
-
+        this.contexto = contexto;
     }
 
 
 
-    public static ControllerUsuario getInstancia(){
+    public static ControllerUsuario getInstancia(Context contexto){
         if(instancia == null) //verifica se o controller já foi instanciado
-            instancia = new ControllerUsuario(); //se não for instanciado, ele cria uma instancia gerando uma lista
+            instancia = new ControllerUsuario(contexto); //se não for instanciado, ele cria uma instancia gerando uma lista
         return instancia;
     }
 
-    public List<Usuario> buscarTodos(Context context){
-        UsuarioDAO usuarioDAO = new UsuarioDAO(context);
-        usuarios = usuarioDAO.listar();
-        return new ArrayList<>(usuarios);
+    public List<Usuario> buscarTodos() {
+        try {
+            db = new UsuarioRepositorio(contexto);
+            usuarios = db.listar();
+            return new ArrayList<>(usuarios);
+        } catch (Exception a){
+            a.printStackTrace();
+            return new ArrayList<>(usuarios);
+        }
     } //retorna todos os usuarios da lista
 
 
     public boolean alterarSenha(Usuario usuario,String senha){ //recebe um usuario e a senha pra ser alterada
-        for (int i = 0; i< usuarios.size(); ++i){ //crio um for pra percorrer a lista
-            if(usuario.getId()==usuarios.get(i).getId()){ //verifico cada usuario pelo seu indice que vai ser igual ao seu codigo
-                usuario.setSenha(senha);  //quando ele encontrar um usuario com o mesmo codigo do usuario que quer alterar a senha
-                                            // ele vai settar a nova senha do usuario
-                usuarios.set(i, usuario); //e vai settar na lista
-                return true; //retorna que a operação foi um sucesso
+        try{
+            for (int i = 0; i< usuarios.size(); ++i){ //crio um for pra percorrer a lista
+                if(usuario.getId()==usuarios.get(i).getId()){ //verifico cada usuario pelo seu indice que vai ser igual ao seu codigo
+                    usuario.setSenha(senha);  //quando ele encontrar um usuario com o mesmo codigo do usuario que quer alterar a senha
+                    // ele vai settar a nova senha do usuario
+                    db.atualizarUsuarioPorCpf(usuario);
+                    atualizarLista();
+                    return true; //retorna que a operação foi um sucesso
+                }
             }
+            return false; //retorna que a operação falhou
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
-        return false; //retorna que a operação falhou
     }
 
     public void cadastrar(Usuario usuario, Context context){ //recebo o usuario a ser cadastrado
-        UsuarioDAO usuDAO = new UsuarioDAO(context);
-        long id = usuDAO.inserirUsuario(usuario);
-        Toast.makeText(context, "Pessoa cadastrada com sucesso", Toast.LENGTH_LONG).show();
+        try{
+            UsuarioRepositorio usuDAO = new UsuarioRepositorio(context);
+            long id = usuDAO.inserirUsuario(usuario);
+
+            Toast.makeText(context, "Pessoa cadastrada com sucesso", Toast.LENGTH_LONG).show();
+            atualizarLista();
+        }catch (Exception a){
+            a.printStackTrace();
+            Toast.makeText(context, "Erro, pessoa nao cadastrada", Toast.LENGTH_LONG).show();
+        }
     }
     
-    public boolean login(String email, String senha, Context context){ //recebe o email e a senha a ser verificado
+    public boolean login(String email, String senha){ //recebe o email e a senha a ser verificado
 
-        usuarios = buscarTodos(context);
+        usuarios = buscarTodos();
         for (Usuario usuario: usuarios) { //pra cada usuario na lista
             if((usuario.getEmail().equals(email)) && (usuario.getSenha().equals(senha))) { // pra cada usuario da lista
                                                                                             //ele vai verificar qual usuario tem a senha igual a senha digitada
@@ -76,6 +95,8 @@ public class ControllerUsuario {
     }
 
     public Usuario buscarPorCpf(String cpf){ //recebe o cpf do usuario
+        atualizarLista();
+        usuarios = buscarTodos();
         for(Usuario usuario:usuarios){ //pra cada usuario na lista
             if(usuario.getCpf().toString().equals(cpf)){ // ele verifica se o cpf recebido é igual a de algum usuario da lista
                 return usuario; //se for igual então ele retorna o usuario com o id igual ao recebido
@@ -90,6 +111,11 @@ public class ControllerUsuario {
             }
         }
         return null;
+    }
+
+    public void atualizarLista(){
+        usuarios.clear();
+        usuarios.addAll(buscarTodos());
     }
 
 }

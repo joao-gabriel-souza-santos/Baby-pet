@@ -26,6 +26,7 @@ public class Cadastro extends AppCompatActivity {
             Intent it = new Intent(this, CadastrarPetActivity.class);
             it.putExtra("idUsuario", usuario.getId());
             startActivity(it);
+            this.finish();
         });
     }
 
@@ -34,7 +35,7 @@ public class Cadastro extends AppCompatActivity {
         String email = binding.txtEmail.getText().toString();
         String cpf = binding.txtCpf.getText().toString();
         String senha = binding.txtSenha.getText().toString();
-        ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia();
+        ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(this);
 
         usuario = new Usuario(nome, cpf, email, senha);
         controllerUsuario.cadastrar(usuario, this);

@@ -11,8 +11,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia();
-    public List<Usuario> usuarios = controllerUsuario.buscarTodos(this);
+    public ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(this);
+    public List<Usuario> usuarios = controllerUsuario.buscarTodos();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

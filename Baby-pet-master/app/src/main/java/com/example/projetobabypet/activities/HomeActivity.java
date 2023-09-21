@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -45,9 +46,7 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         });
 
-        binding.buttonVoltar.setOnClickListener(view -> {
-            startActivity(new Intent(this, Login.class));
-        });
+
     }
 
     private void replaceFragment(Fragment fragment){

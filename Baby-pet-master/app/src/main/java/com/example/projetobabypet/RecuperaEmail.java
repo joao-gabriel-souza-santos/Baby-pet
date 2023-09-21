@@ -13,7 +13,7 @@ import com.example.projetobabypet.model.Usuario;
 
 public class RecuperaEmail extends AppCompatActivity {
 
-    ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(); //instancia o controler de usuario
+    ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(this); //instancia o controler de usuario
     ActivityRecuperaEmailBinding binding;
 
     @Override
@@ -24,10 +24,12 @@ public class RecuperaEmail extends AppCompatActivity {
 
         binding.buttonInicio.setOnClickListener(view -> {
             startActivity(new Intent(this, Login.class));
+            this.finish();
         });
 
         binding.buttonVoltar.setOnClickListener(view -> {
             startActivity(new Intent(this, EsqueciLogin.class));
+            this.finish();
         });
 
         pesquisarEmail();

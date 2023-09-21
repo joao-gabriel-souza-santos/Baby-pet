@@ -13,12 +13,9 @@ public class ControllerPet {
 
     private ControllerPet(){
         pets = new ArrayList<>();
-        proxId = 1;
     }
 
-    public int getProxId(){
-        return proxId;
-    }
+
 
     public static ControllerPet getInstancia(){
         if(instancia==null)
@@ -31,5 +28,8 @@ public class ControllerPet {
         boolean resultado = pets.add(pet);
         if(resultado)
             proxId += 1;
+    }
+    public int getProxId(){
+        return proxId;
     }
 }
