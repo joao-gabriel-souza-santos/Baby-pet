@@ -1,12 +1,15 @@
 package com.example.projetobabypet.activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.projetobabypet.R;
 import com.example.projetobabypet.databinding.ActivityHomeBinding;
@@ -19,6 +22,8 @@ public class HomeActivity extends AppCompatActivity {
 
     ActivityHomeBinding binding;
 
+    ActionBarDrawerToggle drawerToggle;
+
 
 
     @Override
@@ -27,6 +32,9 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        drawerToggle = new ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close);
+        binding.drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
         replaceFragment(new HomeFragment());//chamo o metodo pra realizar a troca
         binding.bottomNavigationView.setBackground(null);
 
@@ -46,8 +54,13 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         });
 
+       binding.imageMenu.setOnClickListener(view -> {
+           binding.drawerLayout.openDrawer(GravityCompat.START);
+       });
 
     }
+
+
 
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();

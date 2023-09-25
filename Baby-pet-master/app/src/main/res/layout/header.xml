@@ -1,33 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/blue"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-
+    android:layout_height="200dp"
+    android:id="@+id/layout_header"
     >
 
-    <ImageView
-        android:id="@+id/imageView_dono"
-        android:layout_width="38dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+    <LinearLayout
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="25dp"
+        android:id="@+id/drawarHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
 
-    <TextView
-        android:id="@+id/textView_nome_dono"
-        android:layout_width="46dp"
-        android:layout_height="11dp"
-        android:layout_marginTop="44dp"
-        android:background="@color/white"
-        android:text="nome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"
+            />
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorPrimary"
+                android:textStyle="bold"
+                android:text="@string/app_name"
+                android:layout_marginLeft="10dp"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#AE000000"
+                android:text="@string/app_name"
+                android:layout_marginLeft="10dp"
+                android:textSize="18sp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:elevation="5dp"
+        android:layout_below="@id/drawarHeader"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+
+        />
+
+</RelativeLayout>

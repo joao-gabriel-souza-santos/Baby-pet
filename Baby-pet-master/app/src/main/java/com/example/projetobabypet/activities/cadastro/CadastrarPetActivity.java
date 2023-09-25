@@ -13,7 +13,7 @@ import com.example.projetobabypet.model.Pet;
 public class CadastrarPetActivity extends AppCompatActivity {
 
 
-    ControllerPet controllerPet = ControllerPet.getInstancia();
+    ControllerPet controllerPet = ControllerPet.getInstancia(this);
 
     Pet pet;
 
@@ -26,10 +26,15 @@ public class CadastrarPetActivity extends AppCompatActivity {
         binding = ActivityCadastrarPetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.btnFinalizarCadastro.setOnClickListener(view -> {
-            pet = cadastrarPet();
-            Toast.makeText(CadastrarPetActivity.this, "Cadastro efetuado com sucesso", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, Login.class));
-            this.finish();
+            try {
+                pet = cadastrarPet();
+                Toast.makeText(CadastrarPetActivity.this, "Cadastro efetuado com sucesso", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, Login.class));
+                this.finish();
+            } catch (Exception e) {
+                Toast.makeText(CadastrarPetActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
         });
     }
 
@@ -38,9 +43,8 @@ public class CadastrarPetActivity extends AppCompatActivity {
         String raca = binding.txtRaca.getText().toString();
         int idade = Integer.parseInt(binding.txtIdade.getText().toString());
         String sexo = binding.txtSexo.getText().toString();
-        int id = controllerPet.getProxId();
-        int idUsuario = getIntent().getIntExtra("idUsuario", -1);
-        pet = new Pet(nome, sexo, raca, id, idUsuario, idade);
+
+        pet = new Pet(nome, sexo, raca, idade);
         controllerPet.cadastrar(pet);
         return pet;
 

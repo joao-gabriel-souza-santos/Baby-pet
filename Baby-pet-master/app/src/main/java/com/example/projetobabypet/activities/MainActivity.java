@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.example.projetobabypet.R;
 import com.example.projetobabypet.controller.ControllerUsuario;
+import com.example.projetobabypet.databinding.ActivityMainBinding;
 import com.example.projetobabypet.model.Usuario;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     public ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(this);
     public List<Usuario> usuarios = controllerUsuario.buscarTodos();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
