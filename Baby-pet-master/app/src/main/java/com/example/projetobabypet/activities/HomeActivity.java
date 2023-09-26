@@ -10,9 +10,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 
 import com.example.projetobabypet.R;
 import com.example.projetobabypet.activities.cadastro.CadastrarPetActivity;
@@ -22,13 +24,14 @@ import com.example.projetobabypet.fragments.ArtigoFragment;
 import com.example.projetobabypet.fragments.HomeFragment;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ActivityHomeBinding binding;
 
     ActionBarDrawerToggle drawerToggle;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+    Toolbar toolbar;
 
 
 
@@ -39,31 +42,23 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         sp = getSharedPreferences("Log", MODE_PRIVATE);
         editor = sp.edit();
 
-        drawerToggle = new ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close);
+
+        drawerToggle = new ActionBarDrawerToggle(this, binding.drawerLayout,toolbar, R.string.open, R.string.close);
         binding.drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
 
         replaceFragment(new HomeFragment());//chamo o metodo pra realizar a troca
 
-        binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                switch (menuItem.getItemId()){
-                    case R.id.sair_da_tela:{
-                        sair();
-                        Toast.makeText(HomeActivity.this, "Cadastro efetuado com sucesso", Toast.LENGTH_LONG).show();
-                        break;
-                    }
-                }
-
-
-                return false;
-            }
-        });
+        binding.navView.setNavigationItemSelectedListener(this);
 
 
         binding.bottomNavigationView.setBackground(null);
@@ -108,13 +103,28 @@ public class HomeActivity extends AppCompatActivity {
         this.finish();
     }
 
+
     @Override
     public void onBackPressed() {
 
-        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
-        }else{
+        } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.sair_da_tela:{
+                sair();
+
+                break;
+            }
+        }
+
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

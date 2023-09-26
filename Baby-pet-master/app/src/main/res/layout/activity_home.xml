@@ -7,13 +7,7 @@
     android:id="@+id/drawer_layout"
     tools:context=".activities.HomeActivity">
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_View"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/header"
-        app:menu="@menu/menu_bar" />
+    <include layout="@layout/toolbar"/>
 
     <android.support.constraint.ConstraintLayout android:layout_height="match_parent" android:layout_width="match_parent">
 
@@ -60,6 +54,12 @@
     </android.support.constraint.ConstraintLayout>
 
 
-
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_View"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/menu_bar" />
 
 </android.support.v4.widget.DrawerLayout>
