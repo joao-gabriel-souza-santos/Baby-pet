@@ -108,6 +108,13 @@ public class HomeActivity extends AppCompatActivity {
         this.finish();
     }
 
-  
+    @Override
+    public void onBackPressed() {
 
+        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+    }
 }
