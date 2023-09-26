@@ -13,42 +13,28 @@
         android:theme="@style/Theme.ProjetoBabyPet"
         tools:targetApi="31">
         <activity
-            android:name=".AlterarSenha"
+            android:name=".activities.recuperalogin.AlterarSenha"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RecuperaSenha"
+            android:name=".activities.recuperalogin.RecuperaSenha"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RecuperaEmail"
+            android:name=".activities.recuperalogin.RecuperaEmail"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".EsqueciLogin"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".TesteActivity2"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Teste"
+            android:name=".activities.recuperalogin.EsqueciLogin"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -57,11 +43,6 @@
         <activity
             android:name=".activities.HomeActivity"
             android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
             <meta-data
                 android:name="android.app.lib_name"
@@ -70,11 +51,6 @@
         <activity
             android:name=".activities.cadastro.CadastrarPetActivity"
             android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
             <meta-data
                 android:name="android.app.lib_name"

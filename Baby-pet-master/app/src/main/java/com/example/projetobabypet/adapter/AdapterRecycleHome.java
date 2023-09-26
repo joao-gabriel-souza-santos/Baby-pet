@@ -1,4 +1,4 @@
-package com.example.projetobabypet.activities.adapter;
+package com.example.projetobabypet.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,10 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.projetobabypet.R;
-import com.example.projetobabypet.databinding.FragmentHomeBinding;
 import com.example.projetobabypet.fragments.HomeFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterRecycleHome extends RecyclerView.Adapter<HolderRecycleHome> {

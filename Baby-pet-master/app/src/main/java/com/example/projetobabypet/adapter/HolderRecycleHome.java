@@ -1,4 +1,4 @@
-package com.example.projetobabypet.activities.adapter;
+package com.example.projetobabypet.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

@@ -1,7 +1,9 @@
 package com.example.projetobabypet.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,8 +12,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.projetobabypet.R;
+import com.example.projetobabypet.activities.cadastro.CadastrarPetActivity;
 import com.example.projetobabypet.databinding.ActivityHomeBinding;
 import com.example.projetobabypet.fragments.AgendaFragment;
 import com.example.projetobabypet.fragments.ArtigoFragment;
@@ -23,6 +27,9 @@ public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding binding;
 
     ActionBarDrawerToggle drawerToggle;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+
 
 
 
@@ -32,10 +39,33 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        sp = getSharedPreferences("Log", MODE_PRIVATE);
+        editor = sp.edit();
+
         drawerToggle = new ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close);
         binding.drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+
         replaceFragment(new HomeFragment());//chamo o metodo pra realizar a troca
+
+        binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()){
+                    case R.id.sair_da_tela:{
+                        sair();
+                        Toast.makeText(HomeActivity.this, "Cadastro efetuado com sucesso", Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                }
+
+
+                return false;
+            }
+        });
+
+
         binding.bottomNavigationView.setBackground(null);
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener(item ->{ //coloco pra escutar o toque na barra de navegação
@@ -51,8 +81,10 @@ public class HomeActivity extends AppCompatActivity {
                     break;
             }
 
-            return true;
+            return false;
         });
+
+
 
        binding.imageMenu.setOnClickListener(view -> {
            binding.drawerLayout.openDrawer(GravityCompat.START);
@@ -69,4 +101,20 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    private void sair(){
+        editor.clear();
+        editor.apply();
+        startActivity(new Intent(this, Login.class));
+        this.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+    }
 }

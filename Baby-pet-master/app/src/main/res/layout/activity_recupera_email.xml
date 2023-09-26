@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/yellow"
-    tools:context=".RecuperaEmail">
+    tools:context=".activities.recuperalogin.RecuperaEmail">
 
     <ImageButton
         android:id="@+id/button_voltar"

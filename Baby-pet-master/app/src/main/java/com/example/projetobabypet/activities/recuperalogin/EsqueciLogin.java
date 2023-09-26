@@ -1,4 +1,4 @@
-package com.example.projetobabypet;
+package com.example.projetobabypet.activities.recuperalogin;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

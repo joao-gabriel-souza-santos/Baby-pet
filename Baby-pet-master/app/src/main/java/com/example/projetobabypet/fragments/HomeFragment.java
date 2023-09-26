@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import android.widget.EditText;
 
 
 import com.example.projetobabypet.R;
-import com.example.projetobabypet.activities.adapter.AdapterRecycleHome;
+import com.example.projetobabypet.adapter.AdapterRecycleHome;
 
 
 import com.example.projetobabypet.databinding.FragmentHomeBinding;
