@@ -29,15 +29,11 @@ public class ControllerUsuario {
         return instancia;
     }
 
-    public List<Usuario> buscarTodos() {
-        try {
+    public List<Usuario> buscarTodos() throws Exception {
             db = new UsuarioRepositorio(contexto);
             usuarios = db.listar();
             return new ArrayList<>(usuarios);
-        } catch (Exception a){
-            a.printStackTrace();
-            return new ArrayList<>(usuarios);
-        }
+
     } //retorna todos os usuarios da lista
 
 
@@ -60,20 +56,15 @@ public class ControllerUsuario {
     }
 
     public void cadastrar(Usuario usuario, Context context){ //recebo o usuario a ser cadastrado
-        try{
             UsuarioRepositorio usuDAO = new UsuarioRepositorio(context);
             long id = usuDAO.inserirUsuario(usuario);
-
             Toast.makeText(context, "Pessoa cadastrada com sucesso", Toast.LENGTH_LONG).show();
-            atualizarLista();
-        }catch (Exception a){
-            a.printStackTrace();
-            Toast.makeText(context, "Erro, pessoa nao cadastrada", Toast.LENGTH_LONG).show();
-        }
+
+
     }
     
-    public boolean login(String email, String senha){ //recebe o email e a senha a ser verificado
-
+    public boolean login(String email, String senha) throws Exception { //recebe o email e a senha a ser verificado
+        atualizarLista();
         usuarios = buscarTodos();
         for (Usuario usuario: usuarios) { //pra cada usuario na lista
             if((usuario.getEmail().equals(email)) && (usuario.getSenha().equals(senha))) { // pra cada usuario da lista
@@ -94,7 +85,7 @@ public class ControllerUsuario {
         return null;
     }
 
-    public Usuario buscarPorCpf(String cpf){ //recebe o cpf do usuario
+    public Usuario buscarPorCpf(String cpf) throws Exception { //recebe o cpf do usuario
         atualizarLista();
         usuarios = buscarTodos();
         for(Usuario usuario:usuarios){ //pra cada usuario na lista
@@ -104,7 +95,9 @@ public class ControllerUsuario {
         }
         return null; //se não encontrar então retorna nullo
     }
-    public Usuario buscarPorEmail(String email){ //recebe o email do usuario
+    public Usuario buscarPorEmail(String email) throws Exception{ //recebe o email do usuario
+        atualizarLista();
+        usuarios = buscarTodos();
         for(Usuario usuario:usuarios){ //pra cada usuario na lista
             if(usuario.getEmail().toString().equals(email)){ //verifica se tem algum usuario com o email igual ao email recebido
                 return usuario;// se tiver então retorna verdadeiro
@@ -113,7 +106,7 @@ public class ControllerUsuario {
         return null;
     }
 
-    public void atualizarLista(){
+    public void atualizarLista() throws Exception {
         usuarios.clear();
         usuarios.addAll(buscarTodos());
     }

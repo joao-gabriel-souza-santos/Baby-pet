@@ -29,8 +29,8 @@
 
     <ImageView
         android:id="@+id/imageRedonda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="64dp"
         android:src="@drawable/imagem_redonda"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,10 +97,25 @@
         android:id="@+id/button_esqueci_email"
         android:layout_width="170dp"
         android:layout_height="51dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/style_btn_login_cadastro"
         android:text="Continuar"
         android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_qtde_pet" />
+
+    <EditText
+        android:id="@+id/editText_qtde_pet"
+        android:layout_width="224dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:hint="Quantidade de pets"
+        android:inputType="number"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

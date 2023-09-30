@@ -1,18 +1,22 @@
 package com.example.projetobabypet.dao;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class Helper extends SQLiteOpenHelper {
    public static final String nome_banco = "banco_userss";
-   private static final int versao = 3;
+   private static final int versao = 11;
     public static final String nome_tabela = "Usuario";
     public static final String coluna_id= "id";
     public static final String coluna_nome = "nome";
     public static final String coluna_cpf = "cpf";
     public static final String coluna_email = "email";
     public static final String coluna_senha = "senha";
+    public static final String coluna_foto_usuario = "foto";
+
+    public  static final String coluna_qtde_usuario_pets = "qtde_pets";
 
     public static final String nome_tabela_pet = "Pet";
     public static final String coluna_id_pet = "id";
@@ -20,7 +24,6 @@ public class Helper extends SQLiteOpenHelper {
     public static final String coluna_nome_pet = "nome";
     public static final String coluna_raca_pet = "raca";
     public static final String coluna_sexo_pet = "sexo";
-
     public static final String coluna_idade_pet = "idade";
     public static final String coluna_horas_pet_come = "horas_pet_come";
     public static final String coluna_horas_pet_comeu = "horas_pet_comeu";
@@ -28,6 +31,8 @@ public class Helper extends SQLiteOpenHelper {
     public static final String coluna_horas_pet_bebeu = "horas_pet_bebeu";
     public static final String coluna_qtde_pet_racao = "qtde_pet_racao";
     public static final String coluna_qtde_pet_agua = "qtde_pet_agua";
+    public static final String coluna_foto_pet = "foto";
+
     public Helper(Context context) {
         super(context, nome_banco, null, versao);
 
@@ -48,7 +53,9 @@ public class Helper extends SQLiteOpenHelper {
                                 coluna_nome + " TEXT NOT NULL, " +
                                 coluna_cpf + " TEXT UNIQUE NOT NULL, " +
                                 coluna_email + " TEXT UNIQUE NOT NULL, " +
-                                coluna_senha + " TEXT NOT NULL " + ");");
+                                coluna_senha + " TEXT NOT NULL, " +
+                                coluna_foto_usuario + " BLOB NOT NULL, " +
+                                coluna_qtde_usuario_pets + " INTEGER NOT NULL" + ");");
 
         String sql = "CREATE TABLE " + nome_tabela_pet + "( " +
                      coluna_id_pet + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -57,13 +64,13 @@ public class Helper extends SQLiteOpenHelper {
                 coluna_raca_pet + " TEXT NOT NULL, " +
                 coluna_sexo_pet + " TEXT NOT NULL, " +
                 coluna_idade_pet + " INTEGER NOT NULL, " +
+                coluna_foto_pet + " BLOB NOT NULL, " +
                 coluna_horas_pet_bebe + " TEXT, " +
                 coluna_horas_pet_bebeu + " TEXT, " +
                 coluna_horas_pet_come + " TEXT, " +
                 coluna_horas_pet_comeu + " TEXT, " +
                 coluna_qtde_pet_agua + " TEXT, " +
-                coluna_qtde_pet_racao + " TEXT, " +
-                " FOREIGN KEY(" + coluna_pet_id_usuario + ") REFERENCES " + nome_tabela + "(" + coluna_id + ") " +
+                coluna_qtde_pet_racao + " TEXT " +
                 ");";
         sqLiteDatabase.execSQL(sql);
 
@@ -76,6 +83,8 @@ public class Helper extends SQLiteOpenHelper {
         String sql1 = "DROP TABLE IF EXISTS " + nome_tabela_pet + "; " ;
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.execSQL(sql1);
+
+
         onCreate(sqLiteDatabase);
     }
 }

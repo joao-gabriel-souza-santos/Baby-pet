@@ -1,30 +1,64 @@
 package com.example.projetobabypet.model;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Usuario implements Serializable {
     private String nome, cpf, email, senha;
-    private  int id;
+    private Bitmap foto;
+    private  int id, qtde_pet;
 
     //Construtores
     public  Usuario(){
         //Construtor default
     }
-    public Usuario( int id, String nome, String cpf, String email, String senha) {
+    public Usuario( int id, String nome, String cpf, String email, String senha, Bitmap foto, int qtde_pet) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
         this.id = id;
+        this.foto = foto;
+        this.qtde_pet = qtde_pet;
     }
 
-    public Usuario(String nome, String cpf, String email, String senha) {
+
+
+
+
+    public Usuario(String nome, String cpf, String email, String senha, Bitmap foto) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
+        this.foto = foto;
+    }
 
+    public Usuario(String nome, String cpf, String email, String senha, Bitmap foto, int qtde_pet) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.senha = senha;
+        this.foto = foto;
+        this.qtde_pet = qtde_pet;
+    }
+
+    public int getQtde_pet() {
+        return qtde_pet;
+    }
+
+    public void setQtde_pet(int qtde_pet) {
+        this.qtde_pet = qtde_pet;
+    }
+
+    public Bitmap getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Bitmap foto) {
+        this.foto = foto;
     }
 
     public String getNome() {

@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/blue"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="100dp"
     android:id="@+id/layout_header"
     >
 
 
     <ImageView
+        android:id="@+id/image_usuario_header"
         android:layout_width="74dp"
         android:layout_height="90dp"
+        android:layout_marginTop="4dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.047"
@@ -19,16 +21,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="167dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="20dp"
+        android:id="@+id/textView_header"
+        android:layout_width="108dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="36dp"
         android:text="@string/app_name"
-        android:textColor="#AE000000"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.537"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
 </android.support.constraint.ConstraintLayout>

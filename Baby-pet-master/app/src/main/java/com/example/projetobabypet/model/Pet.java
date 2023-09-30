@@ -1,11 +1,27 @@
 package com.example.projetobabypet.model;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 public class Pet implements Serializable {
     private String nome, sexo, raca, horas_comida, horas_comeu, horas_agua, horas_bebeu;
     private int id, idUsuario, idade, qtde_racao, qtde_agua;
+    private Bitmap foto;
 
+    public Pet(String nome, String sexo, String raca, String horas_comida, String horas_comeu, String horas_agua, String horas_bebeu, int idade, int qtde_racao, int qtde_agua, Bitmap foto) {
+        this.nome = nome;
+        this.sexo = sexo;
+        this.raca = raca;
+        this.horas_comida = horas_comida;
+        this.horas_comeu = horas_comeu;
+        this.horas_agua = horas_agua;
+        this.horas_bebeu = horas_bebeu;
+        this.idade = idade;
+        this.qtde_racao = qtde_racao;
+        this.qtde_agua = qtde_agua;
+        this.foto = foto;
+    }
 
     //Construtores
     public Pet(){
@@ -20,14 +36,16 @@ public class Pet implements Serializable {
         this.idade = idade;
     }
 
-    public Pet(String nome, String sexo, String raca, int idade) {
+    public Pet(int id_usuario, String nome, String sexo, String raca, int idade, Bitmap foto) {
         this.nome = nome;
         this.sexo = sexo;
         this.raca = raca;
         this.idade = idade;
+        this.foto = foto;
+        this.idUsuario = id_usuario;
     }
 
-    public Pet(String nome, String sexo, String raca, String horas_comida, String horas_comeu, String horas_agua, String horas_bebeu, int id, int idUsuario, int idade, int qtde_racao, int qtde_agua) {
+    public Pet(String nome, String sexo, String raca, String horas_comida, String horas_comeu, String horas_agua, String horas_bebeu, int id, int idUsuario, int idade, int qtde_racao, int qtde_agua, Bitmap foto) {
         this.nome = nome;
         this.sexo = sexo;
         this.raca = raca;
@@ -40,6 +58,15 @@ public class Pet implements Serializable {
         this.idade = idade;
         this.qtde_racao = qtde_racao;
         this.qtde_agua = qtde_agua;
+        this.foto = foto;
+    }
+
+    public Bitmap getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Bitmap foto) {
+        this.foto = foto;
     }
 
     public String getHoras_comida() {

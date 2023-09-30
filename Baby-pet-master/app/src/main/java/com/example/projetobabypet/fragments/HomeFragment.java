@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
         updateProgressoAgua();
         updateProgressoRacao();
         binding.recycleViewHora.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recycleViewHora.setAdapter(new AdapterRecycleHome(getContext().getApplicationContext()));
 
         binding.buttonDarRacao.setOnClickListener(view1 -> {
             adicionarRacao();
