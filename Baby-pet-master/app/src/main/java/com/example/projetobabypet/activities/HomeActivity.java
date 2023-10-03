@@ -19,15 +19,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.example.projetobabypet.R;
-import com.example.projetobabypet.activities.cadastro.CadastrarPetActivity;
 import com.example.projetobabypet.adapter.AdapterRecycleListaPets;
 import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.databinding.ActivityHomeBinding;
-import com.example.projetobabypet.fragments.AgendaFragment;
+import com.example.projetobabypet.fragments.ContaFragment;
 import com.example.projetobabypet.fragments.ArtigoFragment;
 import com.example.projetobabypet.fragments.HomeFragment;
 import com.example.projetobabypet.model.Usuario;
@@ -92,10 +90,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.home:
                     replaceFragment(new HomeFragment()); //se o item clicado for o home, leva pra tela home
                     break;
-                case R.id.agenda:
-                    replaceFragment(new AgendaFragment()); //se o item clicado for agenda, leva pra tela agenda
-                    break;
                 case R.id.conta:
+                    replaceFragment(new ContaFragment()); //se o item clicado for agenda, leva pra tela agenda
+                    break;
+                case R.id.artigo:
                     replaceFragment(new ArtigoFragment()); //se o item clicado for artigo, leva pra tela artigo
                     break;
             }
