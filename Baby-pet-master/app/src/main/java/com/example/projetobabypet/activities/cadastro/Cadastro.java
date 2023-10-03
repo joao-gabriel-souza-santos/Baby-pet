@@ -22,6 +22,8 @@ import com.example.projetobabypet.activities.cadastro.CadastrarPetActivity;
 import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.databinding.ActivityCadastroBinding;
 import com.example.projetobabypet.model.Usuario;
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 
 import java.io.ByteArrayOutputStream;
 
@@ -41,6 +43,8 @@ public class Cadastro extends AppCompatActivity {
         binding = ActivityCadastroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         fotoCarregada = null;
+
+
 
         binding.buttonEsqueciEmail.setOnClickListener(view -> {
 

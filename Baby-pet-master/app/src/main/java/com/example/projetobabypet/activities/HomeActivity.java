@@ -95,7 +95,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.agenda:
                     replaceFragment(new AgendaFragment()); //se o item clicado for agenda, leva pra tela agenda
                     break;
-                case R.id.artigo:
+                case R.id.conta:
                     replaceFragment(new ArtigoFragment()); //se o item clicado for artigo, leva pra tela artigo
                     break;
             }
@@ -117,12 +117,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 View header = binding.navView.getHeaderView(0);
                 ImageView imagUser = header.findViewById(R.id.image_usuario_header);
                 TextView textView = header.findViewById(R.id.textView_header);
-
-                textView.setText("" + usuario.getId());
+                RecyclerView recycleViewListaPets = header.findViewById(R.id.recycle_view_lista_pets);
+                textView.setText("" + usuario.getNome());
                 imagUser.setImageBitmap(usuario.getFoto());
                 LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                binding.recycleViewListaPets.setLayoutManager(manager);
-                binding.recycleViewListaPets.setAdapter(new AdapterRecycleListaPets(HomeActivity.this, usuario.getId()));
+                recycleViewListaPets.setLayoutManager(manager);
+                recycleViewListaPets.setAdapter(new AdapterRecycleListaPets(HomeActivity.this, usuario.getId()));
 
 
             } catch (Exception e) {

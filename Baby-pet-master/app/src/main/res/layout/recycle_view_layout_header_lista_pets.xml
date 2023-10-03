@@ -9,7 +9,7 @@
         android:layout_width="187dp"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView_foto_pet"
             android:layout_width="80dp"
             android:layout_height="74dp"

@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageRedonda"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -51,7 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageRedonda" />
 
-    <EditText
+    <com.santalu.maskedittext.MaskEditText
         android:id="@+id/txtCpf"
         android:layout_width="224dp"
         android:layout_height="36dp"
@@ -61,6 +61,7 @@
         android:hint="Cpf"
         android:inputType="textPersonName"
         android:paddingStart="15dp"
+        app:met_mask="###.###.###-##"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_nome" />

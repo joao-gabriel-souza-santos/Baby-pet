@@ -10,13 +10,6 @@
 
     <android.support.constraint.ConstraintLayout android:layout_height="match_parent" android:layout_width="match_parent">
 
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="-1dp">
-
             <ProgressBar
                 android:id="@+id/progressBar_racao"
                 style="?android:attr/progressBarStyle"
@@ -123,10 +116,11 @@
 
             <ImageButton
                 android:id="@+id/imageButton_modificar_agua"
-                android:layout_width="65dp"
-                android:layout_height="55dp"
+                android:layout_width="54dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="208dp"
-                android:src="@drawable/imagem_mini_copo"
+                android:background="@drawable/image_button_circular"
+                android:src="@drawable/copoaguabranco"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.213"
                 app:layout_constraintStart_toEndOf="@+id/progressBar_agua"
@@ -144,15 +138,15 @@
 
             <ImageButton
                 android:id="@+id/imageButton_modificar_racao"
-                android:layout_width="65dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="4dp"
-                android:src="@drawable/imagem_mini_pote"
+                android:layout_width="56dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/image_button_circular"
+                android:src="@drawable/tigelabranca"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.186"
+                app:layout_constraintHorizontal_bias="0.21"
                 app:layout_constraintStart_toEndOf="@+id/progressBar_racao"
                 app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
 

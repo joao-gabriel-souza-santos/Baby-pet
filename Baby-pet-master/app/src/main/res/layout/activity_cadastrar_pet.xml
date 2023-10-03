@@ -9,8 +9,8 @@
 
     <ImageButton
         android:id="@+id/button_voltar"
-        android:layout_width="74dp"
-        android:layout_height="54dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.023"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,10 +27,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageRedonda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="64dp"
         android:clickable="true"
         android:src="@drawable/imagem_pet"
@@ -61,6 +61,7 @@
         android:ems="10"
         android:hint="  Nome"
         android:inputType="text"
+        android:paddingStart="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +76,7 @@
         android:ems="10"
         android:hint="  Raça"
         android:inputType="text"
+        android:paddingStart="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,8 +87,9 @@
         android:layout_width="220dp"
         android:layout_height="52dp"
         android:layout_marginTop="44dp"
+        android:paddingStart="5dp"
         android:background="@drawable/style_edit_text_area"
-        android:ems="10"
+        android:ems="5"
         android:hint="  Sexo"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,6 +102,7 @@
         android:layout_width="215dp"
         android:layout_height="58dp"
         android:layout_marginTop="36dp"
+        android:paddingStart="5dp"
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
         android:hint="  Idade"

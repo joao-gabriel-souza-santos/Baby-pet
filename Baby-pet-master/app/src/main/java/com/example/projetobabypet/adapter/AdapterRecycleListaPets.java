@@ -49,7 +49,7 @@ public class AdapterRecycleListaPets extends RecyclerView.Adapter<HolderRecycleL
 
         Pet pet = pets.get(i);
         holderRecycleListaPets.textView_nome_pet.setText(pet.getNome());
-        holderRecycleListaPets.textView_raca_pet.setText("" + pet.getIdUsuario());
+        holderRecycleListaPets.textView_raca_pet.setText(pet.getNome());
         Bitmap fotoRedimensionada = Bitmap.createScaledBitmap(pet.getFoto(), 80, 74, true);
         holderRecycleListaPets.foto_pet.setImageBitmap(fotoRedimensionada);
     }
