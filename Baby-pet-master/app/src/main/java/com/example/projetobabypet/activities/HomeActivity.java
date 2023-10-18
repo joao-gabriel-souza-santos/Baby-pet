@@ -2,18 +2,20 @@ package com.example.projetobabypet.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+
+import com.example.projetobabypet.fragments.HoraFragment;
+import com.google.android.material.navigation.NavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.GravityCompat;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +24,7 @@ import android.widget.TextView;
 
 
 import com.example.projetobabypet.R;
-import com.example.projetobabypet.adapter.AdapterRecycleListaPets;
+import com.example.projetobabypet.adapter.ListaPetsHeader.AdapterRecycleListaPets;
 import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.databinding.ActivityHomeBinding;
 import com.example.projetobabypet.fragments.ContaFragment;
@@ -42,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView recyclerView;
     private String email;
     private Usuario usuario;
+    RecyclerView recycleViewListaPets;
 
 
     @Override
@@ -96,6 +99,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.artigo:
                     replaceFragment(new ArtigoFragment()); //se o item clicado for artigo, leva pra tela artigo
                     break;
+                case R.id.hora:
+                    replaceFragment(new HoraFragment());
             }
 
             return false;
@@ -115,7 +120,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 View header = binding.navView.getHeaderView(0);
                 ImageView imagUser = header.findViewById(R.id.image_usuario_header);
                 TextView textView = header.findViewById(R.id.textView_header);
-                RecyclerView recycleViewListaPets = header.findViewById(R.id.recycle_view_lista_pets);
+                recycleViewListaPets = header.findViewById(R.id.recycle_view_lista_pets);
                 textView.setText("" + usuario.getNome());
                 imagUser.setImageBitmap(usuario.getFoto());
                 LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -183,5 +188,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         binding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        pets_usuario_logado();
     }
 }

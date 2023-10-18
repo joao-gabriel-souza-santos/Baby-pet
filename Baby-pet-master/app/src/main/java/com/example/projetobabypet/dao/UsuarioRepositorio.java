@@ -35,6 +35,8 @@ public class UsuarioRepositorio {
         values.put(Helper.coluna_foto_usuario, stream.toByteArray());
         values.put(Helper.coluna_qtde_usuario_pets, usuario.getQtde_pet());
         long id = db.insert(Helper.nome_tabela, null, values);
+
+
         db.close();
         con.close();
         return id;

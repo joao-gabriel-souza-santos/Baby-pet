@@ -53,4 +53,18 @@ public class ControllerPet {
         }
         return pets_usuario;
     }
+
+    public List<Pet> teste(int id) throws Exception {
+        db = new PetRepositorio(context);
+        pets = buscar_todos_pets_usuario(id);
+        return pets;
+    }
+    public void cadastrarNovoPet(Pet pet){
+        db = new PetRepositorio(context);
+        db.cadastrar_novo_Pet(pet);
+    }
+    public void atualizarPet(Pet pet){
+        db = new PetRepositorio(context);
+        db.atualizarPet(pet);
+    }
 }

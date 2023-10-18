@@ -20,4 +20,9 @@
         android:title="Saude"
         android:icon="@drawable/ic_baseline_monitor_heart_24"
         />
+    <item
+        android:id="@+id/hora"
+        android:title="Hora"
+        android:icon="@drawable/relogioazul"
+        />
 </menu>

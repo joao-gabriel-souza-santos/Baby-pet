@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.atualizar.ActivityAtualizarPet">
+
+    <TextView
+        android:id="@+id/textView_conta_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="168dp"
+        android:text="Nome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_conta_sexo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="252dp"
+        android:text="Sexo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_conta_sexo"
+        android:layout_width="133dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:inputType="text"
+        android:text=" "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_conta_sexo" />
+
+    <EditText
+        android:id="@+id/editText_conta_nome"
+        android:layout_width="133dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:inputType="text"
+        android:text=" "
+        app:layout_constraintEnd_toEndOf="@+id/textView_conta_nome"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_conta_nome" />
+
+    <TextView
+        android:id="@+id/textView_conta_raca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="168dp"
+        android:layout_marginEnd="76dp"
+        android:text="Raça"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.745"
+        app:layout_constraintStart_toEndOf="@+id/textView_conta_nome"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_conta_idade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text=" Idade"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.584"
+        app:layout_constraintStart_toEndOf="@+id/textView_conta_sexo"
+        app:layout_constraintTop_toBottomOf="@+id/textView_conta_raca" />
+
+    <TextView
+        android:id="@+id/textView_horas_almoco"
+        android:layout_width="132dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginEnd="100dp"
+        android:text="Hora do almoço"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editText_horas_almoco"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_conta_agua_manha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="Água de manhã"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.643"
+        app:layout_constraintStart_toEndOf="@+id/textView_horas_janta"
+        app:layout_constraintTop_toBottomOf="@+id/textView_conta_horas_cafe" />
+
+    <TextView
+        android:id="@+id/textView_conta_agua_noite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="Agua noite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintStart_toEndOf="@+id/textView_conta_agua_tarde"
+        app:layout_constraintTop_toBottomOf="@+id/textView_conta_agua_manha" />
+
+    <EditText
+        android:id="@+id/editText_conta_raca"
+        android:layout_width="133dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:inputType="text"
+        android:text=" "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.695"
+        app:layout_constraintStart_toEndOf="@+id/editText_conta_nome"
+        app:layout_constraintTop_toBottomOf="@+id/textView_conta_raca" />
+
+    <TextView
+        android:id="@+id/textView_conta_agua_tarde"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="504dp"
+        android:text="Água de tarde"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_conta_horas_cafe"
+        android:layout_width="133dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:hint="06:00"
+        android:inputType="text"
+        android:text=" "
+        app:layout_constraintEnd_toStartOf="@+id/editText_horas_almoco"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_conta_horas_cafe" />
+
+    <TextView
+        android:id="@+id/textView_conta_horas_cafe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="324dp"
+        android:text="Hora do café"
+        app:layout_constraintEnd_toEndOf="@+id/editText_conta_horas_cafe"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_horas_janta"
+        android:layout_width="133dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:inputType="text"
+        android:text=" "
+        app:layout_constraintEnd_toStartOf="@+id/editText_conta_agua_manha"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_horas_janta" />
+
+    <EditText
+        android:id="@+id/editText_conta_agua_tarde"
+        android:layout_width="133dp"
+        android:layout_height="42dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:inputType="text"
+        android:text=" "
+        app:layout_constraintEnd_toEndOf="@+id/textView_conta_agua_tarde"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView_conta_agua_tarde"
+        app:layout_constraintTop_toBottomOf="@+id/textView_conta_agua_tarde" />
+
+    <TextView
+        android:id="@+id/textView_horas_janta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="408dp"
+        android:text="Hora da janta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_conta_idade"
+        android:layout_width="133dp"
+        android:layout_height="42dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:inputType="number"
+        android:text=" "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.695"
+        app:layout_constraintStart_toEndOf="@+id/editText_conta_sexo"
+        app:layout_constraintTop_toBottomOf="@+id/textView_conta_idade" />
+
+    <EditText
+        android:id="@+id/editText_horas_almoco"
+        android:layout_width="133dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="340dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:hint="Horas do café"
+
+        android:inputType="text"
+        android:text=" "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_conta_agua_manha"
+        android:layout_width="133dp"
+        android:layout_height="42dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:inputType="text"
+        android:text=" "
+        app:layout_constraintEnd_toEndOf="@+id/textView_conta_agua_manha"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView_conta_agua_manha"
+        app:layout_constraintTop_toBottomOf="@+id/textView_conta_agua_manha" />
+
+    <EditText
+        android:id="@+id/editText_conta_agua_noite"
+        android:layout_width="133dp"
+        android:layout_height="42dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:inputType="text"
+        android:text=" "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView_conta_agua_noite"
+        app:layout_constraintTop_toBottomOf="@+id/textView_conta_agua_noite"
+        />
+
+    <Button
+        android:id="@+id/button_pet_cadastrar_novo"
+        android:layout_width="108dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="576dp"
+        android:background="@drawable/style_btn_login_cadastro"
+        android:text="cadastrar"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagemRedonda"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/imagem_pet" />
+
+    <ImageButton
+        android:id="@+id/imageButton_voltar_atualizar_pet"
+        android:layout_width="39dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/image_button_circular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_voltar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

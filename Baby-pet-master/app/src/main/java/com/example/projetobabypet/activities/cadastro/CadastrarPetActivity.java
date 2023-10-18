@@ -7,11 +7,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -81,6 +81,7 @@ public class CadastrarPetActivity extends AppCompatActivity {
         String sexo = binding.txtSexo.getText().toString();
 
         pet = new Pet(us.getId(), nome, sexo, raca, idade, fotoCarregada);
+      //  pet = new Pet(nome, sexo, raca, idade, fotoCarregada);
         controllerPet.cadastrar(pet);
         return pet;
 

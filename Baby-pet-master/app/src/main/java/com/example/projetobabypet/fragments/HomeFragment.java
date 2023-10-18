@@ -1,9 +1,9 @@
 package com.example.projetobabypet.fragments;
 
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 
 import com.example.projetobabypet.R;
-import com.example.projetobabypet.adapter.AdapterRecycleHome;
+import com.example.projetobabypet.adapter.home.AdapterRecycleHome;
 
 
 import com.example.projetobabypet.databinding.FragmentHomeBinding;

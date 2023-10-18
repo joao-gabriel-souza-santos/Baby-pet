@@ -1,7 +1,7 @@
 package com.example.projetobabypet.activities.recuperalogin;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.projetobabypet.activities.Login;
@@ -25,7 +25,7 @@ public class EsqueciLogin extends AppCompatActivity {
             startActivity(new Intent(this, RecuperaSenha.class)); //leva o usuario pra tela de esqueci a senha quando o usuario apertar o botão
         });
 
-        binding.buttonVoltar.setOnClickListener(view -> {
+        binding.buttonVoltarEsqueciLogin.setOnClickListener(view -> {
             startActivity(new Intent(this, Login.class));// leva pra tela de login quando o usuario apertar no botão de voltar
         });
     }

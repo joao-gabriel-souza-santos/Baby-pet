@@ -1,20 +1,153 @@
 package com.example.projetobabypet.fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
+import androidx.annotation.RequiresApi;
+
+import com.example.projetobabypet.activities.atualizar.ActivityAtualizarPet;
+import com.example.projetobabypet.activities.cadastro.CadastrarNovoPet;
+import com.example.projetobabypet.controller.ControllerPet;
+import com.example.projetobabypet.java.RecyclerClickPetConta;
+import com.example.projetobabypet.model.Pet;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.projetobabypet.R;
+import com.example.projetobabypet.adapter.conta.AdapterListaPetsConta;
+import com.example.projetobabypet.controller.ControllerUsuario;
+import com.example.projetobabypet.databinding.FragmentContaBinding;
+import com.example.projetobabypet.model.Usuario;
+
+import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 
-public class ContaFragment extends Fragment {
+public class ContaFragment extends Fragment implements RecyclerClickPetConta {
+    FragmentContaBinding binding;
+    private String email;
+    private Usuario usuario;
+    SharedPreferences sp;
+    BottomSheetDialog dialog;
+    ControllerPet c;
+    AdapterListaPetsConta adapterListaPetsConta;
 
+
+
+    private SharedPreferences.Editor editor;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_conta, container, false);
+        binding = FragmentContaBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        sp = getActivity().getSharedPreferences("Log", Context.MODE_PRIVATE);
+        editor = sp.edit();
+        email = sp.getString("email", "");
+
+        pets_do_usuario();
+
+
+
+
+        binding.buttonAdicionarPet.setOnClickListener(view1 -> {
+            try {
+                Intent intent = new Intent(getContext(), CadastrarNovoPet.class);
+                startActivity(intent);
+            }catch (Exception e){
+
+            }
+
+        });
+
+
+        return view;
+    }
+
+
+
+
+    private void pets_do_usuario() {
+        try {
+            usuario = usuario_logado(email);
+            LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            binding.recyclerViewContaListaPets.setLayoutManager(manager);
+            adapterListaPetsConta = new AdapterListaPetsConta(getContext(), usuario.getId(), position -> onItemClick(position));
+            binding.recyclerViewContaListaPets.setAdapter(adapterListaPetsConta);
+        } catch (Exception e) {
+            AlertDialog.Builder caixademsg = new AlertDialog.Builder(getContext()); //cria uma caixa de alerta
+            caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+            caixademsg.setMessage("usuario nulo"); //coloca a mensagem da caixa
+            caixademsg.show(); //exibe a caixa pro usuario
+        }
+    }
+
+
+    private Usuario usuario_logado(String email) {
+        try {
+            ControllerUsuario c = ControllerUsuario.getInstancia(getContext());
+            Usuario usuario = c.buscarPorEmail(email);
+            return usuario;
+        } catch (Exception e) {
+            AlertDialog.Builder caixademsg = new AlertDialog.Builder(getContext()); //cria uma caixa de alerta
+            caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+            caixademsg.setMessage("" + e.getMessage()); //coloca a mensagem da caixa
+            caixademsg.show(); //exibe a caixa pro usuario
+        }
+        return null;
+    }
+
+    @Override
+    public void onItemClick(Pet pet) {
+
+            try {
+                Intent intent = new Intent(getContext(), ActivityAtualizarPet.class);
+
+                intent.putExtra("id", pet.getId());
+                intent.putExtra("idade", pet.getIdade());
+                intent.putExtra("idUsuario", pet.getIdUsuario());
+                intent.putExtra("nome", pet.getNome());
+                intent.putExtra("raca", pet.getRaca());
+                intent.putExtra("sexo", pet.getSexo());
+                intent.putExtra("horaCafe", pet.getHoras_comida_manha());
+                intent.putExtra("horaAlmoco", pet.getHoras_comida_tarde());
+                intent.putExtra("horaJanta", pet.getHoras_comida_noite());
+                intent.putExtra("aguaManha", pet.getHoras_agua_manha());
+                intent.putExtra("aguaTarde", pet.getHoras_agua_tarde());
+                intent.putExtra("aguaNoite", pet.getHoras_agua_noite());
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                pet.getFoto().compress(Bitmap.CompressFormat.PNG, 100, stream);
+                intent.putExtra("foto", stream.toByteArray());
+                startActivity(intent);
+            }catch (Exception e){
+                AlertDialog.Builder caixademsg = new AlertDialog.Builder(getContext()); //cria uma caixa de alerta
+                caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+                caixademsg.setMessage("" + e.getMessage()); //coloca a mensagem da caixa
+                caixademsg.show(); //exibe a caixa pro usuario
+            }
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            adapterListaPetsConta.atualizarLista(getContext(), usuario.getId());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

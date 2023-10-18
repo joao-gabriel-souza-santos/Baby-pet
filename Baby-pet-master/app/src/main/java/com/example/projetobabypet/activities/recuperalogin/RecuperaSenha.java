@@ -1,12 +1,10 @@
 package com.example.projetobabypet.activities.recuperalogin;
 
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.projetobabypet.activities.recuperalogin.AlterarSenha;
-import com.example.projetobabypet.activities.recuperalogin.EsqueciLogin;
 import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.databinding.ActivityRecuperaSenhaBinding;
 import com.example.projetobabypet.model.Usuario;

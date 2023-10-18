@@ -1,12 +1,11 @@
 package com.example.projetobabypet.activities.recuperalogin;
 
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.projetobabypet.activities.Login;
-import com.example.projetobabypet.activities.recuperalogin.EsqueciLogin;
 import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.databinding.ActivityRecuperaEmailBinding;
 import com.example.projetobabypet.model.Usuario;
@@ -27,7 +26,7 @@ public class RecuperaEmail extends AppCompatActivity {
             this.finish();
         });
 
-        binding.buttonVoltar.setOnClickListener(view -> {
+        binding.buttonVoltarEmail.setOnClickListener(view -> {
             startActivity(new Intent(this, EsqueciLogin.class));
             this.finish();
         });

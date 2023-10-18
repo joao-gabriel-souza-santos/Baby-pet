@@ -1,10 +1,10 @@
-package com.example.projetobabypet.adapter;
+package com.example.projetobabypet.adapter.ListaPetsHeader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +29,7 @@ public class AdapterRecycleListaPets extends RecyclerView.Adapter<HolderRecycleL
         cp = ControllerPet.getInstancia(context);
         try {
             pets = cp.buscar_todos_pets_usuario(id_usuario);
+            atualizarLista();
         } catch (Exception e) {
             AlertDialog.Builder caixademsg = new AlertDialog.Builder(context); //cria a caixa de dialogo
             caixademsg.setTitle("Erro"); //coloca o titulo da caixa de dialogo
@@ -48,7 +49,7 @@ public class AdapterRecycleListaPets extends RecyclerView.Adapter<HolderRecycleL
     public void onBindViewHolder(@NonNull HolderRecycleListaPets holderRecycleListaPets, int i) {
 
         Pet pet = pets.get(i);
-        holderRecycleListaPets.textView_nome_pet.setText(pet.getNome());
+        holderRecycleListaPets.textView_nome_pet.setText(pet.getIdUsuario() + "");
         holderRecycleListaPets.textView_raca_pet.setText(pet.getNome());
         Bitmap fotoRedimensionada = Bitmap.createScaledBitmap(pet.getFoto(), 80, 74, true);
         holderRecycleListaPets.foto_pet.setImageBitmap(fotoRedimensionada);
@@ -58,4 +59,10 @@ public class AdapterRecycleListaPets extends RecyclerView.Adapter<HolderRecycleL
     public int getItemCount() {
         return pets.size();
     }
+    public void atualizarLista() throws Exception {
+        pets.clear();
+        pets.addAll(cp.buscar_todos_pets_usuario(id_usuario));
+        notifyDataSetChanged();
+    }
+
 }

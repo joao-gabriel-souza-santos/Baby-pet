@@ -2,8 +2,10 @@ package com.example.projetobabypet.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.example.projetobabypet.activities.cadastro.Cadastro;
@@ -71,4 +73,5 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
 }

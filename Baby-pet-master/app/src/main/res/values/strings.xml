@@ -4,8 +4,13 @@
     <string name="menu_saude">Saúde</string>
     <string name="menu_conta">Conta</string>
     <string name="menu_artigo">Artigos</string>
-    <string name ="open"> Open Navigation Draewer</string>
-    <string name ="close"> Close Navigation Draewer</string>
+    <string name="menu_hora">Hora</string>
+    <string name="open"> Open Navigation Draewer</string>
+    <string name="close"> Close Navigation Draewer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_cadastrar_novo_pet">CadastrarNovoPet</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
