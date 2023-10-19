@@ -67,4 +67,8 @@ public class ControllerPet {
         db = new PetRepositorio(context);
         db.atualizarPet(pet);
     }
+    public void deletarPet(Pet pet){
+        db = new PetRepositorio(context);
+        db.deletar(pet);
+    }
 }

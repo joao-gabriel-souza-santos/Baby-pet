@@ -1,4 +1,4 @@
-package com.example.projetobabypet.java;
+package com.example.projetobabypet.interfaces;
 
 import com.example.projetobabypet.model.Pet;
 

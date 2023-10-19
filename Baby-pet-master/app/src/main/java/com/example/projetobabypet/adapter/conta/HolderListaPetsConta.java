@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.projetobabypet.R;
-import com.example.projetobabypet.java.RecyclerClickPetConta;
+import com.example.projetobabypet.interfaces.RecyclerClickPetConta;
 
 public class HolderListaPetsConta extends RecyclerView.ViewHolder {
 

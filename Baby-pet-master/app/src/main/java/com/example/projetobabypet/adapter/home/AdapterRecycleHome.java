@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.projetobabypet.R;
+import com.example.projetobabypet.controller.ControllerHora;
 import com.example.projetobabypet.fragments.HomeFragment;
 
 import java.util.List;
@@ -43,6 +44,7 @@ public class AdapterRecycleHome extends RecyclerView.Adapter<HolderRecycleHome> 
         }else{
             holderRecycleHome.imageView.setImageResource(R.drawable.imagem_mini_copo);
         }
+
         }
 
     @Override

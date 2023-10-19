@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi;
 import com.example.projetobabypet.activities.atualizar.ActivityAtualizarPet;
 import com.example.projetobabypet.activities.cadastro.CadastrarNovoPet;
 import com.example.projetobabypet.controller.ControllerPet;
-import com.example.projetobabypet.java.RecyclerClickPetConta;
+import com.example.projetobabypet.interfaces.RecyclerClickPetConta;
 import com.example.projetobabypet.model.Pet;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import androidx.fragment.app.Fragment;
@@ -28,20 +28,19 @@ import com.example.projetobabypet.databinding.FragmentContaBinding;
 import com.example.projetobabypet.model.Usuario;
 
 import java.io.ByteArrayOutputStream;
-import java.util.List;
 
 
 public class ContaFragment extends Fragment implements RecyclerClickPetConta {
     FragmentContaBinding binding;
     private String email;
     private Usuario usuario;
-    SharedPreferences sp;
+
     BottomSheetDialog dialog;
     ControllerPet c;
     AdapterListaPetsConta adapterListaPetsConta;
 
 
-
+    SharedPreferences sp;
     private SharedPreferences.Editor editor;
 
     @RequiresApi(api = Build.VERSION_CODES.M)

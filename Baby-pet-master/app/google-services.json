@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "257560660574",
+    "project_id": "projeto-baby-pet",
+    "storage_bucket": "projeto-baby-pet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257560660574:android:1472281bb6915be9d902cf",
+        "android_client_info": {
+          "package_name": "com.example.projetobabypet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVpK7yvdgGZge26QB_af_GIhZXfG60NMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

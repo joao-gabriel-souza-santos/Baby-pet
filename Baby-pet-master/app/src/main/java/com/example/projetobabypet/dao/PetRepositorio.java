@@ -167,4 +167,11 @@ public class PetRepositorio {
         db.close();
         helper.close();
     }
+
+    public void deletar(Pet pet){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.delete(Helper.nome_tabela_pet, Helper.coluna_id_pet + "=?", new String[]{
+                String.valueOf(pet.getId())
+        });
+    }
 }

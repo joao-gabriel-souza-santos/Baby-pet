@@ -8,7 +8,7 @@ public class Helper extends SQLiteOpenHelper {
 
     //TABELA USUARIO
    public static final String nome_banco = "banco_userss";
-   private static final int versao = 14;
+   private static final int versao = 1;
     public static final String nome_tabela = "Usuario";
     public static final String coluna_id_usuario = "id";
     public static final String coluna_nome = "nome";
@@ -57,8 +57,11 @@ public class Helper extends SQLiteOpenHelper {
 
 
 
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
+
 
         sqLiteDatabase.execSQL("CREATE TABLE " + nome_tabela + "( " +
                 coluna_id_usuario + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -71,7 +74,7 @@ public class Helper extends SQLiteOpenHelper {
 
         String sql = "CREATE TABLE " + nome_tabela_pet + "( " +
                      coluna_id_pet + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                coluna_pet_id_usuario + " INTEGER NOT NULL, " +
+                coluna_pet_id_usuario + " INTEGER, " +
                 coluna_nome_pet + " TEXT NOT NULL, " +
                 coluna_raca_pet + " TEXT NOT NULL, " +
                 coluna_sexo_pet + " TEXT NOT NULL, " +
@@ -91,18 +94,18 @@ public class Helper extends SQLiteOpenHelper {
 
         String sql2 = " CREATE TABLE " + nome_tabela_compromisso + "( "  +
                 coluna_id_compromisso + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                coluna_id_usuario_compromisso + " INTEGER NOT NULL, " +
+                coluna_id_usuario_compromisso + " INTEGER, " +
                 coluna_nome_compromisso + " TEXT, " +
                 coluna_hora_compromisso + " TEXT NOT NULL," +
                 coluna_descricao_compromisso + " TEXT, " +
                 coluna_repeticao_compromisso + " TEXT, " +
-                coluna_data_compromisso + " NUMERIC, " +
-                 " FOREIGN KEY(" + coluna_id_usuario_compromisso+ ") REFERENCES " + nome_tabela_compromisso + "(" + coluna_id_usuario + ")" +
+                coluna_data_compromisso + " NUMERIC " +
                 ");";
 
 
 
-        sqLiteDatabase.execSQL(sql + sql2);
+        sqLiteDatabase.execSQL(sql);
+        sqLiteDatabase.execSQL(sql2);
 
 
     }

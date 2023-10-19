@@ -8,11 +8,10 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.projetobabypet.R;
 import com.example.projetobabypet.controller.ControllerPet;
-import com.example.projetobabypet.java.RecyclerClickPetConta;
+import com.example.projetobabypet.interfaces.RecyclerClickPetConta;
 import com.example.projetobabypet.model.Pet;
 
 import java.util.List;
@@ -58,6 +57,17 @@ public class AdapterListaPetsConta extends RecyclerView.Adapter<HolderListaPetsC
 
             holder.cardView.setOnClickListener(view -> {
                 recyclerClickPetConta.onItemClick(pets.get(i));
+            });
+
+            holder.cardView.setOnLongClickListener(view -> {
+
+                c.deletarPet(pets.get(i));
+                try {
+                    atualizarLista(context, idUsuario);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                return true;
             });
     }
 

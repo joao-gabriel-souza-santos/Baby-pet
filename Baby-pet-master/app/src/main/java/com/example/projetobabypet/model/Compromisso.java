@@ -8,8 +8,9 @@ public class Compromisso {
     private String nome, descricao, repeticao, hora;
     private Date data;
 
-    public Compromisso(){
-
+    public Compromisso(String hora, String descricao){
+        this.hora = hora;
+        this.descricao = descricao;
     }
 
     public Compromisso(int id,int id_usuario, String nome, String descricao, String repeticao, String hora, Date data) {
@@ -26,6 +27,12 @@ public class Compromisso {
         this.nome = nome;
         this.descricao = descricao;
         this.hora = hora;
+        this.id_usuario = id_usuario;
+    }
+
+    public Compromisso(int id_usuario, String hora, String descricao) {
+        this.hora = hora;
+        this.descricao = descricao;
         this.id_usuario = id_usuario;
     }
 

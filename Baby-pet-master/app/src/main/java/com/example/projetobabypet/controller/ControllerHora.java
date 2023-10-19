@@ -31,15 +31,30 @@ public class ControllerHora {
         db.cadastrar(compromisso);
     }
 
-    public List<Compromisso> buscar_compromissos_usuario(int id){
+    public void cadastrarNotificacao(Compromisso compromisso){
+        db = new CompromissoRepositorio(context);
+        db.cadastrarNotificacao(compromisso);
+    }
+
+
+    public List<Compromisso> buscar_compromissos(int id){
+        db = new CompromissoRepositorio(context);
+        compromissos = db.buscarTodosCompromissos_usuario(id);
+        return compromissos;
+    }
+    public List<Compromisso> buscar_todos_compromissos(){
         db = new CompromissoRepositorio(context);
         compromissos = db.buscarTodosCompromissos();
-        List<Compromisso> compromissos_usuario = new ArrayList<>();
-        for(Compromisso compromisso: compromissos){
-            if(compromisso.getId_usuario() == id)
-                compromissos_usuario.add(compromisso);
+        return compromissos;
+    }
 
-        }
-        return compromissos_usuario;
+    public void atualizarNotificacao(Compromisso compromisso){
+        db = new CompromissoRepositorio(context);
+        db.atualizarCompromisso(compromisso);
+    }
+
+    public void deletar(Compromisso compromisso){
+        db = new CompromissoRepositorio(context);
+        db.deletar(compromisso);
     }
 }
