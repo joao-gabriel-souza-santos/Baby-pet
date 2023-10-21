@@ -1,36 +1,23 @@
 package com.example.projetobabypet.fragments;
 
-import android.Manifest;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.nfc.Tag;
-import android.os.Build;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.example.projetobabypet.R;
-import com.example.projetobabypet.activities.HomeActivity;
 import com.example.projetobabypet.adapter.hora.AdapterListaHora;
 import com.example.projetobabypet.controller.ControllerHora;
 import com.example.projetobabypet.controller.ControllerUsuario;
@@ -38,12 +25,8 @@ import com.example.projetobabypet.databinding.FragmentHoraBinding;
 import com.example.projetobabypet.interfaces.RecyclerClickHora;
 import com.example.projetobabypet.model.Compromisso;
 import com.example.projetobabypet.model.Usuario;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.projetobabypet.notificacao.NotificationService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.ArrayList;
 
 
 public class HoraFragment extends Fragment implements RecyclerClickHora {
@@ -70,13 +53,30 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
         editor = sp.edit();
         email = sp.getString("email", "");
         usuario = usuario_logado(email);
+
+        try {
+//            VerificaNotificacao verificaNotificacao = new VerificaNotificacao();
+//            verificaNotificacao.execute();
+            Intent serviceIntent = new Intent(getActivity(), NotificationService.class);
+            serviceIntent.putExtra("id", usuario.getId());
+            NotificationService notificationService = new NotificationService();
+            notificationService.onReceive(getContext(), serviceIntent);
+        }catch (Exception e){
+
+                AlertDialog.Builder caixademsg = new AlertDialog.Builder(getContext()); //cria uma caixa de alerta
+                caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+                caixademsg.setMessage(e.getMessage()); //coloca a mensagem da caixa
+                caixademsg.show(); //exibe a caixa pro usuario
+
+        }
+
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerViewHora.setLayoutManager(manager);
         AdapterListaHora adapterListaHora = new AdapterListaHora(getContext(), usuario.getId(), this);
         binding.recyclerViewHora.setAdapter(adapterListaHora);
 
         binding.buttonAdicionarHora.setOnClickListener(view1 -> {
-            notificacao();
+
             createDialog();
         });
 
@@ -112,6 +112,19 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
                 Compromisso compromisso = new Compromisso(usuario.getId(), hora, descricao);
                 ControllerHora c = ControllerHora.getInstance(getContext());
                 c.cadastrarNotificacao(compromisso);
+                try {
+//                    VerificaNotificacao verificaNotificacao = new VerificaNotificacao();
+//                    verificaNotificacao.execute();
+                    Intent serviceIntent = new Intent(getActivity(), NotificationService.class);
+                    serviceIntent.putExtra("id", usuario.getId());
+                    NotificationService notificationService = new NotificationService();
+                    notificationService.onReceive(getContext(), serviceIntent);
+                } catch (Exception e){
+                    AlertDialog.Builder caixademsg = new AlertDialog.Builder(getContext()); //cria uma caixa de alerta
+                    caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+                    caixademsg.setMessage(e.getMessage()); //coloca a mensagem da caixa
+                    caixademsg.show(); //exibe a caixa pro usuario
+                }
 
                 AdapterListaHora adapter = new AdapterListaHora(getContext(), usuario.getId(), this);
                 binding.recyclerViewHora.setAdapter(adapter);
@@ -169,6 +182,8 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
                     compromisso.setDescricao(descricao);
                     ControllerHora c = ControllerHora.getInstance(getContext());
                     c.atualizarNotificacao(compromisso);
+                    VerificaNotificacao verificaNotificacao = new VerificaNotificacao();
+                    verificaNotificacao.execute();
                     dialog.dismiss();
                     AdapterListaHora adapterListaHora = new AdapterListaHora(getContext(), usuario.getId(), this);
                     binding.recyclerViewHora.setAdapter(adapterListaHora);
@@ -193,34 +208,28 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
         binding.recyclerViewHora.setAdapter(adapterListaHora);
     }
 
-    public void notificacao(){
-        String channelID = "CHANNEL_ID_NOTIFICATION";
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext().getApplicationContext(), channelID);
-        builder.setSmallIcon(R.drawable.minilogo).
-                setContentTitle("Dar ração")
-                .setContentText("Vai dar raçao pro dog caralho")
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        Intent intent = new Intent(getContext().getApplicationContext(), HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+ class VerificaNotificacao extends AsyncTask{
 
-        NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+     @Override
+     protected Object doInBackground(Object[] objects) {
 
-         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
-             NotificationChannel notificationChannel = notificationManager.getNotificationChannel(channelID);
-             if(notificationChannel == null){
-                 int importance = NotificationManager.IMPORTANCE_HIGH;
-                 notificationChannel = new NotificationChannel(channelID, "racao/agua", importance);
-                notificationChannel.setLightColor(Color.GREEN);
-                notificationChannel.enableVibration(true);
-                notificationManager.createNotificationChannel(notificationChannel);
-             }
+         try {
+             Intent serviceIntent = new Intent(getActivity(), NotificationService.class);
+             serviceIntent.putExtra("id", usuario.getId());
+             NotificationService notificationService = new NotificationService();
+             notificationService.onReceive(getContext(), serviceIntent);
+
+
+         } catch (Exception e){
+             AlertDialog.Builder caixademsg = new AlertDialog.Builder(getContext(), usuario.getId()); //cria uma caixa de alerta
+             caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+             caixademsg.setMessage(e.getMessage()); //coloca a mensagem da caixa
+             caixademsg.show(); //exibe a caixa pro usuario
          }
 
-         notificationManager.notify(0, builder.build());
-
-    }
-
+         return true;
+     }
+ }
 
 }
