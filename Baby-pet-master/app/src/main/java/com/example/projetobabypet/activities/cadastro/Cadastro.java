@@ -103,26 +103,27 @@ public class Cadastro extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-       if(resultCode == RESULT_OK && requestCode == 1000) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1000) {
             fotoPuxada = null;
-           try {
-               Uri image = data.getData();
-               fotoPuxada = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image);
-               Bitmap fotoRedimensionda = Bitmap.createScaledBitmap(fotoPuxada, 150, 150, true);
-               binding.imageRedonda.setImageBitmap(fotoRedimensionda);
+            try {
+                Uri image = data.getData();
+                fotoPuxada = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image);
+                Bitmap fotoRedimensionda = Bitmap.createScaledBitmap(fotoPuxada, 150, 150, true);
+                binding.imageRedonda.setImageBitmap(fotoRedimensionda);
 
-               ByteArrayOutputStream stream = new ByteArrayOutputStream();
-               fotoPuxada.compress(Bitmap.CompressFormat.PNG, 100, stream);
-               fotoCarregada = fotoPuxada;
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                fotoPuxada.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                fotoCarregada = fotoPuxada;
 
-           } catch (Exception e) {
-               Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-               binding.imageRedonda.setImageResource(R.drawable.baseline_person_24);
-               ByteArrayOutputStream stream = new ByteArrayOutputStream();
-               fotoPuxada.compress(Bitmap.CompressFormat.PNG, 100, stream);
-               fotoCarregada = fotoPuxada;
-           }
-       }
+            } catch (Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                binding.imageRedonda.setImageResource(R.drawable.baseline_person_24);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                fotoPuxada.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                fotoCarregada = fotoPuxada;
+            }
+        }
     }
 
     private Usuario cadastrarUsuario() {
@@ -130,10 +131,10 @@ public class Cadastro extends AppCompatActivity {
         String email = binding.txtEmail.getText().toString();
         String cpf = binding.txtCpf.getText().toString();
         String senha = binding.txtSenha.getText().toString();
-        int qtde_pets = Integer.parseInt(binding.editTextQtdePet.getText().toString());
+
         ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(this);
 
-        usuario = new Usuario(nome, cpf, email, senha, fotoCarregada, qtde_pets);
+        usuario = new Usuario(nome, cpf, email, senha, fotoCarregada);
         controllerUsuario.cadastrar(usuario, this);
         return usuario;
     }

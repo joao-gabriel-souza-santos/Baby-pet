@@ -31,18 +31,14 @@ public class PetRepositorio {
         values.put(Helper.coluna_pet_id_usuario, pet.getIdUsuario());
         values.put(Helper.coluna_nome_pet, pet.getNome());
         values.put(Helper.coluna_raca_pet, pet.getRaca());
-        values.put(Helper.coluna_idade_pet, pet.getNome());
+        values.put(Helper.coluna_idade_pet, pet.getIdade());
         values.put(Helper.coluna_sexo_pet, pet.getSexo());
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         pet.getFoto().compress(Bitmap.CompressFormat.PNG, 100, stream);
         values.put(Helper.coluna_foto_pet, stream.toByteArray());
-         long id = db.insert(Helper.nome_tabela_pet, Helper.coluna_horas_pet_bebe_manha + ", " +
-                 Helper.coluna_horas_pet_bebe_tarde + ", " +
-                 Helper.coluna_horas_pet_bebe_noite + ", " +
+         long id = db.insert(Helper.nome_tabela_pet,
                  Helper.coluna_horas_pet_bebeu + ", " +
-                Helper.coluna_horas_pet_come_manha + ", " +
-                 Helper.coluna_horas_pet_come_tarde + ", " +
-                 Helper.coluna_horas_pet_come_noite + ", " +
+
                 Helper.coluna_horas_pet_comeu + "," +
                 Helper.coluna_qtde_pet_agua + ", " +
                 Helper.coluna_qtde_pet_racao,values);
@@ -58,21 +54,14 @@ public class PetRepositorio {
         values.put(Helper.coluna_pet_id_usuario, pet.getIdUsuario());
         values.put(Helper.coluna_nome_pet, pet.getNome());
         values.put(Helper.coluna_raca_pet, pet.getRaca());
-        values.put(Helper.coluna_idade_pet, pet.getNome());
+        values.put(Helper.coluna_idade_pet, pet.getIdade());
         values.put(Helper.coluna_sexo_pet, pet.getSexo());
-        values.put(Helper.coluna_horas_pet_bebe_manha, pet.getHoras_agua_manha());
-        values.put(Helper.coluna_horas_pet_bebe_tarde, pet.getHoras_agua_tarde());
-        values.put(Helper.coluna_horas_pet_bebe_noite, pet.getHoras_agua_noite());
-        values.put(Helper.coluna_horas_pet_come_manha, pet.getHoras_comida_manha());
-        values.put(Helper.coluna_horas_pet_come_tarde, pet.getHoras_comida_tarde());
-        values.put(Helper.coluna_horas_pet_come_noite, pet.getHoras_comida_noite());
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         pet.getFoto().compress(Bitmap.CompressFormat.PNG, 100, stream);
         values.put(Helper.coluna_foto_pet, stream.toByteArray());
         long id = db.insert(Helper.nome_tabela_pet,
-                Helper.coluna_horas_pet_bebeu + ", " +
-                Helper.coluna_horas_pet_comeu + "," +
+
                 Helper.coluna_qtde_pet_agua + ", " +
                 Helper.coluna_qtde_pet_racao,values);
         db.close();
@@ -98,18 +87,10 @@ public class PetRepositorio {
             String sexo = cursor.getString(4);
             int idade = cursor.getInt(5);
             byte[] stream = cursor.getBlob(6);
-            String horasAguaManha = cursor.getString(7);
-            String horasAguaTarde = cursor.getString(8);
-            String horasAguaNoite = cursor.getString(9);
-            String horasPetBebeu = cursor.getString(10);
-            String horasCafe = cursor.getString(11);
-            String horasAlmoco = cursor.getString(12);
-            String horasNoite = cursor.getString(13);
-            String horasPetComeu = cursor.getString(14);
-            int qtde_agua = cursor.getInt(15);
-            int qtde_racao = cursor.getInt(16);
+            int qtde_agua = cursor.getInt(7);
+            int qtde_racao = cursor.getInt(8);
             Bitmap foto = BitmapFactory.decodeByteArray(stream, 0, stream.length);
-            Pet pet = new Pet(nome, sexo, raca, horasCafe, horasAlmoco, horasNoite, horasAguaManha, horasAguaTarde, horasAguaNoite, idPet,id_usuario, idade, foto);
+            Pet pet = new Pet(nome, sexo, raca, idPet,id_usuario, idade, foto);
             pets.add(pet);
         }
         db.close();
@@ -134,14 +115,10 @@ public class PetRepositorio {
             String sexo = cursor.getString(4);
             int idade = cursor.getInt(5);
             byte[] stream = cursor.getBlob(6);
-            String horasPetBebe = cursor.getString(7);
-            String horasPetBebeu = cursor.getString(8);
-            String horasPetCome = cursor.getString(9);
-            String horasPetComeu = cursor.getString(10);
-            int qtde_agua = cursor.getInt(11);
-            int qtde_racao = cursor.getInt(12);
+            int qtde_agua = cursor.getInt(7);
+            int qtde_racao = cursor.getInt(8);
             Bitmap foto = BitmapFactory.decodeByteArray(stream, 0, stream.length);
-            Pet pet = new Pet(nome, sexo, raca, horasPetCome, horasPetComeu, horasPetBebe, horasPetBebeu, idPet, id_usuario, idade, qtde_racao, qtde_agua, foto);
+            Pet pet = new Pet(nome, sexo, raca, idPet, id_usuario, idade, qtde_racao, qtde_agua, foto);
             pets.add(pet);
         }
         db.close();
@@ -155,14 +132,8 @@ public class PetRepositorio {
         values.put(Helper.coluna_pet_id_usuario, pet.getIdUsuario());
         values.put(Helper.coluna_nome_pet, pet.getNome());
         values.put(Helper.coluna_raca_pet, pet.getRaca());
-        values.put(Helper.coluna_idade_pet, pet.getNome());
+        values.put(Helper.coluna_idade_pet, pet.getIdade());
         values.put(Helper.coluna_sexo_pet, pet.getSexo());
-        values.put(Helper.coluna_horas_pet_bebe_manha, pet.getHoras_agua_manha());
-        values.put(Helper.coluna_horas_pet_bebe_tarde, pet.getHoras_agua_tarde());
-        values.put(Helper.coluna_horas_pet_bebe_noite, pet.getHoras_agua_noite());
-        values.put(Helper.coluna_horas_pet_come_manha, pet.getHoras_comida_manha());
-        values.put(Helper.coluna_horas_pet_come_tarde, pet.getHoras_comida_tarde());
-        values.put(Helper.coluna_horas_pet_come_noite, pet.getHoras_comida_noite());
         db.update(Helper.nome_tabela_pet, values, Helper.coluna_id_pet + " =?", new String[]{String.valueOf(pet.getId())});
         db.close();
         helper.close();

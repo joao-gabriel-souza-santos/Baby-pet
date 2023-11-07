@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_cpf" />
 
-    <EditText
+    <com.santalu.maskedittext.MaskEditText
         android:id="@+id/editText_cpf"
         android:layout_width="249dp"
         android:layout_height="56dp"
@@ -39,6 +39,7 @@
         android:ems="10"
         android:hint="  CPF"
         android:inputType="number"
+        app:met_mask="###.###.###-##"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

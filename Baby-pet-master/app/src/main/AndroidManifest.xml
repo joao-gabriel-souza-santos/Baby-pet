@@ -17,6 +17,9 @@
         android:theme="@style/Theme.ProjetoBabyPet"
         tools:targetApi="31">
         <activity
+            android:name=".activities.atualizar.AtualizarUsuario"
+            android:exported="false" />
+        <activity
             android:name=".activities.CalendarioActivity"
             android:exported="false" />
 

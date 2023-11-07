@@ -119,12 +119,6 @@ public class ContaFragment extends Fragment implements RecyclerClickPetConta {
                 intent.putExtra("nome", pet.getNome());
                 intent.putExtra("raca", pet.getRaca());
                 intent.putExtra("sexo", pet.getSexo());
-                intent.putExtra("horaCafe", pet.getHoras_comida_manha());
-                intent.putExtra("horaAlmoco", pet.getHoras_comida_tarde());
-                intent.putExtra("horaJanta", pet.getHoras_comida_noite());
-                intent.putExtra("aguaManha", pet.getHoras_agua_manha());
-                intent.putExtra("aguaTarde", pet.getHoras_agua_tarde());
-                intent.putExtra("aguaNoite", pet.getHoras_agua_noite());
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 pet.getFoto().compress(Bitmap.CompressFormat.PNG, 100, stream);

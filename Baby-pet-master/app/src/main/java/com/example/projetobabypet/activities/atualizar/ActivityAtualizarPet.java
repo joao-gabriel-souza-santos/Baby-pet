@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
+import com.example.projetobabypet.adapter.conta.AdapterListaPetsConta;
 import com.example.projetobabypet.controller.ControllerPet;
 import com.example.projetobabypet.databinding.ActivityAtualizarPetBinding;
 import com.example.projetobabypet.model.Pet;
@@ -36,12 +37,7 @@ public class ActivityAtualizarPet extends AppCompatActivity {
     int idUsuario ;
     String raca ;
     String sexo ;
-    String horas_comida_manha;
-    String horas_comida_tarde;
-    String horas_comida_noite;
-    String horas_agua_manha;
-    String horas_agua_tarde;
-    String horas_agua_noite;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -79,12 +75,6 @@ public class ActivityAtualizarPet extends AppCompatActivity {
         idUsuario = intent.getIntExtra("idUsuario", 0);
         raca = intent.getStringExtra("raca");
         sexo = intent.getStringExtra("sexo");
-        horas_comida_manha = intent.getStringExtra("horaCafe");
-        horas_comida_tarde = intent.getStringExtra("horaAlmoco");
-        horas_comida_noite = intent.getStringExtra("horaJanta");
-        horas_agua_manha = intent.getStringExtra("aguaManha");
-        horas_agua_tarde = intent.getStringExtra("aguaTarde");
-        horas_agua_noite = intent.getStringExtra("aguaNoite");
         byte[] stream = intent.getByteArrayExtra("foto");
         Bitmap foto = BitmapFactory.decodeByteArray(stream,0,stream.length);
         binding.imagemRedonda.setImageBitmap(foto);
@@ -93,12 +83,6 @@ public class ActivityAtualizarPet extends AppCompatActivity {
         binding.editTextContaSexo.setText(sexo);
         binding.editTextContaIdade.setText("" + idade);
 
-        binding.editTextContaHorasCafe.setText(horas_comida_manha);
-        binding.editTextHorasAlmoco.setText(horas_comida_tarde);
-        binding.editTextHorasJanta.setText(horas_comida_noite);
-        binding.editTextContaAguaManha.setText(horas_agua_manha);
-        binding.editTextContaAguaTarde.setText(horas_agua_tarde);
-        binding.editTextContaAguaNoite.setText(horas_agua_noite);
     }
 
     private void atualizarPet() {
@@ -106,17 +90,17 @@ public class ActivityAtualizarPet extends AppCompatActivity {
              raca = binding.editTextContaRaca.getText().toString();
              sexo = binding.editTextContaSexo.getText().toString();
              idade = Integer.parseInt(binding.editTextContaIdade.getText().toString());
-             horas_comida_manha = binding.editTextContaHorasCafe.getText().toString();
-             horas_comida_tarde = binding.editTextHorasAlmoco.getText().toString();
-             horas_comida_noite = binding.editTextHorasJanta.getText().toString();
-             horas_agua_manha = binding.editTextContaAguaManha.getText().toString();
-             horas_agua_tarde = binding.editTextContaAguaTarde.getText().toString();
-             horas_agua_noite = binding.editTextContaAguaNoite.getText().toString();
 
-             Pet pet = new Pet(nome, sexo, raca, horas_comida_manha, horas_comida_tarde, horas_comida_noite, horas_agua_manha, horas_agua_tarde, horas_agua_noite, id,idUsuario, idade, fotoCarregada);
+
+             Pet pet = new Pet(nome, sexo, raca, id,idUsuario, idade, fotoCarregada);
              ControllerPet controllerPet = ControllerPet.getInstancia(this);
              controllerPet.atualizarPet(pet);
-             this.finish();
+        try {
+            AdapterListaPetsConta.atualizarLista(this, idUsuario);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        this.finish();
     }
 
     private void escolherImagem() {
@@ -140,18 +124,19 @@ public class ActivityAtualizarPet extends AppCompatActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == RESULT_OK && requestCode == 1000){
-            try{
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1000) {
+            try {
                 Uri image = data.getData();
                 Bitmap fotoPuxada = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image);
-                Bitmap fotoRedimensionda = Bitmap.createScaledBitmap(fotoPuxada, 150,150, true);
+                Bitmap fotoRedimensionda = Bitmap.createScaledBitmap(fotoPuxada, 150, 150, true);
                 binding.imagemRedonda.setImageBitmap(fotoRedimensionda);
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 fotoPuxada.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 fotoCarregada = fotoPuxada;
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }

@@ -27,13 +27,9 @@ public class Helper extends SQLiteOpenHelper {
     public static final String coluna_raca_pet = "raca";
     public static final String coluna_sexo_pet = "sexo";
     public static final String coluna_idade_pet = "idade";
-    public static final String coluna_horas_pet_come_manha = "horas_pet_come_manha";
-    public static final String coluna_horas_pet_come_tarde = "horas_pet_come_tarde";
-    public static final String coluna_horas_pet_come_noite = "horas_pet_come_noite";
+
     public static final String coluna_horas_pet_comeu = "horas_pet_comeu";
-    public static final String coluna_horas_pet_bebe_manha = "horas_pet_bebe_manha";
-    public static final String coluna_horas_pet_bebe_tarde = "horas_pet_bebe_tarde";
-    public static final String coluna_horas_pet_bebe_noite = "horas_pet_bebe_noite";
+
     public static final String coluna_horas_pet_bebeu = "horas_pet_bebeu";
     public static final String coluna_qtde_pet_racao = "qtde_pet_racao";
     public static final String coluna_qtde_pet_agua = "qtde_pet_agua";
@@ -77,8 +73,8 @@ public class Helper extends SQLiteOpenHelper {
                                 coluna_cpf + " TEXT UNIQUE NOT NULL, " +
                                 coluna_email + " TEXT UNIQUE NOT NULL, " +
                                 coluna_senha + " TEXT NOT NULL, " +
-                                coluna_foto_usuario + " BLOB NOT NULL, " +
-                                coluna_qtde_usuario_pets + " INTEGER NOT NULL" + ");");
+                                coluna_foto_usuario + " BLOB NOT NULL " +
+                                 ");");
 
         String sql = "CREATE TABLE " + nome_tabela_pet + "( " +
                      coluna_id_pet + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -88,13 +84,7 @@ public class Helper extends SQLiteOpenHelper {
                 coluna_sexo_pet + " TEXT NOT NULL, " +
                 coluna_idade_pet + " INTEGER NOT NULL, " +
                 coluna_foto_pet + " BLOB NOT NULL, " +
-                coluna_horas_pet_bebe_manha + " TEXT, " +
-                coluna_horas_pet_bebe_tarde + " TEXT, " +
-                coluna_horas_pet_bebe_noite + " TEXT, " +
                 coluna_horas_pet_bebeu + " TEXT, " +
-                coluna_horas_pet_come_manha + " TEXT, " +
-                coluna_horas_pet_come_tarde + " TEXT, " +
-                coluna_horas_pet_come_noite + " TEXT, " +
                 coluna_horas_pet_comeu + " TEXT, " +
                 coluna_qtde_pet_agua + " TEXT, " +
                 coluna_qtde_pet_racao + " TEXT " +

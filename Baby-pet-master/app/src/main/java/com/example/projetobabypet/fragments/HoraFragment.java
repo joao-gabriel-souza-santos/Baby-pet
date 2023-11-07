@@ -182,8 +182,6 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
                     compromisso.setDescricao(descricao);
                     ControllerCompromisso c = ControllerCompromisso.getInstance(getContext());
                     c.atualizarCompromisso(compromisso);
-                    VerificaNotificacao verificaNotificacao = new VerificaNotificacao();
-                    verificaNotificacao.execute();
                     dialog.dismiss();
                     AdapterListaHora adapterListaHora = new AdapterListaHora(getContext(), usuario.getId(), this);
                     binding.recyclerViewHora.setAdapter(adapterListaHora);

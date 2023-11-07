@@ -33,7 +33,6 @@ public class UsuarioRepositorio {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         usuario.getFoto().compress(Bitmap.CompressFormat.PNG, 100, stream);
         values.put(Helper.coluna_foto_usuario, stream.toByteArray());
-        values.put(Helper.coluna_qtde_usuario_pets, usuario.getQtde_pet());
         long id = db.insert(Helper.nome_tabela, null, values);
 
 
@@ -42,25 +41,32 @@ public class UsuarioRepositorio {
         return id;
     }
 
-    public long atualizarUsuarioPorCpf(Usuario usuario ){
+
+    public long atualizarUsuario(Usuario usuario ){
         db = con.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("nome", usuario.getNome());
-        values.put("cpf", usuario.getCpf());
-        values.put("email",usuario.getEmail());
-        values.put("senha", usuario.getSenha());
-        long id =  db.update(Helper.nome_tabela, values, Helper.coluna_cpf + "= ?", new String[]{usuario.getCpf()});
+        values.put(Helper.coluna_nome, usuario.getNome());
+        values.put(Helper.coluna_cpf, usuario.getCpf());
+        values.put(Helper.coluna_email,usuario.getEmail());
+        values.put(Helper.coluna_senha, usuario.getSenha());
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        usuario.getFoto().compress(Bitmap.CompressFormat.PNG, 100, stream);
+        values.put(Helper.coluna_foto_usuario, stream.toByteArray());
+        long id =db.update(Helper.nome_tabela, values, Helper.coluna_id_usuario + "= ?", new String[]{String.valueOf(usuario.getId())});
         db.close();
         con.close();
         return id;
     }
-    public long atualizarUsuarioPorEmail(Usuario usuario ){
+    public long atualizar(Usuario usuario ){
+        db = con.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("nome", usuario.getNome());
-        values.put("cpf", usuario.getCpf());
-        values.put("email",usuario.getEmail());
-        values.put("senha", usuario.getSenha());
-        long id =db.update(Helper.nome_tabela, values, Helper.coluna_email + "= ?", new String[]{usuario.getEmail()});
+        values.put(Helper.coluna_nome, usuario.getNome());
+        values.put(Helper.coluna_cpf, usuario.getCpf());
+        values.put(Helper.coluna_email,usuario.getEmail());
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        usuario.getFoto().compress(Bitmap.CompressFormat.PNG, 100, stream);
+        values.put(Helper.coluna_foto_usuario, stream.toByteArray());
+        long id =db.update(Helper.nome_tabela, values, Helper.coluna_id_usuario + "= ?", new String[]{String.valueOf(usuario.getId())});
         db.close();
         con.close();
         return id;
@@ -83,9 +89,8 @@ public class UsuarioRepositorio {
             String email = cursor.getString(3);
             String senha = cursor.getString(4);
             byte[] stream = cursor.getBlob(5);
-            int qtde_pets = cursor.getInt(6);
             Bitmap foto = BitmapFactory.decodeByteArray(stream, 0, stream.length);
-            Usuario usuario = new Usuario(id, nome, cpf, email, senha, foto, qtde_pets);
+            Usuario usuario = new Usuario(id, nome, cpf, email, senha, foto);
             lista.add(usuario);
         }
         db.close();

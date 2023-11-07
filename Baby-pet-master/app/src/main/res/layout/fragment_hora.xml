@@ -26,11 +26,11 @@
            android:id="@+id/button_adicionar_hora"
            android:layout_width="51dp"
            android:layout_height="49dp"
-           android:layout_marginTop="592dp"
+           android:layout_marginTop="508dp"
            android:background="@drawable/image_button_circular"
            android:src="@drawable/botao_add"
            app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintHorizontal_bias="0.919"
+           app:layout_constraintHorizontal_bias="0.88"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toTopOf="parent" />
    </androidx.constraintlayout.widget.ConstraintLayout>

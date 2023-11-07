@@ -40,7 +40,8 @@ public class AlterarSenha extends AppCompatActivity {
             String confirmarSenha = binding.editTextConfirmarsenha.getText().toString(); //pega o texto do edit text de confirmar senha
             Intent it = getIntent(); //recebo a intenção que eu passei na tela de Esqueci senha
             if (it != null) { //verifico se tem algo na intenção
-                Usuario usuario = (Usuario) it.getSerializableExtra("us"); // se tiver algo na intenção, então é o usuario que
+                String email = it.getStringExtra("email");
+                Usuario usuario = controllerUsuario.buscarPorEmail(email) ;// se tiver algo na intenção, então é o usuario que
                 // eu passei na tela de esqueci senha, então eu recebo essa intenção
                 // e converto esse objeto em usuario
                 if (usuario != null) { //verifico se o usuario é nullo

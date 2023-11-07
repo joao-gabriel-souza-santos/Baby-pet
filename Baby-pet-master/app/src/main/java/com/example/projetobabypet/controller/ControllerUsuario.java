@@ -43,7 +43,7 @@ public class ControllerUsuario {
                 if(usuario.getId()==usuarios.get(i).getId()){ //verifico cada usuario pelo seu indice que vai ser igual ao seu codigo
                     usuario.setSenha(senha);  //quando ele encontrar um usuario com o mesmo codigo do usuario que quer alterar a senha
                     // ele vai settar a nova senha do usuario
-                    db.atualizarUsuarioPorCpf(usuario);
+                    db.atualizarUsuario(usuario);
                     atualizarLista();
                     return true; //retorna que a operação foi um sucesso
                 }
@@ -99,7 +99,7 @@ public class ControllerUsuario {
         atualizarLista();
         usuarios = buscarTodos();
         for(Usuario usuario:usuarios){ //pra cada usuario na lista
-            if(usuario.getEmail().toString().equals(email)){ //verifica se tem algum usuario com o email igual ao email recebido
+            if(usuario.getEmail().equals(email)){ //verifica se tem algum usuario com o email igual ao email recebido
                 return usuario;// se tiver então retorna verdadeiro
             }
         }
@@ -109,6 +109,15 @@ public class ControllerUsuario {
     public void atualizarLista() throws Exception {
         usuarios.clear();
         usuarios.addAll(buscarTodos());
+    }
+
+    public void atualizarUsuario(Usuario usuario){
+        db = new UsuarioRepositorio(contexto);
+        db.atualizarUsuario(usuario);
+    }
+    public void atualizar(Usuario usuario){
+        db = new UsuarioRepositorio(contexto);
+        db.atualizar(usuario);
     }
 
 }

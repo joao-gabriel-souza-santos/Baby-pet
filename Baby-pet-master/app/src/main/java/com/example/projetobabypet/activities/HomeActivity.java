@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
+import com.example.projetobabypet.activities.atualizar.AtualizarUsuario;
 import com.example.projetobabypet.fragments.HoraFragment;
 import com.example.projetobabypet.fragments.SaudeFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -25,7 +26,7 @@ import android.widget.TextView;
 
 
 import com.example.projetobabypet.R;
-import com.example.projetobabypet.adapter.ListaPetsHeader.AdapterRecycleListaPets;
+
 import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.databinding.ActivityHomeBinding;
 import com.example.projetobabypet.fragments.ContaFragment;
@@ -97,9 +98,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.conta:
                     replaceFragment(new ContaFragment()); //se o item clicado for agenda, leva pra tela agenda
                     break;
-                case R.id.artigo:
-                    replaceFragment(new ArtigoFragment()); //se o item clicado for artigo, leva pra tela artigo
-                    break;
                 case R.id.hora:
                     replaceFragment(new HoraFragment());
                     break;
@@ -126,12 +124,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 View header = binding.navView.getHeaderView(0);
                 ImageView imagUser = header.findViewById(R.id.image_usuario_header);
                 TextView textView = header.findViewById(R.id.textView_header);
-                recycleViewListaPets = header.findViewById(R.id.recycle_view_lista_pets);
+
                 textView.setText("" + usuario.getNome());
                 imagUser.setImageBitmap(usuario.getFoto());
-                LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                recycleViewListaPets.setLayoutManager(manager);
-                recycleViewListaPets.setAdapter(new AdapterRecycleListaPets(HomeActivity.this, usuario.getId()));
+
+                imagUser.setOnClickListener(view -> {
+                    Intent intent = new Intent(this, AtualizarUsuario.class);
+                    startActivity(intent);
+                });
 
 
             } catch (Exception e) {

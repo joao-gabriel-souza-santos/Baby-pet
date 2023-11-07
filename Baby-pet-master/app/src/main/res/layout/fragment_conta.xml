@@ -27,11 +27,11 @@
             android:id="@+id/button_adicionar_pet"
             android:layout_width="43dp"
             android:layout_height="45dp"
-            android:layout_marginTop="600dp"
+            android:layout_marginTop="492dp"
             android:background="@drawable/image_button_circular"
             android:src="@drawable/botao_add"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.907"
+            app:layout_constraintHorizontal_bias="0.894"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
