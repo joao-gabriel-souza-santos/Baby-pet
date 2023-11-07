@@ -8,21 +8,21 @@ import com.example.projetobabypet.model.Compromisso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControllerHora {
+public class ControllerCompromisso {
 
     public  static List<Compromisso> compromissos;
-    private static ControllerHora instancia = null;
+    private static ControllerCompromisso instancia = null;
     Context context;
     CompromissoRepositorio db;
 
-    private ControllerHora(Context context){
+    private ControllerCompromisso(Context context){
         this.context = context;
         compromissos = new ArrayList<>();
     }
 
-    public static ControllerHora getInstance(Context context){
+    public static ControllerCompromisso getInstance(Context context){
         if(instancia ==null)
-            instancia=new ControllerHora(context);
+            instancia=new ControllerCompromisso(context);
         return instancia;
     }
 
@@ -48,7 +48,7 @@ public class ControllerHora {
         return compromissos;
     }
 
-    public void atualizarNotificacao(Compromisso compromisso){
+    public void atualizarCompromisso(Compromisso compromisso){
         db = new CompromissoRepositorio(context);
         db.atualizarCompromisso(compromisso);
     }
@@ -57,4 +57,29 @@ public class ControllerHora {
         db = new CompromissoRepositorio(context);
         db.deletar(compromisso);
     }
+    public void cadastrarAfazer(Compromisso compromisso){
+        db = new CompromissoRepositorio(context);
+        db.cadastrar(compromisso);
+    }
+    public List<Compromisso> buscar_compromissos_categoria(int id_categoria){
+        db = new CompromissoRepositorio(context);
+        compromissos = db.buscarTodosCompromissos_categoria(id_categoria);
+        return compromissos;
+    }
+    public void cadastrarCompromissoCategoria(Compromisso compromisso){
+        db = new CompromissoRepositorio(context);
+        db.cadastrarCompromissoCategoria(compromisso);
+    }
+
+    public Compromisso buscarCompromissoId(int id, int id_categoria){
+        db = new CompromissoRepositorio(context);
+        compromissos = db.buscarTodosCompromissos_categoria(id_categoria);
+        for(Compromisso compromisso : compromissos){
+            if(compromisso.getId() == id){
+                return compromisso;
+            }
+        }
+        return null;
+    }
+
 }

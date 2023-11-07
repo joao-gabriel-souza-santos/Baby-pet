@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projetobabypet.R;
-import com.example.projetobabypet.controller.ControllerHora;
+import com.example.projetobabypet.controller.ControllerCompromisso;
 import com.example.projetobabypet.interfaces.RecyclerClickHora;
 import com.example.projetobabypet.model.Compromisso;
 
@@ -20,14 +20,14 @@ public class AdapterListaHora extends RecyclerView.Adapter<HoraHolder> {
     private final RecyclerClickHora recyclerClickHora;
     Context context;
     public  static List<Compromisso> compromissos;
-    ControllerHora c;
+    ControllerCompromisso c;
     int idUsuario;
 
     public AdapterListaHora(Context context, int idUsuario, RecyclerClickHora recyclerClickHora){
         this.context =context;
         this.idUsuario= idUsuario;
         this.recyclerClickHora = recyclerClickHora;
-        c= ControllerHora.getInstance(context);
+        c= ControllerCompromisso.getInstance(context);
         compromissos= c.buscar_compromissos(idUsuario);
     }
 
@@ -43,12 +43,18 @@ public class AdapterListaHora extends RecyclerView.Adapter<HoraHolder> {
         Compromisso compromisso = compromissos.get(position);
         holder.hora.setText(compromisso.getHora());
 
+        if(compromisso.getDescricao().equals("Ração")){
+            holder.pote_agua.setImageResource(R.drawable.tigelabranca);
+        } else {
+            holder.pote_agua.setImageResource(R.drawable.copoaguabranco);
+        }
+
         holder.cardView.setOnClickListener(view -> {
             recyclerClickHora.onClick(compromissos.get(position));
         });
 
         holder.itemView.setOnLongClickListener(view -> {
-            ControllerHora c = ControllerHora.getInstance(context);
+            ControllerCompromisso c = ControllerCompromisso.getInstance(context);
             c.deletar(compromissos.get(position));
             atualizarLista();
             return true;
@@ -62,7 +68,7 @@ public class AdapterListaHora extends RecyclerView.Adapter<HoraHolder> {
 
     public void atualizarLista(){
         compromissos.clear();
-        c= ControllerHora.getInstance(context);
+        c= ControllerCompromisso.getInstance(context);
         compromissos.addAll(c.buscar_compromissos(idUsuario));
         notifyDataSetChanged();
     }}

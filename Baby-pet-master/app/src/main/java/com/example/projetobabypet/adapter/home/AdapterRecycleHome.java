@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.projetobabypet.R;
-import com.example.projetobabypet.controller.ControllerHora;
 import com.example.projetobabypet.fragments.HomeFragment;
 
 import java.util.List;

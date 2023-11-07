@@ -1,66 +1,132 @@
 package com.example.projetobabypet.fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.NumberPicker;
 
 import com.example.projetobabypet.R;
+import com.example.projetobabypet.activities.CalendarioActivity;
+import com.example.projetobabypet.adapter.categoria.AdapterCategoria;
+import com.example.projetobabypet.controller.ControllerCategoria;
+import com.example.projetobabypet.controller.ControllerUsuario;
+import com.example.projetobabypet.databinding.FragmentSaudeBinding;
+import com.example.projetobabypet.model.Categoria;
+import com.example.projetobabypet.model.Usuario;
+import com.example.projetobabypet.util.NotificacaoPorData;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SaudeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Calendar;
+
+
 public class SaudeFragment extends Fragment {
+    NumberPicker numberPickerhora, minutos;
+    FragmentSaudeBinding binding;
+    EditText editData;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    Calendar calendar = Calendar.getInstance();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SaudeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SaudeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SaudeFragment newInstance(String param1, String param2) {
-        SaudeFragment fragment = new SaudeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    String email;
+    Usuario usuario;
+    SharedPreferences sp;
+    private SharedPreferences.Editor editor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saude, container, false);
+        binding = FragmentSaudeBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        sp = getActivity().getSharedPreferences("Log", Context.MODE_PRIVATE);
+        editor = sp.edit();
+        email = sp.getString("email", "");
+        usuario = usuario_logado(email);
+
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH); // Janeiro é 0, Fevereiro é 1, ..., Dezembro é 11
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int horaAtual = calendar.get(Calendar.HOUR_OF_DAY);
+        int minAtual = calendar.get(Calendar.MINUTE);
+        AlertDialog.Builder caixademsg = new AlertDialog.Builder(getContext()); //cria uma caixa de alerta
+        caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+        caixademsg.setMessage(day + "/" + month + "/" + year +"\n " + horaAtual + ":" + minAtual); //coloca a mensagem da caixa
+        caixademsg.show(); //exibe a caixa pro usuario
+
+
+
+        try {
+            LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            binding.recyclerViewAfazeresSaude.setLayoutManager(manager);
+            Intent intent = new Intent(getActivity(), NotificacaoPorData.class);
+            AdapterCategoria adapterCategoria = new AdapterCategoria(getContext(), usuario, intent);
+            binding.recyclerViewAfazeresSaude.setAdapter(adapterCategoria);
+        } catch (Exception a) {
+
+        }
+
+        try {
+            binding.imageButtonCadastrarAfazerSaude.setOnClickListener(view1 -> {
+                BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
+                View sheetView = LayoutInflater.from(getContext())
+                        .inflate(R.layout.bottom_dialog_cadastrar_categoria, view.findViewById(R.id.bottomCategoria));
+
+                Button cadastrar = sheetView.findViewById(R.id.button_cadastrar_categoria);
+                cadastrar.setOnClickListener(view2 -> {
+                    EditText editNome = sheetView.findViewById(R.id.editText_nome_categoria);
+                    String nomeCategoria = editNome.getText().toString();
+                    ControllerCategoria c = ControllerCategoria.getInstance(getContext());
+                    Categoria categoria = new Categoria(nomeCategoria, usuario.getId());
+                    categoria.setId_usuario(usuario.getId());
+                    c.cadastrar(categoria);
+                    Intent intent = new Intent(getActivity(), NotificacaoPorData.class);
+                    AdapterCategoria adapterCategoria = new AdapterCategoria(getContext(), usuario, intent);
+                    binding.recyclerViewAfazeresSaude.setAdapter(adapterCategoria);
+                    dialog.dismiss();
+                });
+
+                dialog.setContentView(sheetView);
+                dialog.show();
+            });
+        } catch (Exception e) {
+
+        }
+
+
+        binding.imageButtonCalendario.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), CalendarioActivity.class);
+            startActivity(intent);
+        });
+
+        return view;
     }
+
+
+    private Usuario usuario_logado(String email) {
+        try {
+            ControllerUsuario c = ControllerUsuario.getInstancia(getContext());
+            Usuario usuario = c.buscarPorEmail(email);
+            return usuario;
+        } catch (Exception e) {
+            AlertDialog.Builder caixademsg = new AlertDialog.Builder(getContext()); //cria uma caixa de alerta
+            caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+            caixademsg.setMessage("" + e.getMessage()); //coloca a mensagem da caixa
+            caixademsg.show(); //exibe a caixa pro usuario
+        }
+        return null;
+    }
+
 }

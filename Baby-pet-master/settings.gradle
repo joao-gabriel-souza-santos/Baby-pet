@@ -3,6 +3,8 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
+
     }
 }
 dependencyResolutionManagement {
@@ -13,5 +15,7 @@ dependencyResolutionManagement {
         maven{url "https://jitpack.io"}
     }
 }
+
+
 rootProject.name = "Projeto Baby Pet"
 include ':app'

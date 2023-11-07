@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.SaudeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerView_afazeres_saude"
+          android:layout_width="407dp"
+          android:layout_height="210dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.188" />
+
+      <ImageButton
+          android:id="@+id/imageButton_cadastrar_afazer_saude"
+          android:layout_width="50dp"
+          android:layout_height="50dp"
+          android:layout_marginTop="504dp"
+          android:background="@drawable/image_button_circular"
+          android:src="@drawable/botao_add"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.948"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <ImageButton
+          android:id="@+id/imageButton_calendario"
+          android:layout_width="38dp"
+          android:layout_height="38dp"
+          android:layout_marginTop="16dp"
+          android:background="@drawable/image_button_circular"
+          android:src="@drawable/calendario"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.498"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+   </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

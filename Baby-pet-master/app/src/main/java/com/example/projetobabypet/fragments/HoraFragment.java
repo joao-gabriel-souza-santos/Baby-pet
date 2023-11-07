@@ -19,13 +19,13 @@ import android.widget.RadioGroup;
 
 import com.example.projetobabypet.R;
 import com.example.projetobabypet.adapter.hora.AdapterListaHora;
-import com.example.projetobabypet.controller.ControllerHora;
+import com.example.projetobabypet.controller.ControllerCompromisso;
 import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.databinding.FragmentHoraBinding;
 import com.example.projetobabypet.interfaces.RecyclerClickHora;
 import com.example.projetobabypet.model.Compromisso;
 import com.example.projetobabypet.model.Usuario;
-import com.example.projetobabypet.notificacao.NotificationService;
+import com.example.projetobabypet.util.NotificationService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
@@ -89,7 +89,7 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
     private void createDialog() {
         BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
         View sheetView = LayoutInflater.from(getContext()).inflate(
-                R.layout.layout_bottom_sheet_dialog_cadastrar_hora, view.findViewById(R.id.bottomSheetInicio)
+                R.layout.layout_bottom_sheet_dialog_cadastrar_hora, view.findViewById(R.id.bottomConta)
         );
         numberPickerhora = sheetView.findViewById(R.id.numberPicker_hora);
         minutos = sheetView.findViewById(R.id.numberPicker_minutos);
@@ -110,7 +110,7 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
                 String descricao = escolha.getText().toString();
                 String hora = String.format("%02d:%02d", numberPickerhora.getValue(), minutos.getValue());
                 Compromisso compromisso = new Compromisso(usuario.getId(), hora, descricao);
-                ControllerHora c = ControllerHora.getInstance(getContext());
+                ControllerCompromisso c = ControllerCompromisso.getInstance(getContext());
                 c.cadastrarNotificacao(compromisso);
                 try {
 //                    VerificaNotificacao verificaNotificacao = new VerificaNotificacao();
@@ -180,8 +180,8 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
                     String hora = String.format("%02d:%02d", numberPickerhora.getValue(), minutos.getValue());
                     compromisso.setHora(hora);
                     compromisso.setDescricao(descricao);
-                    ControllerHora c = ControllerHora.getInstance(getContext());
-                    c.atualizarNotificacao(compromisso);
+                    ControllerCompromisso c = ControllerCompromisso.getInstance(getContext());
+                    c.atualizarCompromisso(compromisso);
                     VerificaNotificacao verificaNotificacao = new VerificaNotificacao();
                     verificaNotificacao.execute();
                     dialog.dismiss();
@@ -202,7 +202,7 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
 
     @Override
     public void onLongClick(Compromisso position) {
-        ControllerHora c = ControllerHora.getInstance(getContext());
+        ControllerCompromisso c = ControllerCompromisso.getInstance(getContext());
         c.deletar(position);
         AdapterListaHora adapterListaHora = new AdapterListaHora(getContext(), usuario.getId(), this);
         binding.recyclerViewHora.setAdapter(adapterListaHora);

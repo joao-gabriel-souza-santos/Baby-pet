@@ -33,10 +33,12 @@ android {
     buildFeatures {
         viewBinding true
     }
+
 }
 
 dependencies {
-
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+    implementation "androidx.work:work-runtime:2.7.0"
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
 import com.example.projetobabypet.fragments.HoraFragment;
+import com.example.projetobabypet.fragments.SaudeFragment;
 import com.google.android.material.navigation.NavigationView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -101,9 +102,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     break;
                 case R.id.hora:
                     replaceFragment(new HoraFragment());
+                    break;
+
+                case R.id.saude:
+                    replaceFragment(new SaudeFragment());
+                    break;
             }
 
-            return false;
+            return true;
         });
     }
 

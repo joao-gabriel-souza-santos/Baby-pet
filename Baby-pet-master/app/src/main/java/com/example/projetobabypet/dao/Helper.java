@@ -44,17 +44,25 @@ public class Helper extends SQLiteOpenHelper {
     public static final String nome_tabela_compromisso = "Compromisso";
     public static final String coluna_id_compromisso = "id";
     public static final String coluna_id_usuario_compromisso = "id_usuario";
+    public static  final String coluna_id_categoria_compromisso = "id_categoria";
     public static final String coluna_nome_compromisso = "nome";
     public static final String coluna_descricao_compromisso = "descricao";
     public static final  String coluna_repeticao_compromisso = "repeticao";
     public static final String coluna_data_compromisso = "data";
     public static final String coluna_hora_compromisso = "hora";
 
+
+    //TABELA CATEGORIA
+    public static  final String nome_tabela_categoria = "Categoria";
+    public static  final String coluna_id_categoria = "id";
+    public static  final String coluna_nome_categoria = "nome";
+    public static  final String coluna_id_usuario_categoria = "id_usuario";
+
+
     public Helper(Context context) {
         super(context, nome_banco, null, versao);
 
     }
-
 
 
 
@@ -95,18 +103,24 @@ public class Helper extends SQLiteOpenHelper {
         String sql2 = " CREATE TABLE " + nome_tabela_compromisso + "( "  +
                 coluna_id_compromisso + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 coluna_id_usuario_compromisso + " INTEGER, " +
+                coluna_id_categoria_compromisso + " INTEGER, " +
                 coluna_nome_compromisso + " TEXT, " +
                 coluna_hora_compromisso + " TEXT NOT NULL," +
                 coluna_descricao_compromisso + " TEXT, " +
                 coluna_repeticao_compromisso + " TEXT, " +
-                coluna_data_compromisso + " NUMERIC " +
+                coluna_data_compromisso + " TEXT " +
                 ");";
 
 
+        String sql3 = " CREATE TABLE " + nome_tabela_categoria + "(" +
+                        coluna_id_categoria + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        coluna_nome_categoria + " TEXT, " +
+                        coluna_id_usuario_categoria + " INTEGER " +
+                ");";
 
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.execSQL(sql2);
-
+        sqLiteDatabase.execSQL(sql3);
 
     }
 
@@ -115,10 +129,13 @@ public class Helper extends SQLiteOpenHelper {
         String sql = "DROP TABLE IF EXISTS " + nome_tabela + "; " ;
         String sql1 = "DROP TABLE IF EXISTS " + nome_tabela_pet + "; " ;
         String sql2= "DROP TABLE IF EXISTS " + nome_tabela_compromisso + "; " ;
+        String sql3 = "DROP TABLE IF EXISTS " + nome_tabela_categoria + ";";
+
+
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.execSQL(sql1);
         sqLiteDatabase.execSQL(sql2);
-
+        sqLiteDatabase.execSQL(sql3);
 
         onCreate(sqLiteDatabase);
     }

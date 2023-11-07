@@ -4,16 +4,27 @@ import java.util.Date;
 
 public class Compromisso {
 
-    private int id, id_usuario;
+    private int id, id_usuario, id_categoria;
     private String nome, descricao, repeticao, hora;
-    private Date data;
+    private String data;
 
     public Compromisso(String hora, String descricao){
         this.hora = hora;
         this.descricao = descricao;
     }
 
-    public Compromisso(int id,int id_usuario, String nome, String descricao, String repeticao, String hora, Date data) {
+    public Compromisso(int id, int id_usuario, int id_categoria, String nome, String descricao, String repeticao, String hora, String data) {
+        this.id = id;
+        this.id_usuario = id_usuario;
+        this.id_categoria = id_categoria;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.repeticao = repeticao;
+        this.hora = hora;
+        this.data = data;
+    }
+
+    public Compromisso(int id, int id_usuario, String nome, String descricao, String repeticao, String hora, String data) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -23,17 +34,35 @@ public class Compromisso {
         this.id_usuario = id_usuario;
     }
 
-    public Compromisso(String nome, String descricao, String hora, int id_usuario) {
+    public Compromisso(String nome, String descricao, String hora, String data,int id_usuario) {
         this.nome = nome;
         this.descricao = descricao;
         this.hora = hora;
         this.id_usuario = id_usuario;
+        this.data = data;
     }
 
     public Compromisso(int id_usuario, String hora, String descricao) {
         this.hora = hora;
         this.descricao = descricao;
         this.id_usuario = id_usuario;
+    }
+
+    public Compromisso(int id_usuario, int id_categoria, String nome, String descricao, String hora, String data) {
+        this.id_usuario = id_usuario;
+        this.id_categoria = id_categoria;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.hora = hora;
+        this.data = data;
+    }
+
+    public int getId_categoria() {
+        return id_categoria;
+    }
+
+    public void setId_categoria(int id_categoria) {
+        this.id_categoria = id_categoria;
     }
 
     public int getId_usuario() {
@@ -84,11 +113,11 @@ public class Compromisso {
         this.repeticao = repeticao;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 }

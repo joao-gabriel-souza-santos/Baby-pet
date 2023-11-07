@@ -1,9 +1,7 @@
-package com.example.projetobabypet.notificacao;
+package com.example.projetobabypet.util;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
-import android.app.IntentService;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,24 +11,19 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Looper;
-import android.os.SystemClock;
 
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import com.example.projetobabypet.R;
 import com.example.projetobabypet.activities.HomeActivity;
-import com.example.projetobabypet.controller.ControllerHora;
+import com.example.projetobabypet.controller.ControllerCompromisso;
 import com.example.projetobabypet.model.Compromisso;
 
 import java.util.Calendar;
 import java.util.List;
 
-
-public class NotificationService extends BroadcastReceiver {
+public class NotificacaoPorData extends BroadcastReceiver {
     Context context;
     Intent intent;
 
@@ -41,12 +34,12 @@ public class NotificationService extends BroadcastReceiver {
         handler.post(verificaHorarioRunnable);
     }
 
-    private void showNotification(Context context) {
+    private void showNotification(Context context, String racao_agua) {
         String channelID = "CHANNEL_ID_NOTIFICATION";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelID);
         builder.setSmallIcon(R.drawable.minilogo).
                 setContentTitle("Dar ração")
-                .setContentText("Vai dar raçao pro dog caralho")
+                .setContentText( racao_agua )
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
@@ -90,16 +83,20 @@ public class NotificationService extends BroadcastReceiver {
             notificationManager.createNotificationChannel(channel);
         }
         int id = intent.getIntExtra("id", 0);
-        ControllerHora c = ControllerHora.getInstance(context);
+        ControllerCompromisso c = ControllerCompromisso.getInstance(context);
         Calendar calendar = Calendar.getInstance();
-        List<Compromisso> compromissos = c.buscar_compromissos(id);
+        List<Compromisso> compromissos = c.buscar_compromissos_categoria(id);
 
 
         for (Compromisso compromisso : compromissos) {
             String input = compromisso.getHora(); // Sua string no formato "HH:MM"
 
             String[] parts = input.split(":");
-
+            String data = compromisso.getData();
+            String[] valores = data.split("/");
+            int dia = Integer.parseInt(valores[0]);
+            int mes = Integer.parseInt(valores[1]);
+            int ano = Integer.parseInt(valores[2]);
 
             if (parts.length == 2) {
                 int hora = Integer.parseInt(parts[0]); // Valor antes dos dois pontos (horas)
@@ -107,12 +104,17 @@ public class NotificationService extends BroadcastReceiver {
                 int horaAtual = calendar.get(Calendar.HOUR_OF_DAY);
                 int minAtual = calendar.get(Calendar.MINUTE);
 
+                int anoAt = calendar.get(Calendar.YEAR);
+                int mesAt = calendar.get(Calendar.MONTH); // Janeiro é 0, Fevereiro é 1, ..., Dezembro é 11
+                int diaAt = calendar.get(Calendar.DAY_OF_MONTH);
 
-                if (horaAtual == hora && minAtual == min) {
-                    showNotification(context);
+
+                if (anoAt == ano && mesAt == mes && dia == diaAt) {
+                    if (horaAtual == hora && minAtual == min) {
+                        showNotification(context, compromisso.getDescricao());
+                    }
+
                 }
-
-
             }
         }
         scheduleNextNotification(context);
@@ -122,9 +124,7 @@ public class NotificationService extends BroadcastReceiver {
     private Runnable verificaHorarioRunnable = new Runnable() {
         @Override
         public void run() {
-
             verificarHorarioParaNotificacao(context, intent); // Verifique o horário
-
             // Agende a próxima verificação em 1 minuto
             handler.postDelayed(this, 60 * 1000); // 60 segundos * 1000 ms
         }

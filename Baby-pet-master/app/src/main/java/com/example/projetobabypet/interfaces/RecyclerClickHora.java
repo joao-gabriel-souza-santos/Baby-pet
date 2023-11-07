@@ -4,5 +4,5 @@ import com.example.projetobabypet.model.Compromisso;
 
 public interface RecyclerClickHora {
     void onClick(Compromisso position);
-    void onLongClick(Compromisso position);
+    void onLongClick(Compromisso compromisso);
 }

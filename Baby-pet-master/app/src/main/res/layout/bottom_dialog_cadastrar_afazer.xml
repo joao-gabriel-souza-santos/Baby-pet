@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bottom_sheet_inicio"
+    android:id="@+id/bottomsheetAfazer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editText_nome_afazer"
+        android:layout_width="234dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text=" "
+        android:hint="Nome"
+        android:background="@drawable/style_edit_text_area"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine_descricao"
+        android:layout_width="236dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:text=" "
+        android:hint="Descrição"
+        android:background="@drawable/style_edit_text_area"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_nome_afazer" />
+
+    <Button
+        android:id="@+id/button_salvar_afazer"
+        android:layout_width="104dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="212dp"
+        android:background="@drawable/style_btn_login_cadastro"
+        android:text="Salvar"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDate_data_afazer" />
+
+    <EditText
+        android:id="@+id/editTextDate_data_afazer"
+        android:layout_width="212dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine_descricao" />
+
+    <NumberPicker
+        android:id="@+id/numberPicker_hora"
+        android:layout_width="104dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="392dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.322"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <NumberPicker
+        android:id="@+id/numberPicker_minutos"
+        android:layout_width="102dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="392dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.074"
+        app:layout_constraintStart_toEndOf="@+id/numberPicker_hora"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

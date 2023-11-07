@@ -59,6 +59,8 @@ public class AdapterListaPetsConta extends RecyclerView.Adapter<HolderListaPetsC
                 recyclerClickPetConta.onItemClick(pets.get(i));
             });
 
+
+
             holder.cardView.setOnLongClickListener(view -> {
 
                 c.deletarPet(pets.get(i));
