@@ -14,36 +14,13 @@
         android:layout_marginTop="36dp"
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
-        android:hint=" Nome"
+        android:hint="Nome"
         android:inputType="text"
         android:text=" "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <NumberPicker
-        android:id="@+id/number_picker_hora_calendario"
-        android:layout_width="54dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/number_picker_minutos_calendario"
-        app:layout_constraintHorizontal_bias="0.775"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine_descricao_calendario" />
-
-    <NumberPicker
-        android:id="@+id/number_picker_minutos_calendario"
-        android:layout_width="57dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.59"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine_descricao_calendario"
-        app:layout_constraintVertical_bias="0.032" />
 
     <Button
         android:id="@+id/button_salvar_compromisso_calendario"
@@ -67,6 +44,8 @@
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
         android:text="  "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.517"
@@ -86,4 +65,18 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_hora_calendario"
+        android:layout_width="206dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/style_edit_text_area"
+        android:ems="10"
+        android:inputType="text"
+        android:paddingStart="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine_descricao_calendario" />
 </androidx.constraintlayout.widget.ConstraintLayout>

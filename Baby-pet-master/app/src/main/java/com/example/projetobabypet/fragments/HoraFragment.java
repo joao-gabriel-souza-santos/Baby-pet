@@ -55,8 +55,7 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
         usuario = usuario_logado(email);
 
         try {
-//            VerificaNotificacao verificaNotificacao = new VerificaNotificacao();
-//            verificaNotificacao.execute();
+
             Intent serviceIntent = new Intent(getActivity(), NotificationService.class);
             serviceIntent.putExtra("id", usuario.getId());
             NotificationService notificationService = new NotificationService();

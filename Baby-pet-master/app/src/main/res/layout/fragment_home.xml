@@ -7,148 +7,160 @@
     tools:context=".fragments.HomeFragment">
 
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_height="match_parent" android:layout_width="match_parent">
-
-            <ProgressBar
-                android:id="@+id/progressBar_racao"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="186dp"
-                android:layout_height="177dp"
-                android:layout_marginTop="4dp"
-                android:indeterminateOnly="false"
-                android:progress="20"
-
-                android:progressDrawable="@drawable/barra_de_progresso"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-            <Button
-                android:id="@+id/button_dar_racao"
-                android:layout_width="122dp"
-                android:layout_height="52dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/style_btn_login_cadastro"
-                android:onClick="adicionarRacao"
-                android:text="Dar ração"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progressBar_racao" />
+        <ProgressBar
+            android:id="@+id/progressBar_racao"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="144dp"
+            android:layout_height="145dp"
+            android:layout_marginTop="52dp"
+            android:indeterminateOnly="false"
+            android:progress="20"
 
+            android:progressDrawable="@drawable/barra_de_progresso"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ProgressBar
-                android:id="@+id/progressBar_agua"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="186dp"
-                android:layout_height="177dp"
-                android:layout_marginTop="264dp"
-                android:indeterminateOnly="false"
-                android:progress="20"
-                android:progressDrawable="@drawable/barra_de_progresso"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/button_dar_racao"
+            android:layout_width="116dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="184dp"
+            android:background="@drawable/style_btn_login_cadastro"
+            android:onClick="adicionarRacao"
+            android:text="Dar ração"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/button_dar_agua"
-                android:layout_width="122dp"
-                android:layout_height="52dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/style_btn_login_cadastro"
-                android:onClick="adicionarAgua"
-                android:text="Dar água"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progressBar_agua" />
+        <ProgressBar
+            android:id="@+id/progressBar_agua"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:layout_marginTop="240dp"
+            android:indeterminateOnly="false"
+            android:progress="20"
+            android:progressDrawable="@drawable/barra_de_progresso"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/copo_de_agua_4"
-                app:layout_constraintBottom_toBottomOf="@+id/progressBar_agua"
-                app:layout_constraintEnd_toEndOf="@+id/progressBar_agua"
-                app:layout_constraintHorizontal_bias="0.503"
-                app:layout_constraintStart_toStartOf="@+id/progressBar_agua"
-                app:layout_constraintTop_toTopOf="@+id/progressBar_agua"
-                app:layout_constraintVertical_bias="0.357" />
+        <Button
+            android:id="@+id/button_dar_agua"
+            android:layout_width="119dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="376dp"
+            android:background="@drawable/style_btn_login_cadastro"
+            android:onClick="adicionarAgua"
+            android:text="Dar água"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="64dp"
-                android:layout_height="67dp"
-                android:src="@drawable/tigela_de_cachorro_2"
-                app:layout_constraintBottom_toBottomOf="@+id/progressBar_racao"
-                app:layout_constraintEnd_toEndOf="@+id/progressBar_racao"
-                app:layout_constraintHorizontal_bias="0.504"
-                app:layout_constraintStart_toStartOf="@+id/progressBar_racao"
-                app:layout_constraintTop_toTopOf="@+id/progressBar_racao"
-                app:layout_constraintVertical_bias="0.336" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="39dp"
+            android:layout_height="43dp"
+            android:src="@drawable/copo_de_agua_4"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBar_agua"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar_agua"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="@+id/progressBar_agua"
+            app:layout_constraintTop_toTopOf="@+id/progressBar_agua"
+            app:layout_constraintVertical_bias="0.357" />
 
-            <TextView
-                android:id="@+id/textView_exibe_racao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="00/00"
-                app:layout_constraintEnd_toEndOf="@+id/imageView5"
-                app:layout_constraintStart_toStartOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="54dp"
+            android:layout_height="58dp"
+            android:src="@drawable/tigela_de_cachorro_2"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBar_racao"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar_racao"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="@+id/progressBar_racao"
+            app:layout_constraintTop_toTopOf="@+id/progressBar_racao"
+            app:layout_constraintVertical_bias="0.336" />
 
-            <TextView
-                android:id="@+id/textView_exibe_agua"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="00/00"
-                app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                app:layout_constraintHorizontal_bias="0.6"
-                app:layout_constraintStart_toStartOf="@+id/imageView2"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        <TextView
+            android:id="@+id/textView_exibe_racao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00/00"
+            app:layout_constraintEnd_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toStartOf="@+id/imageView5"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-            <ImageButton
-                android:id="@+id/imageButton_modificar_agua"
-                android:layout_width="54dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="208dp"
-                android:background="@drawable/image_button_circular"
-                android:src="@drawable/copoaguabranco"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.213"
-                app:layout_constraintStart_toEndOf="@+id/progressBar_agua"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton_modificar_racao" />
+        <TextView
+            android:id="@+id/textView_exibe_agua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00/00"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintHorizontal_bias="0.666"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycle_view_hora"
-                android:layout_width="371dp"
-                android:layout_height="126dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_dar_agua"
-                app:layout_constraintVertical_bias="0.652" />
+        <ImageButton
+            android:id="@+id/imageButton_modificar_agua"
+            android:layout_width="41dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="264dp"
+            android:background="@drawable/image_button_circular"
+            android:src="@drawable/copoaguabranco"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/progressBar_agua"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/imageButton_modificar_racao"
-                android:layout_width="56dp"
-                android:layout_height="51dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/image_button_circular"
-                android:src="@drawable/tigelabranca"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.21"
-                app:layout_constraintStart_toEndOf="@+id/progressBar_racao"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_view_hora"
+            android:layout_width="372dp"
+            android:layout_height="167dp"
+            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.619"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.994" />
+
+        <ImageButton
+            android:id="@+id/imageButton_modificar_racao"
+            android:layout_width="41dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/image_button_circular"
+            android:src="@drawable/tigelabranca"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/progressBar_racao"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.705" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </FrameLayout>

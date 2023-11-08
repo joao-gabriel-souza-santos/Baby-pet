@@ -12,10 +12,12 @@
         android:id="@+id/textView_conta_nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="192dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Nome"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintHorizontal_bias="0.302"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,89 +25,95 @@
         android:id="@+id/textView_conta_sexo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="252dp"
+        android:layout_marginTop="284dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Sexo"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintHorizontal_bias="0.297"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText_conta_sexo"
-        android:layout_width="133dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="40dp"
+        android:layout_width="216dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
         android:inputType="text"
         android:text=" "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_conta_sexo" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_conta_nome" />
 
     <EditText
         android:id="@+id/editText_conta_nome"
-        android:layout_width="133dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="216dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="216dp"
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
         android:inputType="text"
         android:text=" "
-        app:layout_constraintEnd_toEndOf="@+id/textView_conta_nome"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_conta_nome" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_conta_raca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="168dp"
-        android:layout_marginEnd="76dp"
+        android:layout_marginTop="376dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Raça"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.745"
-        app:layout_constraintStart_toEndOf="@+id/textView_conta_nome"
+        app:layout_constraintHorizontal_bias="0.297"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_conta_idade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="468dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text=" Idade"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.584"
-        app:layout_constraintStart_toEndOf="@+id/textView_conta_sexo"
-        app:layout_constraintTop_toBottomOf="@+id/textView_conta_raca" />
+        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText_conta_raca"
-        android:layout_width="133dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="216dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
         android:inputType="text"
         android:text=" "
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
-        app:layout_constraintStart_toEndOf="@+id/editText_conta_nome"
-        app:layout_constraintTop_toBottomOf="@+id/textView_conta_raca" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_conta_sexo" />
 
     <EditText
         android:id="@+id/editText_conta_idade"
-        android:layout_width="133dp"
-        android:layout_height="42dp"
+        android:layout_width="216dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
         android:inputType="number"
-        android:text=" "
+        android:paddingStart="1dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
-        app:layout_constraintStart_toEndOf="@+id/editText_conta_sexo"
-        app:layout_constraintTop_toBottomOf="@+id/textView_conta_idade" />
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_conta_raca" />
 
     <Button
         android:id="@+id/button_pet_cadastrar_novo"

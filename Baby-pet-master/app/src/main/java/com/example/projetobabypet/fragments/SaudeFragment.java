@@ -3,6 +3,7 @@ package com.example.projetobabypet.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -25,6 +26,7 @@ import com.example.projetobabypet.databinding.FragmentSaudeBinding;
 import com.example.projetobabypet.model.Categoria;
 import com.example.projetobabypet.model.Usuario;
 import com.example.projetobabypet.util.NotificacaoPorData;
+import com.example.projetobabypet.util.NotificationService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.Calendar;
@@ -53,6 +55,8 @@ public class SaudeFragment extends Fragment {
         editor = sp.edit();
         email = sp.getString("email", "");
         usuario = usuario_logado(email);
+
+
 
 
         Calendar calendar = Calendar.getInstance();
@@ -129,4 +133,6 @@ public class SaudeFragment extends Fragment {
         return null;
     }
 
+
 }
+

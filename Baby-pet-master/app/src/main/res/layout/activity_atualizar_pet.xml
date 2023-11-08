@@ -10,10 +10,12 @@
         android:id="@+id/textView_conta_nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="176dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Nome"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintHorizontal_bias="0.293"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,94 +24,99 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="252dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Sexo"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintHorizontal_bias="0.287"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText_conta_sexo"
-        android:layout_width="133dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="40dp"
+        android:layout_width="216dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="96dp"
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
         android:inputType="text"
-        android:text=" "
+        android:paddingStart="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_conta_sexo" />
 
     <EditText
         android:id="@+id/editText_conta_nome"
-        android:layout_width="133dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="216dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
         android:inputType="text"
-        android:text=" "
-        app:layout_constraintEnd_toEndOf="@+id/textView_conta_nome"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:paddingStart="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_conta_nome" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_conta_raca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="168dp"
-        android:layout_marginEnd="76dp"
+        android:layout_marginTop="332dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Raça"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.745"
-        app:layout_constraintStart_toEndOf="@+id/textView_conta_nome"
+        app:layout_constraintHorizontal_bias="0.287"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_conta_idade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="424dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text=" Idade"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.584"
-        app:layout_constraintStart_toEndOf="@+id/textView_conta_sexo"
-        app:layout_constraintTop_toBottomOf="@+id/textView_conta_raca" />
+        app:layout_constraintHorizontal_bias="0.293"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText_conta_raca"
-        android:layout_width="133dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="216dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="360dp"
+
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
         android:inputType="text"
-        android:text=" "
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
-        app:layout_constraintStart_toEndOf="@+id/editText_conta_nome"
-        app:layout_constraintTop_toBottomOf="@+id/textView_conta_raca" />
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText_conta_idade"
-        android:layout_width="133dp"
-        android:layout_height="42dp"
+        android:layout_width="216dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="444dp"
         android:background="@drawable/style_edit_text_area"
         android:ems="10"
         android:inputType="number"
+        android:paddingStart="5dp"
         android:text=" "
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
-        app:layout_constraintStart_toEndOf="@+id/editText_conta_sexo"
-        app:layout_constraintTop_toBottomOf="@+id/textView_conta_idade" />
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_pet_cadastrar_novo"
         android:layout_width="108dp"
         android:layout_height="50dp"
-        android:layout_marginTop="576dp"
+        android:layout_marginTop="532dp"
         android:background="@drawable/style_btn_login_cadastro"
         android:text="cadastrar"
         android:textColor="@color/white"

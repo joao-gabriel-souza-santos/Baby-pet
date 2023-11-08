@@ -18,55 +18,58 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
+
   <EditText
       android:id="@+id/txt_nome"
-      android:layout_width="224dp"
-      android:layout_height="36dp"
-      android:layout_marginTop="35dp"
+      android:layout_width="216dp"
+      android:layout_height="35dp"
+      android:layout_marginTop="56dp"
       android:background="@drawable/style_edit_text_area"
       android:ems="10"
       android:hint="Nome"
       android:inputType="textPersonName"
       android:paddingStart="15dp"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.502"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/imageRedonda" />
 
   <com.santalu.maskedittext.MaskEditText
       android:id="@+id/txtCpf"
-      android:layout_width="224dp"
-      android:layout_height="36dp"
-      android:layout_marginTop="35dp"
+      android:layout_width="216dp"
+      android:layout_height="35dp"
+      android:layout_marginTop="60dp"
       android:background="@drawable/style_edit_text_area"
       android:ems="10"
       android:hint="Cpf"
       android:inputType="textPersonName"
       android:paddingStart="15dp"
-      app:met_mask="###.###.###-##"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.502"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/txt_nome" />
+      app:layout_constraintTop_toBottomOf="@+id/txt_nome"
+      app:met_mask="###.###.###-##" />
 
   <EditText
       android:id="@+id/txtEmail"
-      android:layout_width="224dp"
-      android:layout_height="36dp"
-      android:layout_marginTop="35dp"
-      android:ems="10"
-      android:inputType="textEmailAddress"
-      android:hint="Email"
+      android:layout_width="216dp"
+      android:layout_height="35dp"
+      android:layout_marginTop="60dp"
       android:background="@drawable/style_edit_text_area"
+      android:ems="10"
+      android:hint="Email"
+      android:inputType="textEmailAddress"
       android:paddingStart="15dp"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.497"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/txtCpf" />
-
 
   <Button
       android:id="@+id/button_salvar_usuario"
       android:layout_width="170dp"
       android:layout_height="51dp"
-      android:layout_marginTop="24dp"
+      android:layout_marginTop="52dp"
       android:background="@drawable/style_btn_login_cadastro"
       android:text="Salvar"
       android:textColor="@color/white"
@@ -87,4 +90,43 @@
       app:layout_constraintTop_toTopOf="parent"
       app:srcCompat="@drawable/ic_voltar" />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  <TextView
+      android:id="@+id/textView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="244dp"
+      android:fontFamily="@font/montserrat_bold"
+      android:text="Nome"
+      android:textColor="@color/blue"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.282"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/textView2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="340dp"
+      android:fontFamily="@font/montserrat_bold"
+      android:text="CPF"
+      android:textColor="@color/blue"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.274"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/textView4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="440dp"
+      android:fontFamily="@font/montserrat_bold"
+      android:text="Email"
+      android:textColor="@color/blue"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.287"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

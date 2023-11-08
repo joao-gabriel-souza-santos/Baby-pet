@@ -1,6 +1,7 @@
 package com.example.projetobabypet.adapter.categoria;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,12 +10,15 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projetobabypet.R;
+import com.example.projetobabypet.activities.CalendarioActivity;
 import com.example.projetobabypet.adapter.afazer.AdapterAfazer;
 import com.example.projetobabypet.controller.ControllerCategoria;
 import com.example.projetobabypet.controller.ControllerCompromisso;
@@ -37,8 +41,8 @@ public class AdapterCategoria extends RecyclerView.Adapter<HolderCategoria> {
     ControllerCategoria c;
 
     Calendar calendar;
-    EditText editData;
-    NumberPicker numberPickerhora, minutos;
+    EditText editData, editTextHora;
+
     Usuario usuario;
     Categoria categoria;
     Intent intent;
@@ -88,30 +92,31 @@ public class AdapterCategoria extends RecyclerView.Adapter<HolderCategoria> {
 
                     pegaData();
 
-                    numberPickerhora = sheetView.findViewById(R.id.numberPicker_hora);
-                    minutos = sheetView.findViewById(R.id.numberPicker_minutos);
+                    editTextHora = sheetView.findViewById(R.id.editText_hora_afazer_cadastrar);
+
+                    editTextHora.setOnClickListener(view1 -> {
+                        pegaHora();
+                    });
 
                     EditText editnome = sheetView.findViewById(R.id.editText_nome_afazer);
                     EditText editDescricao= sheetView.findViewById(R.id.editTextTextMultiLine_descricao);
                     editData =sheetView.findViewById(R.id.editTextDate_data_afazer);
-                    numberPickerhora.setMinValue(0);
-                    numberPickerhora.setMaxValue(24);
 
-                    minutos.setMaxValue(59);
-                    minutos.setMinValue(0);
 
                     sheetView.findViewById(R.id.button_salvar_afazer).setOnClickListener(view3 -> {
                         String nome = editnome.getText().toString();
                         String descricao = editDescricao.getText().toString();
                         String data = atualizaData();
-                        String hora = String.format("%02d:%02d", numberPickerhora.getValue(), minutos.getValue());
+                        String hora = editTextHora.getText().toString();
+
+                        AlertDialog.Builder caixademsg = new AlertDialog.Builder(context); //cria uma caixa de alerta
+                        caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+                        caixademsg.setMessage(hora); //coloca a mensagem da caixa
+                        caixademsg.show(); //exibe a caixa pro usuario
+
                         Compromisso compromisso = new Compromisso(usuario.getId(),categoria.getId(), nome, descricao, hora, data);
                         ControllerCompromisso c = ControllerCompromisso.getInstance(context);
                         c.cadastrarCompromissoCategoria(compromisso);
-
-
-
-
                         dialog.dismiss();
                         AdapterAfazer adapterAfazer = new AdapterAfazer(context, categoria.getId());
                         holder.recycler.setAdapter(adapterAfazer);
@@ -168,5 +173,28 @@ public class AdapterCategoria extends RecyclerView.Adapter<HolderCategoria> {
         categorias = c.buscarCategorias(usuario.getId());
         categorias.addAll(categorias);
         notifyDataSetChanged();
+    }
+
+    private String atualizaHora() {
+        String formato = "HH:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(formato, Locale.getDefault());
+        return sdf.format(calendar.getTime());
+    }
+    private void pegaHora() {
+        calendar = Calendar.getInstance();
+
+        TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hora, int minutos) {
+                calendar.set(Calendar.HOUR_OF_DAY, hora);
+                calendar.set(Calendar.MINUTE, minutos);
+                editTextHora.setText(atualizaHora());
+            }
+        };
+
+        int horaAtual = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutosAtuais = calendar.get(Calendar.MINUTE);
+
+        new TimePickerDialog(context, time, horaAtual, minutosAtuais, true).show();
     }
 }
