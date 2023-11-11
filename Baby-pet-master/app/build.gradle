@@ -57,7 +57,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.0.0-rc02'
     implementation 'com.google.firebase:firebase-messaging:23.3.0'
     implementation 'com.google.firebase:firebase-inappmessaging-display:20.4.0'
-    apply plugin: 'com.google.gms.google-services'
 
     testImplementation 'junit:junit:4.13.2'
     implementation 'com.github.rtoshiro.mflibrary:mflibrary:1.0.0'

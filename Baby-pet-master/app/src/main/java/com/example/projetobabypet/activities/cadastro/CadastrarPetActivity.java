@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -58,7 +60,7 @@ public class CadastrarPetActivity extends AppCompatActivity {
 
 
         binding.imageRedonda.setOnClickListener(view -> {
-            if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                 String[] permissao = {Manifest.permission.READ_EXTERNAL_STORAGE};
                 requestPermissions(permissao, 1001);
             } else {
@@ -109,18 +111,19 @@ public class CadastrarPetActivity extends AppCompatActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == RESULT_OK && requestCode == 1000){
-            try{
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1000) {
+            try {
                 Uri image = data.getData();
                 Bitmap fotoPuxada = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image);
-                Bitmap fotoRedimensionda = Bitmap.createScaledBitmap(fotoPuxada, 150,150, true);
+                Bitmap fotoRedimensionda = Bitmap.createScaledBitmap(fotoPuxada, 150, 150, true);
                 binding.imageRedonda.setImageBitmap(fotoRedimensionda);
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 fotoPuxada.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 fotoCarregada = fotoPuxada;
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }

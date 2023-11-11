@@ -64,6 +64,11 @@ public class Login extends AppCompatActivity {
                     this.finish();
                     // o login é efetuado com sucesso e leva pra tela inicial
 
+                } else {
+                    AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
+                    caixademsg.setTitle("Usuário não encontrado"); //Coloca o titulo da caixa
+                    caixademsg.setMessage("Usuário ou senha incorreto" ); //coloca a mensagem da caixa
+                    caixademsg.show(); //exibe a caixa pro usuario
                 }
             }catch (Exception e){
                 AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta

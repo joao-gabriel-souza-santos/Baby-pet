@@ -2,6 +2,7 @@ package com.example.projetobabypet.dao.firebase;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.widget.Toast;
 
@@ -31,14 +32,16 @@ public class FirebaseDB {
         mDatabase = FirebaseDatabase.getInstance().getReference("usuarios");
     }
 
-
-    public void cadastrarUsuario(String email, String senha,  String nome,  String cpf,  Bitmap foto, CadastroCallback callback) {
+    public void cadastrarUsuario(String email, String senha,  String nome,  String cpf,  String foto, CadastroCallback callback) {
         mAuth.createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        String stringFoto = converte_bitmap_pra_string(foto);
+
                         String userId = mAuth.getCurrentUser().getUid();
-                        c.cadastrar(salvarDadosUsuario(userId, nome, cpf, email, stringFoto), context);
+                        Bitmap fotoBitpmap = decodeBase64String(foto);
+                        Usuario usuario = salvarDadosUsuario(userId, nome, cpf, email,senha, foto);
+                        usuario.setFoto(fotoBitpmap);
+                        c.cadastrar(usuario, context);
                         callback.onCadastroSucesso();
                         Toast.makeText(context, "Usuário cadastrado com sucesso.", Toast.LENGTH_SHORT).show();
                     } else {
@@ -53,13 +56,13 @@ public class FirebaseDB {
 
     }
 
-    private Usuario salvarDadosUsuario(String userId, String nome, String cpf, String email, String foto) {
-        Usuario usuario = new Usuario(nome, cpf, email, foto);
+    private Usuario salvarDadosUsuario(String userId, String nome, String cpf, String email, String senha,String foto) {
+        Usuario usuario = new Usuario(nome, cpf, email,senha, foto);
         mDatabase.child(userId).setValue(usuario);
         return usuario;
     }
 
-    public String converte_bitmap_pra_string(Bitmap bitmap) {
+    public static String converte_bitmap_pra_string(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
@@ -69,5 +72,10 @@ public class FirebaseDB {
     public interface CadastroCallback {
         void onCadastroSucesso();
         void onCadastroFalha();
+    }
+
+    public static Bitmap decodeBase64String(String base64String) {
+        byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 }

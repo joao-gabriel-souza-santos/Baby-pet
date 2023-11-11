@@ -26,13 +26,8 @@ public class Usuario implements Serializable {
 
 
 
-    public Usuario(String nome, String cpf, String email, String senha, Bitmap foto) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.senha = senha;
-        this.foto = foto;
-    }
+
+
 
     public Usuario(String nome, String cpf, String email, Bitmap foto) {
         this.nome = nome;
@@ -41,11 +36,20 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    public Usuario(String nome, String cpf, String email, String stringFoto) {
+    public Usuario(String nome, String cpf, String email, String senha, String stringFoto) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.senha = senha;
+        this.stringFoto = stringFoto;
+    }
+
+    public Usuario(String nome, String cpf, String email, String foto, Bitmap fotoBitpmap) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.stringFoto = stringFoto;
+        this.foto = fotoBitpmap;
     }
 
     public String getStringFoto() {

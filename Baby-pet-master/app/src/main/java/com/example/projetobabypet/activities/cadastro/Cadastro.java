@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -132,17 +134,25 @@ public class Cadastro extends AppCompatActivity {
         String cpf = binding.txtCpf.getText().toString();
         String senha = binding.txtSenha.getText().toString();
 
+
         FirebaseDB firebaseDB = new FirebaseDB(this);
 
 
+        if(fotoCarregada == null){
+            binding.imageRedonda.setImageResource(R.drawable.baseline_person_24);
+            Drawable drawable = binding.imageRedonda.getDrawable();
+            fotoCarregada = ((BitmapDrawable) drawable).getBitmap();
+        }
 
-        usuario = new Usuario(nome, cpf, email, senha, fotoCarregada);
+        String fotoString = FirebaseDB.converte_bitmap_pra_string(fotoCarregada);
 
-        firebaseDB.cadastrarUsuario(nome, cpf, email, senha, fotoCarregada, new FirebaseDB.CadastroCallback() {
+
+
+        firebaseDB.cadastrarUsuario(email, senha, nome, cpf, fotoString, new FirebaseDB.CadastroCallback() {
             @Override
             public void onCadastroSucesso() {
                 Intent it = new Intent(getApplicationContext(), CadastrarPetActivity.class);
-                it.putExtra("email", usuario.getEmail());
+                it.putExtra("email", email);
                 startActivity(it);
                 Intent its = new Intent(getApplicationContext(), Cadastro.class);
                 getApplicationContext().stopService(its);
