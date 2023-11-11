@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Usuario implements Serializable {
-    private String nome, cpf, email, senha;
+    private String nome, cpf, email, senha, stringFoto;
     private Bitmap foto;
     private  int id;
 
@@ -34,9 +34,27 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
+    public Usuario(String nome, String cpf, String email, Bitmap foto) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.foto = foto;
+    }
 
+    public Usuario(String nome, String cpf, String email, String stringFoto) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.stringFoto = stringFoto;
+    }
 
+    public String getStringFoto() {
+        return stringFoto;
+    }
 
+    public void setStringFoto(String stringFoto) {
+        this.stringFoto = stringFoto;
+    }
 
     public Bitmap getFoto() {
         return foto;

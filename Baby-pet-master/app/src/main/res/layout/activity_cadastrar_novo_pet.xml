@@ -119,12 +119,12 @@
         android:id="@+id/button_pet_cadastrar_novo"
         android:layout_width="108dp"
         android:layout_height="50dp"
-        android:layout_marginTop="576dp"
+        android:layout_marginTop="548dp"
         android:background="@drawable/style_btn_login_cadastro"
         android:text="cadastrar"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

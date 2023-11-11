@@ -12,14 +12,18 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.projetobabypet.R;
 import com.example.projetobabypet.activities.Login;
 import com.example.projetobabypet.controller.ControllerUsuario;
+import com.example.projetobabypet.dao.firebase.FirebaseDB;
 import com.example.projetobabypet.databinding.ActivityCadastroBinding;
 import com.example.projetobabypet.model.Usuario;
+import com.google.firebase.FirebaseApp;
 
 import java.io.ByteArrayOutputStream;
 
@@ -36,6 +40,7 @@ public class Cadastro extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
         binding = ActivityCadastroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         fotoCarregada = null;
@@ -52,12 +57,7 @@ public class Cadastro extends AppCompatActivity {
         binding.buttonEsqueciEmail.setOnClickListener(view -> {
 
            try {
-               usuario = cadastrarUsuario();
-               Intent it = new Intent(this, CadastrarPetActivity.class);
-               it.putExtra("email", usuario.getEmail());
-               startActivity(it);
-
-               this.finish();
+               cadastrarUsuario();
            }catch (Exception e){
                AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
                caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
@@ -67,7 +67,7 @@ public class Cadastro extends AppCompatActivity {
         });
 
         binding.imageRedonda.setOnClickListener(view->{
-           if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+           if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                String[] permissao = {Manifest.permission.READ_EXTERNAL_STORAGE};
                requestPermissions(permissao, 1001);
            } else {
@@ -132,10 +132,28 @@ public class Cadastro extends AppCompatActivity {
         String cpf = binding.txtCpf.getText().toString();
         String senha = binding.txtSenha.getText().toString();
 
-        ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(this);
+        FirebaseDB firebaseDB = new FirebaseDB(this);
+
+
 
         usuario = new Usuario(nome, cpf, email, senha, fotoCarregada);
-        controllerUsuario.cadastrar(usuario, this);
+
+        firebaseDB.cadastrarUsuario(nome, cpf, email, senha, fotoCarregada, new FirebaseDB.CadastroCallback() {
+            @Override
+            public void onCadastroSucesso() {
+                Intent it = new Intent(getApplicationContext(), CadastrarPetActivity.class);
+                it.putExtra("email", usuario.getEmail());
+                startActivity(it);
+                Intent its = new Intent(getApplicationContext(), Cadastro.class);
+                getApplicationContext().stopService(its);
+            }
+
+            @Override
+            public void onCadastroFalha() {
+                Toast.makeText(getApplicationContext(), "Falha no cadastro do usuário.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return usuario;
     }
 }

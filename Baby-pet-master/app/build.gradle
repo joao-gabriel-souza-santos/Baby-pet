@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.example.projetobabypet'
-    compileSdk 32
-
+    compileSdk 33
+    apply plugin: 'com.google.gms.google-services'
     defaultConfig {
         applicationId "com.example.projetobabypet"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -37,6 +37,10 @@ android {
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:32.5.0')
+    implementation 'com.google.firebase:firebase-auth-ktx:22.1.2'
+    implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
+    implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
     implementation "androidx.work:work-runtime:2.7.0"
     implementation 'com.google.android.material:material:1.0.0'
@@ -53,6 +57,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.0.0-rc02'
     implementation 'com.google.firebase:firebase-messaging:23.3.0'
     implementation 'com.google.firebase:firebase-inappmessaging-display:20.4.0'
+    apply plugin: 'com.google.gms.google-services'
 
     testImplementation 'junit:junit:4.13.2'
     implementation 'com.github.rtoshiro.mflibrary:mflibrary:1.0.0'

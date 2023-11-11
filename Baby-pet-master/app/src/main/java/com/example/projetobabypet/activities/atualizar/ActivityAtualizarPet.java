@@ -17,9 +17,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
+import com.example.projetobabypet.activities.HomeActivity;
 import com.example.projetobabypet.adapter.conta.AdapterListaPetsConta;
 import com.example.projetobabypet.controller.ControllerPet;
 import com.example.projetobabypet.databinding.ActivityAtualizarPetBinding;
+import com.example.projetobabypet.databinding.ActivityAtualizarUsuarioBinding;
 import com.example.projetobabypet.model.Pet;
 
 import java.io.ByteArrayOutputStream;
@@ -63,6 +65,9 @@ public class ActivityAtualizarPet extends AppCompatActivity {
         });
 
         binding.imageButtonVoltarAtualizarPet.setOnClickListener(view -> {
+            Intent intent1 = new Intent(this, HomeActivity.class);
+            startActivity(intent1);
+
             this.finish();
         });
     }
@@ -100,6 +105,9 @@ public class ActivityAtualizarPet extends AppCompatActivity {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+
         this.finish();
     }
 

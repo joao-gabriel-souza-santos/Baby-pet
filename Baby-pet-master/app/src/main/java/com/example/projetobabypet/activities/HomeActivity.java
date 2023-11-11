@@ -34,6 +34,8 @@ import com.example.projetobabypet.fragments.ArtigoFragment;
 import com.example.projetobabypet.fragments.HomeFragment;
 import com.example.projetobabypet.model.Usuario;
 
+import org.w3c.dom.Text;
+
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -124,13 +126,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 View header = binding.navView.getHeaderView(0);
                 ImageView imagUser = header.findViewById(R.id.image_usuario_header);
                 TextView textView = header.findViewById(R.id.textView_header);
-
-                textView.setText("" + usuario.getNome());
+                TextView txtEmail = header.findViewById(R.id.textView_email_header);
+                txtEmail.setText(usuario.getEmail());
+                textView.setText(usuario.getNome());
                 imagUser.setImageBitmap(usuario.getFoto());
 
                 imagUser.setOnClickListener(view -> {
                     Intent intent = new Intent(this, AtualizarUsuario.class);
                     startActivity(intent);
+                    this.finish();
                 });
 
 

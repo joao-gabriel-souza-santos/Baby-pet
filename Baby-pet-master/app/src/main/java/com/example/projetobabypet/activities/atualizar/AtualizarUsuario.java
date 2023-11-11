@@ -3,6 +3,7 @@ package com.example.projetobabypet.activities.atualizar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import android.Manifest;
@@ -76,11 +77,11 @@ public class AtualizarUsuario extends AppCompatActivity {
 
         int id = usuario.getId();
         binding.buttonSalvarUsuario.setOnClickListener(view -> {
+                atualizarUsuarioLogado(cadastrarUsuario(id));
+            Intent intent1 = new Intent(this, HomeActivity.class);
+            startActivity(intent1);
 
-
-                cadastrarUsuario(id);
-                this.finish();
-
+            this.finish();
         });
 
         binding.imageRedonda.setOnClickListener(view->{
@@ -143,7 +144,7 @@ public class AtualizarUsuario extends AppCompatActivity {
         }
     }
 
-    private void cadastrarUsuario(int id) {
+    private String cadastrarUsuario(int id) {
         String nome = binding.txtNome.getText().toString();
         String email = binding.txtEmail.getText().toString();
         String cpf = binding.txtCpf.getText().toString();
@@ -152,11 +153,18 @@ public class AtualizarUsuario extends AppCompatActivity {
         usuario.setCpf(cpf);
         usuario.setNome(nome);
         usuario.setEmail(email);
-        usuario.setFoto(fotoCarregada);
+        if(fotoCarregada == null){
+            BitmapDrawable drawable = (BitmapDrawable) binding.imageRedonda.getDrawable();
+
+            fotoCarregada = drawable.getBitmap();
+            usuario.setFoto(fotoCarregada);
+        } else {
+            usuario.setFoto(fotoCarregada);
+        }
+
         ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(this);
-
-
         controllerUsuario.atualizar(usuario);
+        return email;
 
     }
     private Usuario usuario_logado(String email) {
@@ -171,5 +179,15 @@ public class AtualizarUsuario extends AppCompatActivity {
             caixademsg.show(); //exibe a caixa pro usuario
         }
         return null;
+    }
+
+
+
+    private void atualizarUsuarioLogado(String email){
+        sp = getSharedPreferences("Log", MODE_PRIVATE);
+        editor = sp.edit();
+        editor.putString("email", email);
+        editor.commit();
+        editor.apply();
     }
 }

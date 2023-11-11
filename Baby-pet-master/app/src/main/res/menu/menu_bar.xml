@@ -5,6 +5,9 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/sair_da_tela"
+            android:icon="@drawable/ic_voltar_azul"
+            android:iconTint="@color/blue"
+            
             android:title="Sair" />
 
     </group>
