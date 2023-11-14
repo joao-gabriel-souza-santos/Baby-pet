@@ -8,7 +8,7 @@ public class Helper extends SQLiteOpenHelper {
 
     //TABELA USUARIO
    public static final String nome_banco = "banco_userss";
-   private static final int versao = 2;
+   private static final int versao = 6;
     public static final String nome_tabela = "Usuario";
     public static final String coluna_id_usuario = "id";
     public static final String coluna_nome = "nome";
@@ -56,17 +56,11 @@ public class Helper extends SQLiteOpenHelper {
 
     //TABELA RACAO E AGUA
     public  static  final String nome_tabela_racaoagua = "RacaoAgua";
-    public  static  final String coluna_id_racaoagua = "id";
-    public  static  final String coluna_qtde_agua_racaoagua= "qtde_agua";
-    public  static  final String coluna_qtde_racao_racaoagua = "qtde_racao";
-    public  static  final String coluna_soma_racao = "soma_racao";
-    public  static  final String coluna_soma_agua = "soma_agua";
+
     public  static  final String coluna_email_usuario_racaoagua = "email_usuario";
     public  static  final String coluna_aguaouracao = "aguaOUracao";
     public  static final String coluna_hora_racaoAgua = "hora";
 
-    public  static final String coluna_maxagua = "max_agua";
-    public  static final String coluna_maxracao = "max_racao";
 
     public Helper(Context context) {
         super(context, nome_banco, null, versao);
@@ -85,13 +79,7 @@ public class Helper extends SQLiteOpenHelper {
                                 coluna_nome + " TEXT NOT NULL, " +
                                 coluna_cpf + " TEXT UNIQUE NOT NULL, " +
                                 coluna_senha + " TEXT NOT NULL, " +
-                                coluna_foto_usuario + " BLOB NOT NULL, " +
-                                coluna_qtde_racao_racaoagua + " INTEGER, " +
-                                coluna_qtde_agua_racaoagua + " INTEGER, " +
-                                coluna_soma_agua + " INTEGER, " +
-                                coluna_soma_racao + " INTEGER, " +
-                                coluna_maxagua + " INTEGER," +
-                                coluna_maxracao + " INTEGER" +
+                                coluna_foto_usuario + " BLOB NOT NULL " +
                                  ");");
 
         String sql = "CREATE TABLE " + nome_tabela_pet + "( " +
@@ -124,17 +112,12 @@ public class Helper extends SQLiteOpenHelper {
                 coluna_email_usuario_categoria + " TEXT " +
                 ");";
 
-        String sql4 = " CREATE TABLE " + nome_tabela_racaoagua + "(" +
-                coluna_id_racaoagua + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                coluna_email_usuario_racaoagua + " TEXT," +
-                coluna_aguaouracao + " TEXT, " +
-                coluna_hora_racaoAgua + "TEXT " +
-                ");";
+
 
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.execSQL(sql2);
         sqLiteDatabase.execSQL(sql3);
-        sqLiteDatabase.execSQL(sql4);
+
     }
 
     @Override
@@ -143,12 +126,10 @@ public class Helper extends SQLiteOpenHelper {
         String sql1 = "DROP TABLE IF EXISTS " + nome_tabela_pet + "; " ;
         String sql2= "DROP TABLE IF EXISTS " + nome_tabela_compromisso + "; " ;
         String sql3 = "DROP TABLE IF EXISTS " + nome_tabela_categoria + ";";
-        String sql4 = "DROP TABLE IF EXISTS " + nome_tabela_racaoagua + ";";
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.execSQL(sql1);
         sqLiteDatabase.execSQL(sql2);
         sqLiteDatabase.execSQL(sql3);
-        sqLiteDatabase.execSQL(sql4);
         onCreate(sqLiteDatabase);
     }
 }

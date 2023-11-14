@@ -1,16 +1,6 @@
 package com.example.projetobabypet.fragments;
-
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import com.example.projetobabypet.controller.ControllerRacaoAgua;
-import com.example.projetobabypet.controller.ControllerUsuario;
-import com.example.projetobabypet.model.RacaoEAgua;
-import com.example.projetobabypet.model.Usuario;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -39,43 +29,13 @@ public class HomeFragment extends Fragment {
     public int valorProgressoRacao = 0;
     public int valorProgressoAgua = 0;
     public int qtd_max_racao = 0, qtd_max_agua = 0;
-    SharedPreferences sp;
-    private SharedPreferences.Editor editor;
-    String email;
-    ControllerRacaoAgua controllerRacaoAgua;
-    ControllerUsuario controllerUsuario;
-    RacaoEAgua racaoEAgua;
-    Usuario usuario;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
-        sp = getActivity().getSharedPreferences("Log", Context.MODE_PRIVATE);
-        editor = sp.edit();
-        email = sp.getString("email", "");
-
-         usuario = usuario_logado(email);
-        controllerUsuario = ControllerUsuario.getInstancia(getContext());
-        controllerRacaoAgua = ControllerRacaoAgua.getInstancia(getContext());
-        try {
-            if(usuario.getMaxAgua() != 0){
-                qtd_max_agua = usuario.getMaxAgua();
-            }
-            if(usuario.getMaxRacao() != 0){
-                qtd_max_racao = usuario.getMaxRacao();
-            }
-            if(usuario.getSomaagua() != 0){
-                valorProgressoAgua = usuario.getSomaagua();
-            }
-            if (usuario.getSomaracao() != 0){
-                valorProgressoRacao = usuario.getSomaracao();
-            }
-        }catch (Exception e){
-
-        }
 
         updateProgressoAgua();
         updateProgressoRacao();
@@ -87,7 +47,7 @@ public class HomeFragment extends Fragment {
 
             horas.add(getHoras());
             AdapterRecycleHome.atualizarLista(1);
-            binding.recycleViewHora.setAdapter(new AdapterRecycleHome(getContext().getApplicationContext(), usuario.getEmail()));
+            binding.recycleViewHora.setAdapter(new AdapterRecycleHome(getContext().getApplicationContext()));
         });
 
         binding.buttonDarAgua.setOnClickListener(view1 -> {
@@ -95,7 +55,8 @@ public class HomeFragment extends Fragment {
             updateProgressoAgua();
 
             horas.add(getHoras());
-            binding.recycleViewHora.setAdapter(new AdapterRecycleHome(getContext().getApplicationContext(), usuario.getEmail()));
+            AdapterRecycleHome.atualizarLista(2);
+            binding.recycleViewHora.setAdapter(new AdapterRecycleHome(getContext().getApplicationContext()));
 
         });
 
@@ -111,8 +72,6 @@ public class HomeFragment extends Fragment {
                     EditText max = sheetView.findViewById(R.id.editText_qtde_max);
                     qtd_max_racao = Integer.parseInt(max.getText().toString());
                     valorProgressoRacao = qtde_dada;
-                    controllerUsuario.atualizarqtdeRacao(email, qtde_dada);
-                    controllerUsuario.atualizaMaxRacao(email, qtd_max_racao);
                     binding.progressBarRacao.setMax(qtd_max_racao);
                     updateProgressoRacao();
                     dialog.dismiss();
@@ -135,8 +94,6 @@ public class HomeFragment extends Fragment {
                     qtd_max_agua = Integer.parseInt(max.getText().toString());
                     valorProgressoAgua = qtde_dada;
                     binding.progressBarAgua.setMax(qtd_max_agua);
-                    controllerUsuario.atualizarqtdeAgua(email, qtde_dada);
-                    controllerUsuario.atualizaMaxAgua(email, qtd_max_agua);
                     updateProgressoAgua();
                     dialog.dismiss();
                 }
@@ -171,12 +128,10 @@ public class HomeFragment extends Fragment {
             binding.progressBarAgua.setMax(200);
             qtd_max_agua = 200;
             binding.textViewExibeAgua.setText(valorProgressoRacao + "/" + binding.progressBarAgua.getMax());
-
         } else {
             binding.progressBarAgua.setProgress(valorProgressoAgua);
             binding.progressBarAgua.setMax(qtd_max_agua);
             binding.textViewExibeAgua.setText(valorProgressoAgua + "/" + binding.progressBarAgua.getMax());
-
         }
 
     }
@@ -185,6 +140,7 @@ public class HomeFragment extends Fragment {
         if (valorProgressoRacao == 0) {
             updateProgressoRacao();
             if ((binding.progressBarRacao.getMax() == 200) && (valorProgressoRacao < 180)) {
+
                 valorProgressoRacao += 20;
                 updateProgressoRacao();
                 try {
@@ -205,60 +161,46 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-            public void adicionarAgua () {
-                if (valorProgressoAgua == 0) {
-                    updateProgressoAgua();
-                    if ((binding.progressBarAgua.getMax() == 200) && (valorProgressoAgua <= 180)) {
-                        valorProgressoAgua += 20;
-                        controllerUsuario.atualizarSomaAgua(email, valorProgressoAgua);
-                        racaoEAgua.setEmail_usuario(email);
-                        racaoEAgua.setAguaouracao("agua");
-                        racaoEAgua.setHora(getHoras());
-                        controllerRacaoAgua.cadastrar(racaoEAgua);
-                        updateProgressoAgua();
-                        try {
-                            TimeUnit.SECONDS.sleep((long)0.5);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                } else {
-                    if (valorProgressoAgua <= qtd_max_agua) {
-                        valorProgressoAgua += valorProgressoAgua;
-                        updateProgressoAgua();
-                        try {
-                            TimeUnit.SECONDS.sleep((long)0.5);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
+    public void adicionarAgua () {
+        if (valorProgressoAgua == 0) {
+            updateProgressoAgua();
+            if ((binding.progressBarAgua.getMax() == 200) && (valorProgressoAgua <= 180)) {
+
+
+                valorProgressoAgua += 20;
+
+
+                valorProgressoAgua += valorProgressoAgua;
+
+                updateProgressoAgua();
+                try {
+                    TimeUnit.SECONDS.sleep((long)0.5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
-
             }
-
-            public String getHoras(){
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(System.currentTimeMillis());
-
-               String hora = String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY),
-                        calendar.get(Calendar.MINUTE));
-                return hora;
+        } else {
+            if (valorProgressoAgua <= qtd_max_agua) {
+                valorProgressoAgua += valorProgressoAgua;
+                updateProgressoAgua();
+                try {
+                    TimeUnit.SECONDS.sleep((long)0.5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
-
-    private Usuario usuario_logado(String email) {
-        try {
-            ControllerUsuario c = ControllerUsuario.getInstancia(getContext());
-            Usuario usuario = c.buscarPorEmail(email);
-            return usuario;
-        } catch (Exception e) {
-            AlertDialog.Builder caixademsg = new AlertDialog.Builder(getContext()); //cria uma caixa de alerta
-            caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
-            caixademsg.setMessage("" + e.getMessage()); //coloca a mensagem da caixa
-            caixademsg.show(); //exibe a caixa pro usuario
         }
-        return null;
+
+    }
+
+    public String getHoras(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        String hora = String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE));
+
+        return hora;
     }
 
 }
-
-

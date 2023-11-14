@@ -3,6 +3,7 @@ package com.example.projetobabypet.dao.firebase;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -188,17 +189,27 @@ public class FirebaseDB {
                                                             c.atualizar(usuario, antigoEmail);
 
                                                             callback.onCadastroSucesso();
-                                                            exibirAlertDialog("Sucesso", "Usuário atualizado com sucesso.");
 
                                                             SharedPreferences.Editor editor = sp.edit();
                                                             editor.putString("email", novoEmail);
                                                             editor.commit();
                                                             editor.apply();
 
-                                                            Intent intent = new Intent(context.getApplicationContext(), HomeActivity.class);
-                                                            context.startActivity(intent);
-                                                            ((Activity) context).finish();
-                                                            dialog.cancel();
+                                                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                                            builder.setTitle("Alerta")
+                                                                    .setMessage("\"Para você conseguir realizar o login com o novo email, voce deve ir no novo email e clicar no link que foi enviado. Após isso você pode logar com seu novo email\"")
+                                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                            Intent intent = new Intent(context.getApplicationContext(), HomeActivity.class);
+                                                                            context.startActivity(intent);
+                                                                            ((Activity) context).finish();
+                                                                            dialog.cancel();
+                                                                        }
+                                                                    })
+                                                                    .show();
+
+
                                                         } else {
                                                             exibirAlertDialog("Erro", emailUpdateTask.getException().getMessage());
                                                         }

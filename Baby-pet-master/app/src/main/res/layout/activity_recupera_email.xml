@@ -39,10 +39,11 @@
         android:ems="10"
         android:hint="  CPF"
         android:inputType="number"
-        app:met_mask="###.###.###-##"
+        android:paddingStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:met_mask="###.###.###-##" />
 
     <EditText
         android:id="@+id/editText_email"
@@ -54,6 +55,7 @@
         android:ems="10"
         android:hint="  Resultado"
         android:inputType="textPersonName"
+        android:paddingStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

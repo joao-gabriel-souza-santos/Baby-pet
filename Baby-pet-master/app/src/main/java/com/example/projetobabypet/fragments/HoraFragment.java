@@ -1,13 +1,19 @@
 package com.example.projetobabypet.fragments;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -50,6 +56,7 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
 
     EditText editTextHora;
     Calendar calendar;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,6 +107,7 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
         View sheetView = LayoutInflater.from(getContext()).inflate(
                 R.layout.layout_bottom_sheet_dialog_cadastrar_hora, view.findViewById(R.id.bottomConta)
         );
+
 
         radioGroup = sheetView.findViewById(R.id.radioGroup);
 
@@ -189,6 +197,7 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
                     dialog.dismiss();
                     AdapterListaHora adapterListaHora = new AdapterListaHora(getContext(), usuario.getEmail(), this);
                     binding.recyclerViewHora.setAdapter(adapterListaHora);
+
                 }
 
             });
@@ -201,6 +210,7 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
 
         }
     }
+
 
     @Override
     public void onLongClick(Compromisso position) {

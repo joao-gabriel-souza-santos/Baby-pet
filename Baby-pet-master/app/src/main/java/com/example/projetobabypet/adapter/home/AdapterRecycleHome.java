@@ -1,5 +1,4 @@
 package com.example.projetobabypet.adapter.home;
-
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,25 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.projetobabypet.R;
-import com.example.projetobabypet.controller.ControllerRacaoAgua;
 import com.example.projetobabypet.fragments.HomeFragment;
-import com.example.projetobabypet.model.RacaoEAgua;
 
 import java.util.List;
 
 public class AdapterRecycleHome extends RecyclerView.Adapter<HolderRecycleHome> {
 
     Context context;
+    public static  List<String> horas;
 
+    static int racao_agua;
 
-    public List<RacaoEAgua> racaoEAguas;
-    String email;
-
-    public AdapterRecycleHome(Context context, String email) {
+    public AdapterRecycleHome(Context context) {
         this.context = context;
-        this.email = email;
-        ControllerRacaoAgua c = ControllerRacaoAgua.getInstancia(context);
-        racaoEAguas = c.buscar(email);
+
+        this.horas = HomeFragment.horas;
+
     }
 
     @NonNull
@@ -39,22 +35,23 @@ public class AdapterRecycleHome extends RecyclerView.Adapter<HolderRecycleHome> 
     @Override
     public void onBindViewHolder(HolderRecycleHome holderRecycleHome, int position) {
 
-        RacaoEAgua racaoEAgua = racaoEAguas.get(position);
+        holderRecycleHome.horario.setText(horas.get(position).toString());
 
-        holderRecycleHome.horario.setText(racaoEAgua.getHora());
-        if(racaoEAgua.getAguaouracao().equals("Racao")) {
+        if(racao_agua ==1) {
             holderRecycleHome.imageView.setImageResource(R.drawable.imagem_mini_pote);
         }else{
             holderRecycleHome.imageView.setImageResource(R.drawable.imagem_mini_copo);
         }
-        }
+
+    }
 
     @Override
     public int getItemCount() {
-        return racaoEAguas.size();
+        return horas.size();
     }
 
     public static void atualizarLista(int valor){
-
+        horas = HomeFragment.horas;
+        racao_agua = valor;
     }
 }

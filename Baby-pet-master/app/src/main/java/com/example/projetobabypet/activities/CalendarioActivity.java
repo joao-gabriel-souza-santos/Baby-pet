@@ -135,6 +135,10 @@ public class CalendarioActivity extends AppCompatActivity {
                 compromisso.setEmail_usuario(usuario.getEmail());
                 c.atualizarCompromisso(compromisso);
                 destacaDiasCalendario();
+                Intent intent = new Intent(this, NotificacaoPorData.class);
+                NotificacaoPorData notificacaoPorData = new NotificacaoPorData();
+                intent.putExtra("id", 999);
+                notificacaoPorData.onReceive(this, intent);
                 dialog.dismiss();
             });
             buttonDeletar.setOnClickListener(view1 -> {
@@ -182,7 +186,10 @@ public class CalendarioActivity extends AppCompatActivity {
 
             dialog.setContentView(sheetView);
             dialog.show();
-
+            Intent intent = new Intent(this, NotificacaoPorData.class);
+            NotificacaoPorData notificacaoPorData = new NotificacaoPorData();
+            intent.putExtra("id", 999);
+            notificacaoPorData.onReceive(this, intent);
         });
     }
 

@@ -1,5 +1,6 @@
 package com.example.projetobabypet.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
@@ -68,6 +69,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         initi_navigation_drawer();
 
+        boolean mostrarAlertDialog = getIntent().getBooleanExtra("mostrarAlertDialog", false);
+
+        if (mostrarAlertDialog) {
+            exibirAlertDialog();
+        }
 
         binding.imageMenu.setOnClickListener(view -> {
             binding.drawerLayout.openDrawer(GravityCompat.START);
@@ -204,5 +210,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         pets_usuario_logado();
+    }
+    private void exibirAlertDialog() {
+        AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
+        caixademsg.setTitle("Atenção"); //Coloca o titulo da caixa
+        caixademsg.setMessage("Para você conseguir realizar o login com o novo email, voce deve ir no novo email e clicar no link que foi enviado. Após isso você pode logar com seu novo email"); //coloca a mensagem da caixa
+        caixademsg.show(); //exibe a caixa pro usuario
     }
 }

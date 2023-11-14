@@ -36,6 +36,7 @@ public class CadastrarPetActivity extends AppCompatActivity {
     private Pet pet;
     private Bitmap fotoCarregada = null;
     private ActivityCadastrarPetBinding binding;
+    String email;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -43,6 +44,9 @@ public class CadastrarPetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCadastrarPetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+         email = getIntent().getStringExtra("email");
+
         binding.btnFinalizarCadastro.setOnClickListener(view -> {
             try {
                     pet = cadastrarPet();
@@ -73,7 +77,7 @@ public class CadastrarPetActivity extends AppCompatActivity {
 
 
     private Pet cadastrarPet() throws Exception {
-        String email = getIntent().getStringExtra("email");
+
 
         ControllerUsuario c = ControllerUsuario.getInstancia(CadastrarPetActivity.this);
         Usuario us = c.buscarPorEmail(email);
@@ -91,10 +95,10 @@ public class CadastrarPetActivity extends AppCompatActivity {
                             binding.imageRedonda.setImageResource(R.drawable.imagem_pet);
                             Drawable drawable = binding.imageRedonda.getDrawable();
                             fotoCarregada = ((BitmapDrawable) drawable).getBitmap();
-                            pet = new Pet(email, nome, sexo, raca, idade, fotoCarregada);
-                            controllerPet.cadastrar(pet);
-                        }
 
+                        }
+                        pet = new Pet(email, nome, sexo, raca, idade, fotoCarregada);
+                        controllerPet.cadastrarNovoPet(pet);
                     }else {
                         AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
                         caixademsg.setTitle("Erro"); //Coloca o titulo da caixa

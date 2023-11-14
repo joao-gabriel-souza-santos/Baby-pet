@@ -3,10 +3,12 @@ package com.example.projetobabypet.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.example.projetobabypet.activities.atualizar.ActivityAtualizarPet;
@@ -38,6 +40,7 @@ public class ContaFragment extends Fragment implements RecyclerClickPetConta {
     BottomSheetDialog dialog;
     ControllerPet c;
     AdapterListaPetsConta adapterListaPetsConta;
+    private static final int REQUEST_NOTIFICATION_PERMISSION = 1;
 
 
     SharedPreferences sp;
@@ -73,7 +76,6 @@ public class ContaFragment extends Fragment implements RecyclerClickPetConta {
 
         return view;
     }
-
 
 
 

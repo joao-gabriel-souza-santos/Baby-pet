@@ -58,7 +58,6 @@ public class PetRepositorio {
         pet.getFoto().compress(Bitmap.CompressFormat.PNG, 100, stream);
         values.put(Helper.coluna_foto_pet, stream.toByteArray());
         long id = db.insert(Helper.nome_tabela_pet,
-
                 Helper.coluna_qtde_pet_agua + ", " +
                 Helper.coluna_qtde_pet_racao,values);
         db.close();

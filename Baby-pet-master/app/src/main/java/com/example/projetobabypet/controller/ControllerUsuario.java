@@ -116,29 +116,5 @@ public class ControllerUsuario {
         db = new UsuarioRepositorio(contexto);
         db.atualizar(usuario, emailAntigo);
     }
-    public void atualizarqtdeAgua(String email, int valor){
-        db = new UsuarioRepositorio(contexto);
-        db.atualizaqtdeAgua(email, valor);
-    }
-    public void atualizarqtdeRacao(String email, int valor) {
-        db = new UsuarioRepositorio(contexto);
-        db.atualizaqtdeRacao(email, valor);
-    }
-    public void atualizarSomaRacao(String email, int valor){
-        db = new UsuarioRepositorio(contexto);
-        db.atualizaSomaRacao(email, valor);
-    }
-    public  void atualizarSomaAgua(String email, int valor) {
-        db = new UsuarioRepositorio(contexto);
-        db.atualizaSomaAgua(email, valor);
-    }
-    public void atualizaMaxAgua(String email, int valor){
-        db = new UsuarioRepositorio(contexto);
-        db.atualizamaxAgua(email, valor);
-    }
-    public void atualizaMaxRacao(String email, int valor) {
-        db = new UsuarioRepositorio(contexto);
-        db.atualizaMaxRacao(email, valor);
 
-    }
     }
