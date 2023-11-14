@@ -1,5 +1,8 @@
 package com.example.projetobabypet.activities;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AlertDialog;
@@ -7,10 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.example.projetobabypet.R;
 import com.example.projetobabypet.activities.cadastro.Cadastro;
 import com.example.projetobabypet.activities.recuperalogin.EsqueciLogin;
 import com.example.projetobabypet.controller.ControllerUsuario;
+import com.example.projetobabypet.dao.firebase.FirebaseDB;
 import com.example.projetobabypet.databinding.ActivityLoginBinding;
 
 public class Login extends AppCompatActivity {
@@ -37,7 +44,7 @@ public class Login extends AppCompatActivity {
             this.finish();
         });
 
-        validarLogin(); //chama o metodo validar login
+
 
         sp = getSharedPreferences("Log", MODE_PRIVATE);
         editor = sp.edit();
@@ -47,11 +54,15 @@ public class Login extends AppCompatActivity {
             this.finish();
         }
 
+        validarLogin();
     }
 
     private void validarLogin() {
         binding.btnLogin.setOnClickListener(view -> {
             try {
+                Dialog dialog = showProgressBar(this);
+                dialog.create();
+                FirebaseDB db = new FirebaseDB(this);
                 String usuarioEmail = binding.email.getText().toString(); //recebe o texto que ta no edit text de email
                 String senhaUsuario = binding.senha.getText().toString(); //receb o texto que ta no edit text de senha
                 if(controllerUsuario.login(usuarioEmail, senhaUsuario)) { //manda pro controler verificar o login,
@@ -62,13 +73,21 @@ public class Login extends AppCompatActivity {
 
                     startActivity(new Intent(this, HomeActivity.class)); //se o controller retornaar positivo então
                     this.finish();
-                    // o login é efetuado com sucesso e leva pra tela inicial
 
-                } else {
-                    AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
-                    caixademsg.setTitle("Usuário não encontrado"); //Coloca o titulo da caixa
-                    caixademsg.setMessage("Usuário ou senha incorreto" ); //coloca a mensagem da caixa
-                    caixademsg.show(); //exibe a caixa pro usuario
+                } else  {
+                    db.verificarExistenciaUsuario(sp,dialog,usuarioEmail, senhaUsuario, new FirebaseDB.CadastroCallback() {
+                        @Override
+                        public void onCadastroSucesso() {
+
+                        }
+                        @Override
+                        public void onCadastroFalha() {
+                            AlertDialog.Builder caixademsg = new AlertDialog.Builder(Login.this); //cria uma caixa de alerta
+                            caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+                            caixademsg.setMessage("Usuário ou senha inválidos"); //coloca a mensagem da caixa
+                            caixademsg.show(); //exibe a caixa pro usuario
+                        }
+                    });
                 }
             }catch (Exception e){
                 AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
@@ -78,5 +97,24 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+
+    public Dialog showProgressBar(Context context) {
+        Dialog progressDialog = new Dialog(context);
+        progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        progressDialog.setContentView(R.layout.pop_up_progressbar);
+        progressDialog.setCancelable(false);
+
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(progressDialog.getWindow().getAttributes());
+        layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        progressDialog.show();
+        progressDialog.getWindow().setAttributes(layoutParams);
+        return progressDialog;
+    }
+
+
 
 }

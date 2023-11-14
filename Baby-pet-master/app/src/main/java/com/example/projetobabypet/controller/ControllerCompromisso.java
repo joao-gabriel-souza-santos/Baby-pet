@@ -37,9 +37,9 @@ public class ControllerCompromisso {
     }
 
 
-    public List<Compromisso> buscar_compromissos(int id){
+    public List<Compromisso> buscar_compromissos(String email){
         db = new CompromissoRepositorio(context);
-        compromissos = db.buscarTodosCompromissos_usuario(id);
+        compromissos = db.buscarTodosCompromissos_usuario(email);
         return compromissos;
     }
     public List<Compromisso> buscar_todos_compromissos(){

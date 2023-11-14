@@ -27,6 +27,5 @@ public class HolderListaPetsConta extends RecyclerView.ViewHolder {
 
         cardView = itemView.findViewById(R.id.cardview_recycleview_conta_pet);
 
-
     }
 }

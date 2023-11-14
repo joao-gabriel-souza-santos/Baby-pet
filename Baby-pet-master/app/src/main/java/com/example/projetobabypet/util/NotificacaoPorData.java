@@ -11,21 +11,38 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
+import android.view.textclassifier.TextLinks;
 
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
 
 import com.example.projetobabypet.R;
 import com.example.projetobabypet.activities.HomeActivity;
 import com.example.projetobabypet.controller.ControllerCompromisso;
+import com.example.projetobabypet.dao.firebase.FirebaseDB;
 import com.example.projetobabypet.model.Compromisso;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class NotificacaoPorData extends BroadcastReceiver {
     Context context;
     Intent intent;
+    String token;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -39,7 +56,7 @@ public class NotificacaoPorData extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelID);
         builder.setSmallIcon(R.drawable.minilogo).
                 setContentTitle("Dar ração")
-                .setContentText( racao_agua )
+                .setContentText("Vai dar"+ racao_agua +"pro dog caralho")
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
@@ -76,12 +93,7 @@ public class NotificacaoPorData extends BroadcastReceiver {
     }
 
     private void verificarHorarioParaNotificacao(Context context, Intent intent) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("channel_id", "Nome do Canal", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+        FirebaseDB firebaseDB = new FirebaseDB(context);
         int id = intent.getIntExtra("id", 0);
         ControllerCompromisso c = ControllerCompromisso.getInstance(context);
         Calendar calendar = Calendar.getInstance();
@@ -111,7 +123,12 @@ public class NotificacaoPorData extends BroadcastReceiver {
 
                 if (anoAt == ano && mesAt == mes && dia == diaAt) {
                     if (horaAtual == hora && minAtual == min) {
-                        showNotification(context, compromisso.getDescricao());
+                        AlertDialog.Builder caixademsg = new AlertDialog.Builder(context); //cria uma caixa de alerta
+                        caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+                        caixademsg.setMessage(hora + ":" + min + "\n" + horaAtual+ ":" + minAtual + "\n" + ano + "/" + mes + "/" + dia +  "\n" + anoAt+ "/" + mesAt+ "/" + diaAt); //coloca a mensagem da caixa
+                        caixademsg.show(); //exibe a caixa pro usuario
+                        showNotification(context, compromisso.getNome());
+
                     }
 
                 }
@@ -125,8 +142,9 @@ public class NotificacaoPorData extends BroadcastReceiver {
         @Override
         public void run() {
             verificarHorarioParaNotificacao(context, intent); // Verifique o horário
-            // Agende a próxima verificação em 1 minuto
+
             handler.postDelayed(this, 60 * 1000); // 60 segundos * 1000 ms
         }
     };
+
 }

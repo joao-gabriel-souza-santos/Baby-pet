@@ -28,7 +28,7 @@ public class PetRepositorio {
     public long cadastrarPet(Pet pet){
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Helper.coluna_pet_id_usuario, pet.getIdUsuario());
+        values.put(Helper.coluna_pet_email_usuario, pet.getEmail_usuario());
         values.put(Helper.coluna_nome_pet, pet.getNome());
         values.put(Helper.coluna_raca_pet, pet.getRaca());
         values.put(Helper.coluna_idade_pet, pet.getIdade());
@@ -37,9 +37,6 @@ public class PetRepositorio {
         pet.getFoto().compress(Bitmap.CompressFormat.PNG, 100, stream);
         values.put(Helper.coluna_foto_pet, stream.toByteArray());
          long id = db.insert(Helper.nome_tabela_pet,
-                 Helper.coluna_horas_pet_bebeu + ", " +
-
-                Helper.coluna_horas_pet_comeu + "," +
                 Helper.coluna_qtde_pet_agua + ", " +
                 Helper.coluna_qtde_pet_racao,values);
         db.close();
@@ -51,7 +48,7 @@ public class PetRepositorio {
     public long cadastrar_novo_Pet(Pet pet){
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Helper.coluna_pet_id_usuario, pet.getIdUsuario());
+        values.put(Helper.coluna_pet_email_usuario, pet.getEmail_usuario());
         values.put(Helper.coluna_nome_pet, pet.getNome());
         values.put(Helper.coluna_raca_pet, pet.getRaca());
         values.put(Helper.coluna_idade_pet, pet.getIdade());
@@ -81,7 +78,7 @@ public class PetRepositorio {
         List<Pet> pets = new ArrayList<>();
         while (cursor.moveToNext()){
             int idPet = cursor.getInt(0);
-            int id_usuario = cursor.getInt(1);
+            String email_usuario = cursor.getString(1);
             String nome = cursor.getString(2);
             String raca = cursor.getString(3);
             String sexo = cursor.getString(4);
@@ -90,7 +87,14 @@ public class PetRepositorio {
             int qtde_agua = cursor.getInt(7);
             int qtde_racao = cursor.getInt(8);
             Bitmap foto = BitmapFactory.decodeByteArray(stream, 0, stream.length);
-            Pet pet = new Pet(nome, sexo, raca, idPet,id_usuario, idade, foto);
+            Pet pet = new Pet();
+            pet.setEmail_usuario(email_usuario);
+            pet.setId(idPet);
+            pet.setNome(nome);
+            pet.setRaca(raca);
+            pet.setSexo(sexo);
+            pet.setIdade(idade);
+            pet.setFoto(foto);
             pets.add(pet);
         }
         db.close();
@@ -98,27 +102,27 @@ public class PetRepositorio {
         return pets;
     }
 
-    public List<Pet> buscar_todos_pets_do_usuario(int id) throws Exception{
+    public List<Pet> buscar_todos_pets_do_usuario(String email) throws Exception{
         SQLiteDatabase db = helper.getReadableDatabase();
-        String sql = "SELECT * FROM " + Helper.nome_tabela_pet + " WHERE " + Helper.coluna_pet_id_usuario + "= ?";
+        String sql = "SELECT * FROM " + Helper.nome_tabela_pet + " WHERE " + Helper.coluna_pet_email_usuario + "= ?";
 
-        Cursor cursor = db.rawQuery(sql, new String[] { String.valueOf(id) });
+        Cursor cursor = db.rawQuery(sql, new String[] { String.valueOf(email) });
         Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
         field.setAccessible(true);
         field.set(null, 100 * 1024 * 1024); //the 100MB is the new size
         List<Pet> pets = new ArrayList<>();
         while (cursor.moveToNext()){
             int idPet = cursor.getInt(0);
-            int id_usuario = cursor.getInt(1);
+            String email_usuario = cursor.getString(1);
             String nome = cursor.getString(2);
             String raca = cursor.getString(3);
             String sexo = cursor.getString(4);
             int idade = cursor.getInt(5);
             byte[] stream = cursor.getBlob(6);
-            int qtde_agua = cursor.getInt(7);
-            int qtde_racao = cursor.getInt(8);
+            String qtde_agua = cursor.getString(7);
+            String qtde_racao = cursor.getString(8);
             Bitmap foto = BitmapFactory.decodeByteArray(stream, 0, stream.length);
-            Pet pet = new Pet(nome, sexo, raca, idPet, id_usuario, idade, qtde_racao, qtde_agua, foto);
+            Pet pet = new Pet(nome, sexo, raca, idPet,email_usuario, idade, foto);
             pets.add(pet);
         }
         db.close();
@@ -129,7 +133,7 @@ public class PetRepositorio {
     public void atualizarPet(Pet pet){
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Helper.coluna_pet_id_usuario, pet.getIdUsuario());
+        values.put(Helper.coluna_pet_email_usuario, pet.getEmail_usuario());
         values.put(Helper.coluna_nome_pet, pet.getNome());
         values.put(Helper.coluna_raca_pet, pet.getRaca());
         values.put(Helper.coluna_idade_pet, pet.getIdade());

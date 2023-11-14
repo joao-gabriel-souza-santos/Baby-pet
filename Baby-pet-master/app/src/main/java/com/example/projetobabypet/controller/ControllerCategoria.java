@@ -30,9 +30,9 @@ public class ControllerCategoria {
         db = new CategoriaRepositorio(context);
         db.cadastrar(categoria);
     }
-    public List<Categoria> buscarCategorias(int id){
+    public List<Categoria> buscarCategorias(String email){
         db = new CategoriaRepositorio(context);
-        categorias = db.buscarTodasCategorias(id);
+        categorias = db.buscarTodasCategorias(email);
         return categorias;
     }
 

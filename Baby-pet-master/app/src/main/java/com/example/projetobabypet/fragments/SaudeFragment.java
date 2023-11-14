@@ -3,7 +3,6 @@ package com.example.projetobabypet.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,7 +25,6 @@ import com.example.projetobabypet.databinding.FragmentSaudeBinding;
 import com.example.projetobabypet.model.Categoria;
 import com.example.projetobabypet.model.Usuario;
 import com.example.projetobabypet.util.NotificacaoPorData;
-import com.example.projetobabypet.util.NotificationService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.Calendar;
@@ -57,27 +55,15 @@ public class SaudeFragment extends Fragment {
         usuario = usuario_logado(email);
 
 
-
-
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH); // Janeiro é 0, Fevereiro é 1, ..., Dezembro é 11
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int horaAtual = calendar.get(Calendar.HOUR_OF_DAY);
-        int minAtual = calendar.get(Calendar.MINUTE);
-        AlertDialog.Builder caixademsg = new AlertDialog.Builder(getContext()); //cria uma caixa de alerta
-        caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
-        caixademsg.setMessage(day + "/" + month + "/" + year +"\n " + horaAtual + ":" + minAtual); //coloca a mensagem da caixa
-        caixademsg.show(); //exibe a caixa pro usuario
-
-
-
         try {
             LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             binding.recyclerViewAfazeresSaude.setLayoutManager(manager);
             Intent intent = new Intent(getActivity(), NotificacaoPorData.class);
             AdapterCategoria adapterCategoria = new AdapterCategoria(getContext(), usuario, intent);
             binding.recyclerViewAfazeresSaude.setAdapter(adapterCategoria);
+
+
+
         } catch (Exception a) {
 
         }
@@ -93,8 +79,8 @@ public class SaudeFragment extends Fragment {
                     EditText editNome = sheetView.findViewById(R.id.editText_nome_categoria);
                     String nomeCategoria = editNome.getText().toString();
                     ControllerCategoria c = ControllerCategoria.getInstance(getContext());
-                    Categoria categoria = new Categoria(nomeCategoria, usuario.getId());
-                    categoria.setId_usuario(usuario.getId());
+                    Categoria categoria = new Categoria(nomeCategoria, usuario.getEmail());
+                    categoria.setEmail_usuario(usuario.getEmail());
                     c.cadastrar(categoria);
                     Intent intent = new Intent(getActivity(), NotificacaoPorData.class);
                     AdapterCategoria adapterCategoria = new AdapterCategoria(getContext(), usuario, intent);

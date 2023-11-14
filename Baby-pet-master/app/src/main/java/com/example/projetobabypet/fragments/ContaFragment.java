@@ -82,7 +82,7 @@ public class ContaFragment extends Fragment implements RecyclerClickPetConta {
             usuario = usuario_logado(email);
             LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             binding.recyclerViewContaListaPets.setLayoutManager(manager);
-            adapterListaPetsConta = new AdapterListaPetsConta(getContext(), usuario.getId(), position -> onItemClick(position));
+            adapterListaPetsConta = new AdapterListaPetsConta(getContext(), email, position -> onItemClick(position));
             binding.recyclerViewContaListaPets.setAdapter(adapterListaPetsConta);
         } catch (Exception e) {
             AlertDialog.Builder caixademsg = new AlertDialog.Builder(getContext()); //cria uma caixa de alerta
@@ -115,7 +115,7 @@ public class ContaFragment extends Fragment implements RecyclerClickPetConta {
 
                 intent.putExtra("id", pet.getId());
                 intent.putExtra("idade", pet.getIdade());
-                intent.putExtra("idUsuario", pet.getIdUsuario());
+                intent.putExtra("email", pet.getEmail_usuario());
                 intent.putExtra("nome", pet.getNome());
                 intent.putExtra("raca", pet.getRaca());
                 intent.putExtra("sexo", pet.getSexo());
@@ -138,7 +138,7 @@ public class ContaFragment extends Fragment implements RecyclerClickPetConta {
     public void onResume() {
         super.onResume();
         try {
-            adapterListaPetsConta.atualizarLista(getContext(), usuario.getId());
+            adapterListaPetsConta.atualizarLista(getContext(), usuario.getEmail());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

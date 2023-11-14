@@ -8,7 +8,7 @@ public class Helper extends SQLiteOpenHelper {
 
     //TABELA USUARIO
    public static final String nome_banco = "banco_userss";
-   private static final int versao = 1;
+   private static final int versao = 2;
     public static final String nome_tabela = "Usuario";
     public static final String coluna_id_usuario = "id";
     public static final String coluna_nome = "nome";
@@ -22,7 +22,7 @@ public class Helper extends SQLiteOpenHelper {
     //TABELA PET
     public static final String nome_tabela_pet = "Pet";
     public static final String coluna_id_pet = "id";
-    public static final String coluna_pet_id_usuario = "id_usuario";
+    public static final String coluna_pet_email_usuario = "email_usuario";
     public static final String coluna_nome_pet = "nome";
     public static final String coluna_raca_pet = "raca";
     public static final String coluna_sexo_pet = "sexo";
@@ -39,7 +39,7 @@ public class Helper extends SQLiteOpenHelper {
 
     public static final String nome_tabela_compromisso = "Compromisso";
     public static final String coluna_id_compromisso = "id";
-    public static final String coluna_id_usuario_compromisso = "id_usuario";
+    public static final String coluna_email_usuario_compromisso = "email_usuario";
     public static  final String coluna_id_categoria_compromisso = "id_categoria";
     public static final String coluna_nome_compromisso = "nome";
     public static final String coluna_descricao_compromisso = "descricao";
@@ -52,8 +52,21 @@ public class Helper extends SQLiteOpenHelper {
     public static  final String nome_tabela_categoria = "Categoria";
     public static  final String coluna_id_categoria = "id";
     public static  final String coluna_nome_categoria = "nome";
-    public static  final String coluna_id_usuario_categoria = "id_usuario";
+    public static  final String coluna_email_usuario_categoria = "email_usuario";
 
+    //TABELA RACAO E AGUA
+    public  static  final String nome_tabela_racaoagua = "RacaoAgua";
+    public  static  final String coluna_id_racaoagua = "id";
+    public  static  final String coluna_qtde_agua_racaoagua= "qtde_agua";
+    public  static  final String coluna_qtde_racao_racaoagua = "qtde_racao";
+    public  static  final String coluna_soma_racao = "soma_racao";
+    public  static  final String coluna_soma_agua = "soma_agua";
+    public  static  final String coluna_email_usuario_racaoagua = "email_usuario";
+    public  static  final String coluna_aguaouracao = "aguaOUracao";
+    public  static final String coluna_hora_racaoAgua = "hora";
+
+    public  static final String coluna_maxagua = "max_agua";
+    public  static final String coluna_maxracao = "max_racao";
 
     public Helper(Context context) {
         super(context, nome_banco, null, versao);
@@ -68,31 +81,34 @@ public class Helper extends SQLiteOpenHelper {
 
 
         sqLiteDatabase.execSQL("CREATE TABLE " + nome_tabela + "( " +
-                coluna_id_usuario + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                                coluna_email + " TEXT PRIMARY KEY, " +
                                 coluna_nome + " TEXT NOT NULL, " +
                                 coluna_cpf + " TEXT UNIQUE NOT NULL, " +
-                                coluna_email + " TEXT UNIQUE NOT NULL, " +
                                 coluna_senha + " TEXT NOT NULL, " +
-                                coluna_foto_usuario + " BLOB NOT NULL " +
+                                coluna_foto_usuario + " BLOB NOT NULL, " +
+                                coluna_qtde_racao_racaoagua + " INTEGER, " +
+                                coluna_qtde_agua_racaoagua + " INTEGER, " +
+                                coluna_soma_agua + " INTEGER, " +
+                                coluna_soma_racao + " INTEGER, " +
+                                coluna_maxagua + " INTEGER," +
+                                coluna_maxracao + " INTEGER" +
                                  ");");
 
         String sql = "CREATE TABLE " + nome_tabela_pet + "( " +
-                     coluna_id_pet + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                coluna_pet_id_usuario + " INTEGER, " +
+                coluna_id_pet + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                coluna_pet_email_usuario + " TEXT, " +
                 coluna_nome_pet + " TEXT NOT NULL, " +
                 coluna_raca_pet + " TEXT NOT NULL, " +
                 coluna_sexo_pet + " TEXT NOT NULL, " +
                 coluna_idade_pet + " INTEGER NOT NULL, " +
                 coluna_foto_pet + " BLOB NOT NULL, " +
-                coluna_horas_pet_bebeu + " TEXT, " +
-                coluna_horas_pet_comeu + " TEXT, " +
                 coluna_qtde_pet_agua + " TEXT, " +
                 coluna_qtde_pet_racao + " TEXT " +
                 "); ";
 
         String sql2 = " CREATE TABLE " + nome_tabela_compromisso + "( "  +
                 coluna_id_compromisso + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                coluna_id_usuario_compromisso + " INTEGER, " +
+                coluna_email_usuario_compromisso + " TEXT, " +
                 coluna_id_categoria_compromisso + " INTEGER, " +
                 coluna_nome_compromisso + " TEXT, " +
                 coluna_hora_compromisso + " TEXT NOT NULL," +
@@ -105,13 +121,20 @@ public class Helper extends SQLiteOpenHelper {
         String sql3 = " CREATE TABLE " + nome_tabela_categoria + "(" +
                         coluna_id_categoria + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         coluna_nome_categoria + " TEXT, " +
-                        coluna_id_usuario_categoria + " INTEGER " +
+                coluna_email_usuario_categoria + " TEXT " +
+                ");";
+
+        String sql4 = " CREATE TABLE " + nome_tabela_racaoagua + "(" +
+                coluna_id_racaoagua + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                coluna_email_usuario_racaoagua + " TEXT," +
+                coluna_aguaouracao + " TEXT, " +
+                coluna_hora_racaoAgua + "TEXT " +
                 ");";
 
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.execSQL(sql2);
         sqLiteDatabase.execSQL(sql3);
-
+        sqLiteDatabase.execSQL(sql4);
     }
 
     @Override
@@ -120,13 +143,12 @@ public class Helper extends SQLiteOpenHelper {
         String sql1 = "DROP TABLE IF EXISTS " + nome_tabela_pet + "; " ;
         String sql2= "DROP TABLE IF EXISTS " + nome_tabela_compromisso + "; " ;
         String sql3 = "DROP TABLE IF EXISTS " + nome_tabela_categoria + ";";
-
-
+        String sql4 = "DROP TABLE IF EXISTS " + nome_tabela_racaoagua + ";";
         sqLiteDatabase.execSQL(sql);
         sqLiteDatabase.execSQL(sql1);
         sqLiteDatabase.execSQL(sql2);
         sqLiteDatabase.execSQL(sql3);
-
+        sqLiteDatabase.execSQL(sql4);
         onCreate(sqLiteDatabase);
     }
 }

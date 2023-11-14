@@ -1,5 +1,6 @@
 package com.example.projetobabypet.fragments;
 
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,11 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 
 import com.example.projetobabypet.R;
+import com.example.projetobabypet.activities.CalendarioActivity;
 import com.example.projetobabypet.adapter.hora.AdapterListaHora;
 import com.example.projetobabypet.controller.ControllerCompromisso;
 import com.example.projetobabypet.controller.ControllerUsuario;
@@ -27,6 +31,10 @@ import com.example.projetobabypet.model.Compromisso;
 import com.example.projetobabypet.model.Usuario;
 import com.example.projetobabypet.util.NotificationService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 
 public class HoraFragment extends Fragment implements RecyclerClickHora {
@@ -39,6 +47,9 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
     String email;
     Usuario usuario;
     View view;
+
+    EditText editTextHora;
+    Calendar calendar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,10 +65,11 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
         email = sp.getString("email", "");
         usuario = usuario_logado(email);
 
+
         try {
 
             Intent serviceIntent = new Intent(getActivity(), NotificationService.class);
-            serviceIntent.putExtra("id", usuario.getId());
+            serviceIntent.putExtra("email", usuario.getEmail());
             NotificationService notificationService = new NotificationService();
             notificationService.onReceive(getContext(), serviceIntent);
         }catch (Exception e){
@@ -71,15 +83,13 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerViewHora.setLayoutManager(manager);
-        AdapterListaHora adapterListaHora = new AdapterListaHora(getContext(), usuario.getId(), this);
+        AdapterListaHora adapterListaHora = new AdapterListaHora(getContext(), usuario.getEmail(), this);
         binding.recyclerViewHora.setAdapter(adapterListaHora);
 
         binding.buttonAdicionarHora.setOnClickListener(view1 -> {
 
             createDialog();
         });
-
-
 
         return view;
 
@@ -90,16 +100,13 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
         View sheetView = LayoutInflater.from(getContext()).inflate(
                 R.layout.layout_bottom_sheet_dialog_cadastrar_hora, view.findViewById(R.id.bottomConta)
         );
-        numberPickerhora = sheetView.findViewById(R.id.numberPicker_hora);
-        minutos = sheetView.findViewById(R.id.numberPicker_minutos);
+
         radioGroup = sheetView.findViewById(R.id.radioGroup);
 
-
-        numberPickerhora.setMinValue(0);
-        numberPickerhora.setMaxValue(24);
-
-        minutos.setMaxValue(59);
-        minutos.setMinValue(0);
+        editTextHora = sheetView.findViewById(R.id.editText_hora_cadastrar_hora);
+        editTextHora.setOnClickListener(view1 -> {
+            pegaHora();
+        });
         sheetView.findViewById(R.id.button_salvar_hora).setOnClickListener(view2 -> {
 
             int itemSelect = radioGroup.getCheckedRadioButtonId();
@@ -107,15 +114,15 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
             if (itemSelect != -1) {
                 RadioButton escolha = sheetView.findViewById(itemSelect);
                 String descricao = escolha.getText().toString();
-                String hora = String.format("%02d:%02d", numberPickerhora.getValue(), minutos.getValue());
-                Compromisso compromisso = new Compromisso(usuario.getId(), hora, descricao);
+                String hora = editTextHora.getText().toString();
+                Compromisso compromisso = new Compromisso(usuario.getEmail(), hora, descricao);
                 ControllerCompromisso c = ControllerCompromisso.getInstance(getContext());
                 c.cadastrarNotificacao(compromisso);
                 try {
 //                    VerificaNotificacao verificaNotificacao = new VerificaNotificacao();
 //                    verificaNotificacao.execute();
                     Intent serviceIntent = new Intent(getActivity(), NotificationService.class);
-                    serviceIntent.putExtra("id", usuario.getId());
+                    serviceIntent.putExtra("id", usuario.getEmail());
                     NotificationService notificationService = new NotificationService();
                     notificationService.onReceive(getContext(), serviceIntent);
                 } catch (Exception e){
@@ -125,7 +132,7 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
                     caixademsg.show(); //exibe a caixa pro usuario
                 }
 
-                AdapterListaHora adapter = new AdapterListaHora(getContext(), usuario.getId(), this);
+                AdapterListaHora adapter = new AdapterListaHora(getContext(), usuario.getEmail(), this);
                 binding.recyclerViewHora.setAdapter(adapter);
                 dialog.dismiss();
             }
@@ -159,16 +166,14 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
             View sheetView = LayoutInflater.from(getContext()).inflate(
                     R.layout.layout_bottom_sheet_dialog_cadastrar_hora, view.findViewById(R.id.bottomSheetInicio)
             );
-            numberPickerhora = sheetView.findViewById(R.id.numberPicker_hora);
-            minutos = sheetView.findViewById(R.id.numberPicker_minutos);
+
             radioGroup = sheetView.findViewById(R.id.radioGroup);
 
+            editTextHora = sheetView.findViewById(R.id.editText_hora_cadastrar_hora);
+            editTextHora.setOnClickListener(view1 -> {
+                pegaHora();
+            });
 
-            numberPickerhora.setMinValue(0);
-            numberPickerhora.setMaxValue(24);
-
-            minutos.setMaxValue(59);
-            minutos.setMinValue(0);
             sheetView.findViewById(R.id.button_salvar_hora).setOnClickListener(view2 -> {
 
                 int itemSelect = radioGroup.getCheckedRadioButtonId();
@@ -176,13 +181,13 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
                 if (itemSelect != -1) {
                     RadioButton escolha = sheetView.findViewById(itemSelect);
                     String descricao = escolha.getText().toString();
-                    String hora = String.format("%02d:%02d", numberPickerhora.getValue(), minutos.getValue());
+                    String hora = editTextHora.getText().toString();
                     compromisso.setHora(hora);
                     compromisso.setDescricao(descricao);
                     ControllerCompromisso c = ControllerCompromisso.getInstance(getContext());
                     c.atualizarCompromisso(compromisso);
                     dialog.dismiss();
-                    AdapterListaHora adapterListaHora = new AdapterListaHora(getContext(), usuario.getId(), this);
+                    AdapterListaHora adapterListaHora = new AdapterListaHora(getContext(), usuario.getEmail(), this);
                     binding.recyclerViewHora.setAdapter(adapterListaHora);
                 }
 
@@ -201,8 +206,31 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
     public void onLongClick(Compromisso position) {
         ControllerCompromisso c = ControllerCompromisso.getInstance(getContext());
         c.deletar(position);
-        AdapterListaHora adapterListaHora = new AdapterListaHora(getContext(), usuario.getId(), this);
+        AdapterListaHora adapterListaHora = new AdapterListaHora(getContext(), usuario.getEmail(), this);
         binding.recyclerViewHora.setAdapter(adapterListaHora);
+    }
+    private void pegaHora() {
+        calendar = Calendar.getInstance();
+
+        TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hora, int minutos) {
+                calendar.set(Calendar.HOUR_OF_DAY, hora);
+                calendar.set(Calendar.MINUTE, minutos);
+                editTextHora.setText(atualizaHora());
+            }
+        };
+
+        int horaAtual = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutosAtuais = calendar.get(Calendar.MINUTE);
+
+        new TimePickerDialog(getContext(), time, horaAtual, minutosAtuais, true).show();
+    }
+
+    private String atualizaHora() {
+        String formato = "HH:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(formato, Locale.getDefault());
+        return sdf.format(calendar.getTime());
     }
 
 
@@ -213,7 +241,7 @@ public class HoraFragment extends Fragment implements RecyclerClickHora {
 
          try {
              Intent serviceIntent = new Intent(getActivity(), NotificationService.class);
-             serviceIntent.putExtra("id", usuario.getId());
+             serviceIntent.putExtra("email", usuario.getEmail());
              NotificationService notificationService = new NotificationService();
              notificationService.onReceive(getContext(), serviceIntent);
 

@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -17,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.projetobabypet.R;
 import com.example.projetobabypet.activities.Login;
 import com.example.projetobabypet.controller.ControllerPet;
 import com.example.projetobabypet.controller.ControllerUsuario;
@@ -30,10 +33,8 @@ public class CadastrarPetActivity extends AppCompatActivity {
 
 
     private ControllerPet controllerPet = ControllerPet.getInstancia(this);
-
     private Pet pet;
     private Bitmap fotoCarregada = null;
-
     private ActivityCadastrarPetBinding binding;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -82,14 +83,45 @@ public class CadastrarPetActivity extends AppCompatActivity {
         int idade = Integer.parseInt(binding.txtIdade.getText().toString());
         String sexo = binding.txtSexo.getText().toString();
 
-        pet = new Pet(us.getId(), nome, sexo, raca, idade, fotoCarregada);
-      //  pet = new Pet(nome, sexo, raca, idade, fotoCarregada);
-        controllerPet.cadastrar(pet);
+        if(!nome.isEmpty()){
+            if(!raca.isEmpty()){
+                if(!binding.txtIdade.getText().toString().isEmpty()){
+                    if(!sexo.isEmpty()){
+                        if (fotoCarregada == null) {
+                            binding.imageRedonda.setImageResource(R.drawable.imagem_pet);
+                            Drawable drawable = binding.imageRedonda.getDrawable();
+                            fotoCarregada = ((BitmapDrawable) drawable).getBitmap();
+                            pet = new Pet(email, nome, sexo, raca, idade, fotoCarregada);
+                            controllerPet.cadastrar(pet);
+                        }
+
+                    }else {
+                        AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
+                        caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+                        caixademsg.setMessage("Campo sexo vazio. Por favor insira um sexo"); //coloca a mensagem da caixa
+                        caixademsg.show(); //exibe a caixa pro usuario
+                    }
+                }else {
+                    AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
+                    caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+                    caixademsg.setMessage("Campo nome idade. Por favor insira um nome"); //coloca a mensagem da caixa
+                    caixademsg.show(); //exibe a caixa pro usuario
+                }
+            }else {
+                AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
+                caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+                caixademsg.setMessage("Campo raça vazio. Por favor insira uma raça"); //coloca a mensagem da caixa
+                caixademsg.show(); //exibe a caixa pro usuario
+            }
+        }else {
+            AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
+            caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+            caixademsg.setMessage("Campo nome vazio. Por favor insira um nome"); //coloca a mensagem da caixa
+            caixademsg.show(); //exibe a caixa pro usuario
+        }
+
         return pet;
-
-
     }
-
     private void escolherImagem() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -118,11 +150,9 @@ public class CadastrarPetActivity extends AppCompatActivity {
                 Bitmap fotoPuxada = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image);
                 Bitmap fotoRedimensionda = Bitmap.createScaledBitmap(fotoPuxada, 150, 150, true);
                 binding.imageRedonda.setImageBitmap(fotoRedimensionda);
-
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 fotoPuxada.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 fotoCarregada = fotoPuxada;
-
             } catch (Exception e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }

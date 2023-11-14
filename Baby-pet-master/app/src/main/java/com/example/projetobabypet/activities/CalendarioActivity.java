@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.example.projetobabypet.controller.ControllerUsuario;
 import com.example.projetobabypet.model.Compromisso;
 import com.example.projetobabypet.model.Usuario;
 import com.example.projetobabypet.util.DecorarCalendario;
+import com.example.projetobabypet.util.NotificacaoPorData;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -56,6 +58,15 @@ public class CalendarioActivity extends AppCompatActivity {
         email = sp.getString("email", "");
 
         usuario = usuario_logado(email);
+
+        try {
+            Intent intent = new Intent(this, NotificacaoPorData.class);
+            NotificacaoPorData notificacaoPorData = new NotificacaoPorData();
+            intent.putExtra("id", 999);
+            notificacaoPorData.onReceive(this, intent);
+        }catch (Exception e){
+
+        }
         c =  ControllerCompromisso.getInstance(CalendarioActivity.this);
         binding.imageButtonVoltarCalendario.setOnClickListener(view -> {
             this.finish();
@@ -108,20 +119,12 @@ public class CalendarioActivity extends AppCompatActivity {
 
             });
 
-
             editNome.setText(compromisso.getNome());
             descricao.setText(compromisso.getDescricao());
-
+            editTextHora.setText(compromisso.getHora());
             buttonDeletar.setVisibility(View.VISIBLE);
-            //horas = sheetView.findViewById(R.id.number_picker_hora_calendario);
-            //minuto = sheetView.findViewById(R.id.number_picker_minutos_calendario);
-            horas.setMinValue(0);
-            horas.setMaxValue(24);
-
-            minuto.setMaxValue(59);
-            minuto.setMinValue(0);
             buttonSalvar.setOnClickListener(view2 -> {
-                String hora = String.format("%02d:%02d", horas.getValue(), minuto.getValue());
+                String hora = editTextHora.getText().toString();
 
                 String data = dia + "/" + mes + "/" + ano;
                 compromisso.setNome(editNome.getText().toString());
@@ -129,7 +132,7 @@ public class CalendarioActivity extends AppCompatActivity {
                 compromisso.setHora(hora);
                 compromisso.setData(data);
                 compromisso.setId_categoria(999);
-                compromisso.setId_usuario(usuario.getId());
+                compromisso.setEmail_usuario(usuario.getEmail());
                 c.atualizarCompromisso(compromisso);
                 destacaDiasCalendario();
                 dialog.dismiss();
@@ -163,7 +166,6 @@ public class CalendarioActivity extends AppCompatActivity {
 
             editTextHora.setOnClickListener(view1 -> {
                 pegaHora();
-
             });
 
 
@@ -172,7 +174,7 @@ public class CalendarioActivity extends AppCompatActivity {
                 EditText descricao = sheetView.findViewById(R.id.editTextTextMultiLine_descricao_calendario);
                 String data = dia + "/" + mes + "/" + ano;
                 String hora = editTextHora.getText().toString();
-                Compromisso compromisso = new Compromisso(usuario.getId(), 999, editNome.getText().toString(), descricao.getText().toString(), hora, data);
+                Compromisso compromisso = new Compromisso(usuario.getEmail(), 999, editNome.getText().toString(), descricao.getText().toString(), hora, data);
                 c.cadastrarCompromissoCategoria(compromisso);
                 destacaDiasCalendario();
                 dialog.dismiss();

@@ -25,25 +25,25 @@ public class CategoriaRepositorio {
         ContentValues values = new ContentValues();
 
         values.put(Helper.coluna_nome_categoria, categoria.getNome());
-        values.put(Helper.coluna_id_usuario_categoria, categoria.getId_usuario());
+        values.put(Helper.coluna_email_usuario_categoria, categoria.getEmail_usuario());
         db.insert(Helper.nome_tabela_categoria, null, values);
 
         db.close();
         helper.close();
     }
 
-    public List<Categoria> buscarTodasCategorias(int id_usuario){
+    public List<Categoria> buscarTodasCategorias(String email_usuario){
         SQLiteDatabase db = helper.getReadableDatabase();
         List<Categoria> categorias = new ArrayList<>();
 
-        String sql = "SELECT * FROM " + Helper.nome_tabela_categoria + " WHERE " + Helper.coluna_id_usuario_categoria + "=? ";
-        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(id_usuario)});
+        String sql = "SELECT * FROM " + Helper.nome_tabela_categoria + " WHERE " + Helper.coluna_email_usuario_categoria + "=? ";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(email_usuario)});
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
             String nome = cursor.getString(1);
-            int id_us = cursor.getInt(2);
+            String email = cursor.getString(2);
 
-            Categoria categoria = new Categoria(id, nome, id_us);
+            Categoria categoria = new Categoria(id, nome, email);
             categorias.add(categoria);
         }
          db.close();

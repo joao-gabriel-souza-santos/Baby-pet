@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.projetobabypet.R;
 import com.example.projetobabypet.controller.ControllerPet;
@@ -47,19 +48,23 @@ public class CadastrarNovoPet extends AppCompatActivity {
         sp = getSharedPreferences("Log", MODE_PRIVATE);
         editor = sp.edit();
         email = sp.getString("email", "");
+
+        binding.editTextContaNome.setText(email);
         binding.buttonPetCadastrarNovo.setOnClickListener(view ->{
            try{
-               usuario = usuario_logado(email);
+
                String nome = binding.editTextContaNome.getText().toString();
-               int idUsuario = usuario.getId();
                String raca = binding.editTextContaRaca.getText().toString();
                String sexo = binding.editTextContaSexo.getText().toString();
                int idade = Integer.parseInt(binding.editTextContaIdade.getText().toString());
+                if(fotoCarregada == null){
 
+                }
 
-               Pet pet = new Pet(nome, sexo, raca, idUsuario, idade, fotoCarregada);
+               Pet pet = new Pet(email,nome, sexo, raca, idade, fotoCarregada);
                ControllerPet controllerPet = ControllerPet.getInstancia(this);
                controllerPet.cadastrarNovoPet(pet);
+
                this.finish();
            }catch (Exception e){
                AlertDialog.Builder caixademsg = new AlertDialog.Builder(this); //cria uma caixa de alerta
@@ -70,7 +75,7 @@ public class CadastrarNovoPet extends AppCompatActivity {
         });
 
         binding.imagemRedonda.setOnClickListener(view->{
-            if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                 String[] permissao = {Manifest.permission.READ_EXTERNAL_STORAGE};
                 requestPermissions(permissao, 1001);
             } else {
@@ -126,7 +131,7 @@ public class CadastrarNovoPet extends AppCompatActivity {
 
             } catch (Exception e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                binding.imagemRedonda.setImageResource(R.drawable.baseline_person_24);
+                binding.imagemRedonda.setImageResource(R.drawable.imagem_pet);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 fotoPuxada.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 fotoCarregada = fotoPuxada;

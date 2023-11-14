@@ -2,6 +2,8 @@ package com.example.projetobabypet.activities.atualizar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -18,7 +20,11 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.projetobabypet.R;
@@ -26,6 +32,7 @@ import com.example.projetobabypet.activities.HomeActivity;
 import com.example.projetobabypet.activities.Login;
 import com.example.projetobabypet.activities.cadastro.CadastrarPetActivity;
 import com.example.projetobabypet.controller.ControllerUsuario;
+import com.example.projetobabypet.dao.firebase.FirebaseDB;
 import com.example.projetobabypet.databinding.ActivityCadastroBinding;
 import com.example.projetobabypet.model.Usuario;
 
@@ -77,22 +84,19 @@ public class AtualizarUsuario extends AppCompatActivity {
 
         int id = usuario.getId();
         binding.buttonSalvarUsuario.setOnClickListener(view -> {
-                atualizarUsuarioLogado(cadastrarUsuario(id));
-            Intent intent1 = new Intent(this, HomeActivity.class);
-            startActivity(intent1);
+                cadastrarUsuario();
 
-            this.finish();
         });
 
         binding.imageRedonda.setOnClickListener(view->{
-            if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
-                String[] permissao = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                requestPermissions(permissao, 1001);
-            } else {
-                escolherImagem();
-            }
 
-        });
+                if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                    String[] permissao = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                    requestPermissions(permissao, 1001);
+                } else {
+                    escolherImagem();
+                }
+            });
     }
 
     private void escolherImagem() {
@@ -144,15 +148,13 @@ public class AtualizarUsuario extends AppCompatActivity {
         }
     }
 
-    private String cadastrarUsuario(int id) {
+    private String cadastrarUsuario() {
         String nome = binding.txtNome.getText().toString();
         String email = binding.txtEmail.getText().toString();
         String cpf = binding.txtCpf.getText().toString();
 
-        usuario.setId(id);
         usuario.setCpf(cpf);
         usuario.setNome(nome);
-        usuario.setEmail(email);
         if(fotoCarregada == null){
             BitmapDrawable drawable = (BitmapDrawable) binding.imageRedonda.getDrawable();
 
@@ -161,9 +163,21 @@ public class AtualizarUsuario extends AppCompatActivity {
         } else {
             usuario.setFoto(fotoCarregada);
         }
+        Dialog dialog = showProgressBar(this);
+        dialog.create();
+        FirebaseDB firebaseDB = new FirebaseDB(this);
+        firebaseDB.alterarDadosUsuario(sp,dialog, nome, cpf, email, usuario.getEmail(),usuario.getSenha(), fotoCarregada, new FirebaseDB.CadastroCallback() {
+            @Override
+            public void onCadastroSucesso() {
 
-        ControllerUsuario controllerUsuario = ControllerUsuario.getInstancia(this);
-        controllerUsuario.atualizar(usuario);
+            }
+
+            @Override
+            public void onCadastroFalha() {
+
+            }
+        });
+
         return email;
 
     }
@@ -183,11 +197,20 @@ public class AtualizarUsuario extends AppCompatActivity {
 
 
 
-    private void atualizarUsuarioLogado(String email){
-        sp = getSharedPreferences("Log", MODE_PRIVATE);
-        editor = sp.edit();
-        editor.putString("email", email);
-        editor.commit();
-        editor.apply();
+
+    public Dialog showProgressBar(Context context) {
+        Dialog progressDialog = new Dialog(context);
+        progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        progressDialog.setContentView(R.layout.pop_up_progressbar);
+        progressDialog.setCancelable(false);
+
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(progressDialog.getWindow().getAttributes());
+        layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        progressDialog.show();
+        progressDialog.getWindow().setAttributes(layoutParams);
+        return progressDialog;
     }
 }

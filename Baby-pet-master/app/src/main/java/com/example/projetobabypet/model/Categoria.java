@@ -4,27 +4,27 @@ public class Categoria {
 
     private int id;
     private String nome;
-    private int id_usuario;
+    private String email_usuario;
 
 
 
-    public Categoria(int id, String nome, int id_usuario) {
+    public Categoria(int id, String nome, String email_usuario) {
         this.id = id;
         this.nome = nome;
-        this.id_usuario = id_usuario;
+        this.email_usuario = email_usuario;
     }
 
-    public Categoria(String nome, int id_usuario) {
+    public Categoria(String nome, String email_usuario) {
         this.nome = nome;
-        this.id_usuario = id_usuario;
+        this.email_usuario = email_usuario;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public String getEmail_usuario() {
+        return email_usuario;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setEmail_usuario(String email_usuario) {
+        this.email_usuario = email_usuario;
     }
 
     public int getId() {

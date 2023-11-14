@@ -1,11 +1,9 @@
 package com.example.projetobabypet.model;
 
-import java.util.Date;
-
 public class Compromisso {
 
-    private int id, id_usuario, id_categoria;
-    private String nome, descricao, repeticao, hora;
+    private int id, id_categoria;
+    private String nome, descricao, repeticao, hora, email_usuario;
     private String data;
 
     public Compromisso(String hora, String descricao){
@@ -13,9 +11,9 @@ public class Compromisso {
         this.descricao = descricao;
     }
 
-    public Compromisso(int id, int id_usuario, int id_categoria, String nome, String descricao, String repeticao, String hora, String data) {
+    public Compromisso(int id, String email_usuario, int id_categoria, String nome, String descricao, String repeticao, String hora, String data) {
         this.id = id;
-        this.id_usuario = id_usuario;
+        this.email_usuario = email_usuario;
         this.id_categoria = id_categoria;
         this.nome = nome;
         this.descricao = descricao;
@@ -24,32 +22,32 @@ public class Compromisso {
         this.data = data;
     }
 
-    public Compromisso(int id, int id_usuario, String nome, String descricao, String repeticao, String hora, String data) {
+    public Compromisso(int id, String email_usuario, String nome, String descricao, String repeticao, String hora, String data) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.repeticao = repeticao;
         this.hora = hora;
         this.data = data;
-        this.id_usuario = id_usuario;
+        this.email_usuario = email_usuario;
     }
 
-    public Compromisso(String nome, String descricao, String hora, String data,int id_usuario) {
+    public Compromisso(String nome, String descricao, String hora, String data,String email_usuario) {
         this.nome = nome;
         this.descricao = descricao;
         this.hora = hora;
-        this.id_usuario = id_usuario;
+        this.email_usuario = email_usuario;
         this.data = data;
     }
 
-    public Compromisso(int id_usuario, String hora, String descricao) {
+    public Compromisso(String email_usuario, String hora, String descricao) {
         this.hora = hora;
         this.descricao = descricao;
-        this.id_usuario = id_usuario;
+        this.email_usuario = email_usuario;
     }
 
-    public Compromisso(int id_usuario, int id_categoria, String nome, String descricao, String hora, String data) {
-        this.id_usuario = id_usuario;
+    public Compromisso(String email_usuario, int id_categoria, String nome, String descricao, String hora, String data) {
+        this.email_usuario = email_usuario;
         this.id_categoria = id_categoria;
         this.nome = nome;
         this.descricao = descricao;
@@ -65,12 +63,12 @@ public class Compromisso {
         this.id_categoria = id_categoria;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public String getEmail_usuario() {
+        return email_usuario;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setEmail_usuario(String email_usuario) {
+        this.email_usuario = email_usuario;
     }
 
     public String getHora() {

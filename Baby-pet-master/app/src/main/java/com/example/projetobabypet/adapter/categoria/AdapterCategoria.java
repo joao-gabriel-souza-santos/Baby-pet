@@ -52,7 +52,7 @@ public class AdapterCategoria extends RecyclerView.Adapter<HolderCategoria> {
         this.intent = intent;
         c = ControllerCategoria.getInstance(context);
        try{
-           categorias = c.buscarCategorias(usuario.getId());
+           categorias = c.buscarCategorias(usuario.getEmail());
        }catch (Exception e){}
 
     }
@@ -106,15 +106,11 @@ public class AdapterCategoria extends RecyclerView.Adapter<HolderCategoria> {
                     sheetView.findViewById(R.id.button_salvar_afazer).setOnClickListener(view3 -> {
                         String nome = editnome.getText().toString();
                         String descricao = editDescricao.getText().toString();
-                        String data = atualizaData();
+                        String data = editData.getText().toString();
                         String hora = editTextHora.getText().toString();
 
-                        AlertDialog.Builder caixademsg = new AlertDialog.Builder(context); //cria uma caixa de alerta
-                        caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
-                        caixademsg.setMessage(hora); //coloca a mensagem da caixa
-                        caixademsg.show(); //exibe a caixa pro usuario
 
-                        Compromisso compromisso = new Compromisso(usuario.getId(),categoria.getId(), nome, descricao, hora, data);
+                        Compromisso compromisso = new Compromisso(usuario.getEmail(),categoria.getId(), nome, descricao, hora, data);
                         ControllerCompromisso c = ControllerCompromisso.getInstance(context);
                         c.cadastrarCompromissoCategoria(compromisso);
                         dialog.dismiss();
@@ -170,7 +166,7 @@ public class AdapterCategoria extends RecyclerView.Adapter<HolderCategoria> {
 
     private void atualizarLista(){
         categorias.clear();
-        categorias = c.buscarCategorias(usuario.getId());
+        categorias = c.buscarCategorias(usuario.getEmail());
         categorias.addAll(categorias);
         notifyDataSetChanged();
     }

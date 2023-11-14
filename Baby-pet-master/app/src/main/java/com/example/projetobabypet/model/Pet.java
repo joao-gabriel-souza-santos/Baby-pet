@@ -6,7 +6,8 @@ import java.io.Serializable;
 
 public class Pet implements Serializable {
     private String nome, sexo, raca;
-    private int id, idUsuario, idade, qtde_racao, qtde_agua;
+    private  String email_usuario;
+    private int id, idade, qtde_racao, qtde_agua;
     private Bitmap foto;
 
 
@@ -15,52 +16,44 @@ public class Pet implements Serializable {
     public Pet(){
         //construtor default
     }
-    public Pet(String nome, String sexo, String raca, int id, int idUsuario, int idade) {
+    public Pet(String nome, String sexo, String raca, int id, String email_usuario, int idade) {
         this.nome = nome;
         this.sexo = sexo;
         this.raca = raca;
         this.id = id;
-        this.idUsuario = idUsuario;
+        this.email_usuario = email_usuario;
         this.idade = idade;
     }
 
-    public Pet(String nome, String sexo, String raca,  int idUsuario, int idade, Bitmap foto) {
-        this.nome = nome;
-        this.sexo = sexo;
-        this.raca = raca;
 
-        this.idUsuario = idUsuario;
-        this.idade = idade;
-        this.foto = foto;
-    }
 
-    public Pet(int id_usuario, String nome, String sexo, String raca, int idade, Bitmap foto) {
+    public Pet(String email_usuario, String nome, String sexo, String raca, int idade, Bitmap foto) {
         this.nome = nome;
         this.sexo = sexo;
         this.raca = raca;
         this.idade = idade;
         this.foto = foto;
-        this.idUsuario = id_usuario;
+        this.email_usuario = email_usuario;
     }
 
-    public Pet(String nome, String sexo, String raca, int id, int idUsuario, int idade, int qtde_racao, int qtde_agua, Bitmap foto) {
+    public Pet(String nome, String sexo, String raca, int id, String email_usuario, int idade, int qtde_racao, int qtde_agua, Bitmap foto) {
         this.nome = nome;
         this.sexo = sexo;
         this.raca = raca;
         this.id = id;
-        this.idUsuario = idUsuario;
+        this.email_usuario = email_usuario;
         this.idade = idade;
         this.qtde_racao = qtde_racao;
         this.qtde_agua = qtde_agua;
         this.foto = foto;
     }
 
-    public Pet(String nome, String sexo, String raca, int id, int idUsuario, int idade, Bitmap foto) {
+    public Pet(String nome, String sexo, String raca, int id, String email_usuario, int idade, Bitmap foto) {
         this.nome = nome;
         this.sexo = sexo;
         this.raca = raca;
         this.id = id;
-        this.idUsuario = idUsuario;
+        this.email_usuario = email_usuario;
         this.idade = idade;
         this.foto = foto;
     }
@@ -136,12 +129,12 @@ public class Pet implements Serializable {
         this.id = id;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public String getEmail_usuario() {
+        return email_usuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setEmail_usuario(String email_usuario) {
+        this.email_usuario = email_usuario;
     }
 
     public int getIdade() {

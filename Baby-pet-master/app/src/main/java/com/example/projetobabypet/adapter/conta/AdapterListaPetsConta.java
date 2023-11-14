@@ -2,6 +2,7 @@ package com.example.projetobabypet.adapter.conta;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
@@ -22,18 +23,21 @@ public class AdapterListaPetsConta extends RecyclerView.Adapter<HolderListaPetsC
     Context context;
     public static List<Pet> pets;
     ControllerPet c;
-    int idUsuario;
+    String email_usuario;
 
-    public AdapterListaPetsConta(Context context, int idUsuario, RecyclerClickPetConta recyclerClickPetConta){
+    public AdapterListaPetsConta(Context context, String email_usuario, RecyclerClickPetConta recyclerClickPetConta){
         this.context = context;
-        this.idUsuario = idUsuario;
+        this.email_usuario = email_usuario;
         this.recyclerClickPetConta = recyclerClickPetConta;
         c = ControllerPet.getInstancia(context);
         try {
-            pets = c.teste(idUsuario);
+            pets = c.teste(email_usuario);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            AlertDialog.Builder caixademsg = new AlertDialog.Builder(context); //cria uma caixa de alerta
+            caixademsg.setTitle("Erro"); //Coloca o titulo da caixa
+            caixademsg.setMessage("" + e.getMessage()); //coloca a mensagem da caixa
+            caixademsg.show(); //exibe a caixa pro usuario
         }
     }
 
@@ -64,7 +68,7 @@ public class AdapterListaPetsConta extends RecyclerView.Adapter<HolderListaPetsC
             holder.cardView.setOnLongClickListener(view -> {
                 try {
                     c.deletarPet(pets.get(i));
-                    atualizarLista(context, idUsuario);
+                    atualizarLista(context, email_usuario);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -77,9 +81,9 @@ public class AdapterListaPetsConta extends RecyclerView.Adapter<HolderListaPetsC
         return pets.size();
     }
 
-    public static void atualizarLista(Context context, int idUsuario) throws Exception {
+    public static void atualizarLista(Context context, String email_usuario) throws Exception {
         pets.clear();
         ControllerPet cc = ControllerPet.getInstancia(context);
-        pets.addAll(cc.buscar_todos_pets_usuario(idUsuario));
+        pets.addAll(cc.buscar_todos_pets_usuario(email_usuario));
     }
 }

@@ -13,11 +13,13 @@ import android.os.Build;
 import android.os.Handler;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
 
 import com.example.projetobabypet.R;
 import com.example.projetobabypet.activities.HomeActivity;
 import com.example.projetobabypet.controller.ControllerCompromisso;
+import com.example.projetobabypet.dao.firebase.FirebaseDB;
 import com.example.projetobabypet.model.Compromisso;
 
 import java.util.Calendar;
@@ -40,7 +42,7 @@ public class NotificationService extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelID);
         builder.setSmallIcon(R.drawable.minilogo).
                 setContentTitle("Dar ração")
-                .setContentText("Vai dar"+ racao_agua +"pro dog caralho")
+                .setContentText("Vai dar" + racao_agua + "pro dog caralho")
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
@@ -77,35 +79,23 @@ public class NotificationService extends BroadcastReceiver {
     }
 
     private void verificarHorarioParaNotificacao(Context context, Intent intent) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("channel_id", "Nome do Canal", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-        int id = intent.getIntExtra("id", 0);
+        FirebaseDB firebaseDB = new FirebaseDB(context);
+        String id = intent.getStringExtra("id");
         ControllerCompromisso c = ControllerCompromisso.getInstance(context);
         Calendar calendar = Calendar.getInstance();
         List<Compromisso> compromissos = c.buscar_compromissos(id);
 
-
         for (Compromisso compromisso : compromissos) {
-            String input = compromisso.getHora(); // Sua string no formato "HH:MM"
-
+            String input = compromisso.getHora(); // Sua string no formato "HH:MM
             String[] parts = input.split(":");
-
-
             if (parts.length == 2) {
                 int hora = Integer.parseInt(parts[0]); // Valor antes dos dois pontos (horas)
                 int min = Integer.parseInt(parts[1]); // Valor depois dos dois pontos (minutos)
                 int horaAtual = calendar.get(Calendar.HOUR_OF_DAY);
                 int minAtual = calendar.get(Calendar.MINUTE);
-
-
                 if (horaAtual == hora && minAtual == min) {
-                    showNotification(context, compromisso.getDescricao());
+                    showNotification(context, compromisso.getNome());
                 }
-
 
             }
         }

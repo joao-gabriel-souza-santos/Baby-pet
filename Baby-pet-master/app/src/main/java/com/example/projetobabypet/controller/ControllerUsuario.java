@@ -58,9 +58,6 @@ public class ControllerUsuario {
     public void cadastrar(Usuario usuario, Context context){ //recebo o usuario a ser cadastrado
             UsuarioRepositorio usuDAO = new UsuarioRepositorio(context);
             long id = usuDAO.inserirUsuario(usuario);
-            Toast.makeText(context, "Pessoa cadastrada com sucesso", Toast.LENGTH_LONG).show();
-
-
     }
     
     public boolean login(String email, String senha) throws Exception { //recebe o email e a senha a ser verificado
@@ -115,9 +112,33 @@ public class ControllerUsuario {
         db = new UsuarioRepositorio(contexto);
         db.atualizarUsuario(usuario);
     }
-    public void atualizar(Usuario usuario){
+    public void atualizar(Usuario usuario, String emailAntigo){
         db = new UsuarioRepositorio(contexto);
-        db.atualizar(usuario);
+        db.atualizar(usuario, emailAntigo);
     }
+    public void atualizarqtdeAgua(String email, int valor){
+        db = new UsuarioRepositorio(contexto);
+        db.atualizaqtdeAgua(email, valor);
+    }
+    public void atualizarqtdeRacao(String email, int valor) {
+        db = new UsuarioRepositorio(contexto);
+        db.atualizaqtdeRacao(email, valor);
+    }
+    public void atualizarSomaRacao(String email, int valor){
+        db = new UsuarioRepositorio(contexto);
+        db.atualizaSomaRacao(email, valor);
+    }
+    public  void atualizarSomaAgua(String email, int valor) {
+        db = new UsuarioRepositorio(contexto);
+        db.atualizaSomaAgua(email, valor);
+    }
+    public void atualizaMaxAgua(String email, int valor){
+        db = new UsuarioRepositorio(contexto);
+        db.atualizamaxAgua(email, valor);
+    }
+    public void atualizaMaxRacao(String email, int valor) {
+        db = new UsuarioRepositorio(contexto);
+        db.atualizaMaxRacao(email, valor);
 
-}
+    }
+    }

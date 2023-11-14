@@ -21,14 +21,14 @@ public class AdapterListaHora extends RecyclerView.Adapter<HoraHolder> {
     Context context;
     public  static List<Compromisso> compromissos;
     ControllerCompromisso c;
-    int idUsuario;
+    String email_usuario;
 
-    public AdapterListaHora(Context context, int idUsuario, RecyclerClickHora recyclerClickHora){
+    public AdapterListaHora(Context context, String email_usuario, RecyclerClickHora recyclerClickHora){
         this.context =context;
-        this.idUsuario= idUsuario;
+        this.email_usuario = email_usuario;
         this.recyclerClickHora = recyclerClickHora;
         c= ControllerCompromisso.getInstance(context);
-        compromissos= c.buscar_compromissos(idUsuario);
+        compromissos= c.buscar_compromissos(email_usuario);
     }
 
     @NonNull
@@ -41,24 +41,26 @@ public class AdapterListaHora extends RecyclerView.Adapter<HoraHolder> {
     @Override
     public void onBindViewHolder(@NonNull HoraHolder holder, int position) {
         Compromisso compromisso = compromissos.get(position);
-        holder.hora.setText(compromisso.getHora());
+        if(compromisso.getDescricao().equals("Ração") || compromisso.getDescricao().equals("Agua")){
+            holder.hora.setText(compromisso.getHora());
 
-        if(compromisso.getDescricao().equals("Ração")){
-            holder.pote_agua.setImageResource(R.drawable.tigelabranca);
-        } else {
-            holder.pote_agua.setImageResource(R.drawable.copoaguabranco);
+            if(compromisso.getDescricao().equals("Ração")){
+                holder.pote_agua.setImageResource(R.drawable.tigelabranca);
+            } else {
+                holder.pote_agua.setImageResource(R.drawable.copoaguabranco);
+            }
+
+            holder.cardView.setOnClickListener(view -> {
+                recyclerClickHora.onClick(compromissos.get(position));
+            });
+
+            holder.itemView.setOnLongClickListener(view -> {
+                ControllerCompromisso c = ControllerCompromisso.getInstance(context);
+                c.deletar(compromissos.get(position));
+                atualizarLista();
+                return true;
+            });
         }
-
-        holder.cardView.setOnClickListener(view -> {
-            recyclerClickHora.onClick(compromissos.get(position));
-        });
-
-        holder.itemView.setOnLongClickListener(view -> {
-            ControllerCompromisso c = ControllerCompromisso.getInstance(context);
-            c.deletar(compromissos.get(position));
-            atualizarLista();
-            return true;
-        });
     }
 
     @Override
@@ -69,6 +71,6 @@ public class AdapterListaHora extends RecyclerView.Adapter<HoraHolder> {
     public void atualizarLista(){
         compromissos.clear();
         c= ControllerCompromisso.getInstance(context);
-        compromissos.addAll(c.buscar_compromissos(idUsuario));
+        compromissos.addAll(c.buscar_compromissos(email_usuario));
         notifyDataSetChanged();
     }}

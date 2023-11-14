@@ -6,12 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.projetobabypet.model.Compromisso;
-import com.example.projetobabypet.model.Usuario;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Stack;
 
 public class CompromissoRepositorio {
 
@@ -27,7 +24,7 @@ public class CompromissoRepositorio {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values= new ContentValues();
         values.put(Helper.coluna_nome_compromisso, compromisso.getNome());
-        values.put(Helper.coluna_id_usuario_compromisso, compromisso.getId_usuario());
+        values.put(Helper.coluna_email_usuario_compromisso, compromisso.getEmail_usuario());
         values.put(Helper.coluna_descricao_compromisso, compromisso.getDescricao());
         values.put(Helper.coluna_hora_compromisso, compromisso.getHora());
         values.put(Helper.coluna_data_compromisso, compromisso.getData());
@@ -42,7 +39,7 @@ public class CompromissoRepositorio {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values= new ContentValues();
         values.put(Helper.coluna_nome_compromisso, compromisso.getNome());
-        values.put(Helper.coluna_id_usuario_compromisso, compromisso.getId_usuario());
+        values.put(Helper.coluna_email_usuario_compromisso, compromisso.getEmail_usuario());
         values.put(Helper.coluna_descricao_compromisso, compromisso.getDescricao());
         values.put(Helper.coluna_hora_compromisso, compromisso.getHora());
         values.put(Helper.coluna_data_compromisso, compromisso.getData());
@@ -58,7 +55,7 @@ public class CompromissoRepositorio {
         ContentValues values= new ContentValues();
         values.put(Helper.coluna_descricao_compromisso, compromisso.getDescricao());
         values.put(Helper.coluna_hora_compromisso, compromisso.getHora());
-        values.put(Helper.coluna_id_usuario_compromisso, compromisso.getId_usuario());
+        values.put(Helper.coluna_email_usuario_compromisso, compromisso.getEmail_usuario());
         db.insert(Helper.nome_tabela_compromisso, " "+Helper.coluna_nome_compromisso + "," +Helper.coluna_repeticao_compromisso + ", " +
                 Helper.coluna_data_compromisso , values);
 
@@ -73,13 +70,13 @@ public class CompromissoRepositorio {
         Cursor cursor = db.rawQuery("SELECT * FROM " +  Helper.nome_tabela_compromisso,null);
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
-            int id_usuario = cursor.getInt(1);
+            String email_usuario = cursor.getString(1);
             String nome = cursor.getString(2);
             String hora = cursor.getString(3);
             String descricao = cursor.getString(4);
             String repreticao = cursor.getString(5);
             String data = cursor.getString(6);
-        Compromisso compromisso = new Compromisso(id, id_usuario, nome, descricao, repreticao, hora, data);
+        Compromisso compromisso = new Compromisso(id, email_usuario, nome, descricao, repreticao, hora, data);
         compromissos.add(compromisso);
 
         }
@@ -87,21 +84,21 @@ public class CompromissoRepositorio {
         helper.close();
         return compromissos;
     }
-    public List<Compromisso> buscarTodosCompromissos_usuario(int idUsuario){
+    public List<Compromisso> buscarTodosCompromissos_usuario(String email_usuarios){
         SQLiteDatabase db = helper.getWritableDatabase();
         List<Compromisso> compromissos = new ArrayList<>();
-        String sql ="SELECT * FROM " + Helper.nome_tabela_compromisso + " WHERE " + Helper.coluna_id_usuario_compromisso + "= ?";
-        Cursor cursor = db.rawQuery(sql,new String[] { String.valueOf(idUsuario) });
+        String sql ="SELECT * FROM " + Helper.nome_tabela_compromisso + " WHERE " + Helper.coluna_email_usuario_compromisso + "= ?";
+        Cursor cursor = db.rawQuery(sql,new String[] { String.valueOf(email_usuarios) });
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
-            int id_usuario = cursor.getInt(1);
+            String email_usuario = cursor.getString(1);
             int id_categoria = cursor.getInt(2);
             String nome = cursor.getString(3);
             String hora = cursor.getString(4);
             String descricao = cursor.getString(5);
             String repreticao = cursor.getString(6);
             String data =  cursor.getString(7);
-            Compromisso compromisso = new Compromisso(id, id_usuario,id_categoria, nome, descricao, repreticao, hora, data);
+            Compromisso compromisso = new Compromisso(id, email_usuario,id_categoria, nome, descricao, repreticao, hora, data);
             compromissos.add(compromisso);
 
         }
@@ -117,14 +114,14 @@ public class CompromissoRepositorio {
         Cursor cursor = db.rawQuery(sql,new String[] { String.valueOf(idCategoria) });
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
-            int id_usuario = cursor.getInt(1);
+            String email_usuario = cursor.getString(1);
             int id_usuario_categoria = cursor.getInt(2);
             String nome = cursor.getString(3);
             String hora = cursor.getString(4);
             String descricao = cursor.getString(5);
             String repreticao = cursor.getString(6);
             String data =  cursor.getString(7);
-            Compromisso compromisso = new Compromisso(id, id_usuario, id_usuario_categoria, nome, descricao, repreticao, hora, data);
+            Compromisso compromisso = new Compromisso(id, email_usuario, id_usuario_categoria, nome, descricao, repreticao, hora, data);
             compromissos.add(compromisso);
 
         }
@@ -137,7 +134,7 @@ public class CompromissoRepositorio {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values= new ContentValues();
         values.put(Helper.coluna_nome_compromisso, compromisso.getNome());
-        values.put(Helper.coluna_id_usuario_compromisso, compromisso.getId_usuario());
+        values.put(Helper.coluna_email_usuario_compromisso, compromisso.getEmail_usuario());
         values.put(Helper.coluna_descricao_compromisso, compromisso.getDescricao());
         values.put(Helper.coluna_hora_compromisso, compromisso.getHora());
         values.put(Helper.coluna_data_compromisso, compromisso.getData());

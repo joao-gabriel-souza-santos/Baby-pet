@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
@@ -36,7 +37,7 @@ public class ActivityAtualizarPet extends AppCompatActivity {
     int idade;
     int id ;
     String nome ;
-    int idUsuario ;
+    String email ;
     String raca ;
     String sexo ;
 
@@ -55,7 +56,7 @@ public class ActivityAtualizarPet extends AppCompatActivity {
         });
 
         binding.imagemRedonda.setOnClickListener(view->{
-            if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                 String[] permissao = {Manifest.permission.READ_EXTERNAL_STORAGE};
                 requestPermissions(permissao, 1001);
             } else {
@@ -77,7 +78,7 @@ public class ActivityAtualizarPet extends AppCompatActivity {
         idade = intent.getIntExtra("idade", 0);
         id = intent.getIntExtra("id", 0);
         nome = intent.getStringExtra("nome");
-        idUsuario = intent.getIntExtra("idUsuario", 0);
+        email = intent.getStringExtra("email");
         raca = intent.getStringExtra("raca");
         sexo = intent.getStringExtra("sexo");
         byte[] stream = intent.getByteArrayExtra("foto");
@@ -97,11 +98,11 @@ public class ActivityAtualizarPet extends AppCompatActivity {
              idade = Integer.parseInt(binding.editTextContaIdade.getText().toString());
 
 
-             Pet pet = new Pet(nome, sexo, raca, id,idUsuario, idade, fotoCarregada);
+             Pet pet = new Pet(nome, sexo, raca, id,email, idade, fotoCarregada);
              ControllerPet controllerPet = ControllerPet.getInstancia(this);
              controllerPet.atualizarPet(pet);
         try {
-            AdapterListaPetsConta.atualizarLista(this, idUsuario);
+            AdapterListaPetsConta.atualizarLista(this, email);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
